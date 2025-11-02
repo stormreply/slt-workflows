@@ -12,9 +12,10 @@ runs:
       shell: bash
       run: |
         # download ${{ inputs.file }}
+        owner=${{ github.repository_owner }}
 
         api="x-access-token:${{ env.TOKEN }}@api.github.com"
-        path="repos/stormreply/slt-workflows/contents"
+        path="repos/${owner}/slt-workflows/contents"
         file=${{ inputs.file }}
 
         output=$(
