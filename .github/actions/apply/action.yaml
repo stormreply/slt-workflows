@@ -1,0 +1,11 @@
+name: Apply
+
+runs:
+  using: composite
+  steps:
+
+      - name: checkout code
+        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout@main
+
+      - name: terraform apply
+        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/apply@main

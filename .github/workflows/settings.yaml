@@ -1,0 +1,27 @@
+name: Settings
+
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+
+  show:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: set environment
+        id: set-environment
+        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN}}
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
+          json: "${{ toJson(vars) }}"
+          yaml: |
+            ENVIRONMENT: ${{ github.actor }}
+          show: settings
