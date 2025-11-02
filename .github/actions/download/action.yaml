@@ -15,7 +15,7 @@ runs:
         owner=${{ github.repository_owner }}
 
         api="x-access-token:${{ env.TOKEN }}@api.github.com"
-        path="repos/${owner}/slt-workflows/contents"
+        path="repos/stormreply/storm-library-for-terraform/contents"
         file=${{ inputs.file }}
 
         output=$(
