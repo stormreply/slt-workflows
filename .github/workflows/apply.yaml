@@ -38,7 +38,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -49,10 +49,10 @@ jobs:
           show: apply
 
       - name: set backend profile in AWS config
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/set-backend-profile@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-backend-profile@main
 
       - name: schedule apply
-        uses: stormreply/storm-library-for-terraform/.github/actions/schedule@main
+        uses: stormreply/slt-workflows/.github/actions/schedule@main
         with:
           action: apply
           lifetime: ${{ inputs.lifetime }}
@@ -64,7 +64,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -75,7 +75,7 @@ jobs:
           show: apply
 
       - name: scan
-        uses: stormreply/storm-library-for-terraform/.github/actions/scan@main
+        uses: stormreply/slt-workflows/.github/actions/scan@main
 
   plan:
     if: inputs.delay == ''
@@ -84,7 +84,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -94,7 +94,7 @@ jobs:
             ENVIRONMENT: ${{ inputs.environment || github.actor }}
 
       - name: plan
-        uses: stormreply/storm-library-for-terraform/.github/actions/plan@main
+        uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
           var_file: ${{ inputs.var_file }}
 
@@ -105,7 +105,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -115,17 +115,17 @@ jobs:
             ENVIRONMENT: ${{ inputs.environment || github.actor }}
 
       - name: apply
-        uses: stormreply/storm-library-for-terraform/.github/actions/apply@main
+        uses: stormreply/slt-workflows/.github/actions/apply@main
         continue-on-error: true
 
       - name: unschedule apply
-        uses: stormreply/storm-library-for-terraform/.github/actions/unschedule@main
+        uses: stormreply/slt-workflows/.github/actions/unschedule@main
         with:
           action: apply
         continue-on-error: true
 
       - name: schedule destroy
-        uses: stormreply/storm-library-for-terraform/.github/actions/schedule@main
+        uses: stormreply/slt-workflows/.github/actions/schedule@main
         with:
           action: destroy
           delay: ${{ inputs.lifetime }}

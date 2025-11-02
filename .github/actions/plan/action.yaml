@@ -9,9 +9,9 @@ runs:
   steps:
 
       - name: checkout code
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
 
       - name: terraform plan
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/plan@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
         with:
           var_file: ${{ inputs.var_file }}

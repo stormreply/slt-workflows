@@ -5,8 +5,8 @@ runs:
   steps:
 
     - name: checkout code
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
 
     - name: run pre-commit
-      uses: stormreply/storm-library-for-terraform/.github/actions/scan/pre-commit@main
+      uses: stormreply/slt-workflows/.github/actions/scan/pre-commit@main
       id: pre-commit

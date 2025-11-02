@@ -16,7 +16,7 @@ runs:
   steps:
 
     - name: unschedule actions
-      uses: stormreply/storm-library-for-terraform/.github/actions/unschedule@main
+      uses: stormreply/slt-workflows/.github/actions/unschedule@main
       with:
         action: ".*"
       continue-on-error: true

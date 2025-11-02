@@ -14,7 +14,7 @@ runs:
         # download ${{ inputs.file }}
 
         api="x-access-token:${{ env.TOKEN }}@api.github.com"
-        path="repos/stormreply/storm-library-for-terraform/contents"
+        path="repos/stormreply/slt-workflows/contents"
         file=${{ inputs.file }}
 
         output=$(

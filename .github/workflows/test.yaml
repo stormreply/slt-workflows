@@ -29,7 +29,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -40,7 +40,7 @@ jobs:
           show: test
 
       - name: scan
-        uses: stormreply/storm-library-for-terraform/.github/actions/scan@main
+        uses: stormreply/slt-workflows/.github/actions/scan@main
 
   plan:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -58,7 +58,7 @@ jobs:
             ENVIRONMENT: ${{ github.actor }}
 
       - name: plan
-        uses: stormreply/storm-library-for-terraform/.github/actions/plan@main
+        uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
           var_file: ${{ inputs.var_file }}
 
@@ -69,7 +69,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -79,7 +79,7 @@ jobs:
             ENVIRONMENT: ${{ github.actor }}
 
       - name: apply
-        uses: stormreply/storm-library-for-terraform/.github/actions/apply@main
+        uses: stormreply/slt-workflows/.github/actions/apply@main
 
   destroy:
     needs: apply
@@ -89,7 +89,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -99,10 +99,10 @@ jobs:
             ENVIRONMENT: ${{ github.actor }}
 
       - name: destroy
-        uses: stormreply/storm-library-for-terraform/.github/actions/destroy@main
+        uses: stormreply/slt-workflows/.github/actions/destroy@main
 
       - name: unschedule actions
-        uses: stormreply/storm-library-for-terraform/.github/actions/unschedule@main
+        uses: stormreply/slt-workflows/.github/actions/unschedule@main
         with:
           action: ".*"
         continue-on-error: true

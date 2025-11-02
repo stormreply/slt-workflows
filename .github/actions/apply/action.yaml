@@ -5,7 +5,7 @@ runs:
   steps:
 
       - name: checkout code
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
 
       - name: terraform apply
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/apply@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/apply@main

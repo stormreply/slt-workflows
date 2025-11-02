@@ -24,7 +24,7 @@ runs:
 
     - name: set environment from secrets
       id: set-environment-from-secrets
-      uses: stormreply/storm-library-for-terraform/.github/actions/set-environment/from-secrets@main
+      uses: stormreply/slt-workflows/.github/actions/set-environment/from-secrets@main
       with:
         github_token: ${{ inputs.github_token }}
         personal_access_token: ${{ inputs.personal_access_token }}
@@ -33,20 +33,20 @@ runs:
     - name: set environment from vars
       if: inputs.json != ''
       id: set-environment-from-vars
-      uses: stormreply/storm-library-for-terraform/.github/actions/set-environment/from-vars@main
+      uses: stormreply/slt-workflows/.github/actions/set-environment/from-vars@main
       with:
         json: ${{ inputs.json }}
 
     - name: set environment from inputs
       if: inputs.yaml != ''
       id: set-environment-from-inputs
-      uses: stormreply/storm-library-for-terraform/.github/actions/set-environment/from-inputs@main
+      uses: stormreply/slt-workflows/.github/actions/set-environment/from-inputs@main
       with:
         yaml: ${{ inputs.yaml }}
 
     - name: set environment from others
       id: set-environment-from-others
-      uses: stormreply/storm-library-for-terraform/.github/actions/set-environment/from-others@main
+      uses: stormreply/slt-workflows/.github/actions/set-environment/from-others@main
 
     - name: show environment vars
       if: inputs.show != ''

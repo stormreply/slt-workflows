@@ -34,7 +34,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -44,7 +44,7 @@ jobs:
 
       - name: get access token
         id: get-access-token
-        uses: stormreply/storm-library-for-terraform/.github/actions/init/get-access-token@main
+        uses: stormreply/slt-workflows/.github/actions/init/get-access-token@main
 
   init:
     needs: sso
@@ -53,7 +53,7 @@ jobs:
 
       - name: set environment
         id: set-environment
-        uses: stormreply/storm-library-for-terraform/.github/actions/set-environment@main
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
@@ -70,29 +70,29 @@ jobs:
             OIDC_PRINCIPAL: ${{ inputs.oidc_principal || vars.OIDC_PRINCIPAL || github.repository_owner }}
 
       - name: set backend credentials
-        uses: stormreply/storm-library-for-terraform/.github/actions/init/set-backend-credentials@main
+        uses: stormreply/slt-workflows/.github/actions/init/set-backend-credentials@main
         with:
           access_token: ${{ needs.sso.outputs.access_token }}
 
       - name: create backend bucket
-        uses: stormreply/storm-library-for-terraform/.github/actions/init/create-backend-bucket@main
+        uses: stormreply/slt-workflows/.github/actions/init/create-backend-bucket@main
 
       - name: save variables in ${{github.repository}}.vars
-        uses: stormreply/storm-library-for-terraform/.github/actions/init/save-variables@main
+        uses: stormreply/slt-workflows/.github/actions/init/save-variables@main
         with:
           repository: ${{ github.repository }}
 
       - name: checkout code
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
         with:
           init: true
 
       - name: Terraform plan
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/plan@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
         with:
           var_file: init.tfvars
 
       - name: Terraform apply
-        uses: stormreply/storm-library-for-terraform/.github/actions/terraform/apply@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/apply@main
         with:
           var_file: init.tfvars

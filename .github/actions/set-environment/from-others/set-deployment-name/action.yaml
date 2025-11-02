@@ -5,7 +5,7 @@ runs:
   steps:
 
     - name: download catalog.yaml
-      uses: stormreply/storm-library-for-terraform/.github/actions/download@main
+      uses: stormreply/slt-workflows/.github/actions/download@main
       with:
         file: catalog.yaml
 

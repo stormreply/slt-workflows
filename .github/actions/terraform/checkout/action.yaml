@@ -19,33 +19,33 @@ runs:
         token: ${{ env.TOKEN }}
 
     - name: rewrite github URL (add x-access-token)
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/rewrite-github-url@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/rewrite-github-url@main
 
     # TODO: rethink
     # - name: download providers.tf
-    #   uses: stormreply/storm-library-for-terraform/.github/actions/download@main
+    #   uses: stormreply/slt-workflows/.github/actions/download@main
     #   with:
     #     file: providers.tf
 
     # - name: create deployment-tags
-    #   uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/inject-deployment@main
+    #   uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-deployment@main
 
     - name: inject backend.tf
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/inject-backend@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-backend@main
 
     - name: inject metadata.tfvars
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/inject-metadata@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-metadata@main
 
     - name: inject init.tfvars
       if: inputs.init == 'true'
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/inject-init-tfvars@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-init-tfvars@main
 
     - name: Set backend profile in AWS config
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/set-backend-profile@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-backend-profile@main
       with:
         use_oidc: ${{ inputs.init != 'true' }} # use oidc if we are not in the init workflow
 
     - name: Set deployment profile in AWS config
-      uses: stormreply/storm-library-for-terraform/.github/actions/terraform/checkout/set-deployment-profile@main
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-deployment-profile@main
       with:
         use_oidc: ${{ inputs.init != 'true' }} # use oidc if we are not in the init workflow
