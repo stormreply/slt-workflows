@@ -19,6 +19,11 @@ on:
       oidc_principal:
         description: "OIDC principal"
         type: string
+    secrets:
+      STORM_LIBRARY_FOR_TERRAFORM:
+        required: false
+      TERRAFORM_PRIVATE_KEY:
+        required: false
 
 permissions:
   actions: write
