@@ -95,7 +95,7 @@ jobs:
           access_token: ${{ steps.get-access-token.outputs.access_token }}
 
   boot:
-    needs: sso
+    needs: [init, sso]
     runs-on: ubuntu-latest
     env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
