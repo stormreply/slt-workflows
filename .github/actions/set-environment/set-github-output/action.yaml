@@ -8,4 +8,5 @@ runs:
       shell: bash
       run: |
         # set-environment/set-github-output
-        cat $GITHUB_ENV
+        echo "GITHUB_ENV: [$GITHUB_ENV]"
+        echo "cat $GIHUB_ENV: [$(cat $GITHUB_ENV)]"
