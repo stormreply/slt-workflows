@@ -1,5 +1,9 @@
 name: Set GITHUB_OUTPUT
 
+outputs:
+  env_json:
+    value:  ${{ steps.set-github-output.outputs.env_json }}
+
 runs:
   using: composite
   steps:
