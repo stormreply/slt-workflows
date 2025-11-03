@@ -13,10 +13,15 @@ runs:
           "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
           "ACCESS_ROLE":        "$ACCESS_ROLE",
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
+          "BACKEND_BUCKET":     "$BACKEND_BUCKET",
           "BACKEND_REGION":     "$BACKEND_REGION",
           "DEPLOYMENT_ACCOUNT": "$DEPLOYMENT_ACCOUNT",
+          "DEPLOYMENT_NAME":    "$DEPLOYMENT_NAME",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
-          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL"
+          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
+          "SHORT_NAME":         "$SHORT_NAME",
+          "STATE_FILE":         "$STATE_FILE"
         }
         EOF
+        echo "env_json=$(cat env.json | jq -c)"
         echo "env_json=$(cat env.json | jq -c)" >> $GITHUB_OUTPUT
