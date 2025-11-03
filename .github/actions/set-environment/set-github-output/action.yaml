@@ -1,9 +1,5 @@
 name: Set GITHUB_OUTPUT
 
-outputs:
-  env_json:
-    value:  ${{ steps.set-github-output.outputs.env_json }}
-
 runs:
   using: composite
   steps:
@@ -29,3 +25,4 @@ runs:
         EOF
         echo "env_json=$(cat env.json | jq -c)"
         echo "env_json=$(cat env.json | jq -c)" >> $GITHUB_OUTPUT
+        cat $GITHUB_OUTPUT

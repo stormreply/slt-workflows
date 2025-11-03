@@ -60,7 +60,7 @@ runs:
       id: check-output
       shell: bash
       run: |
-        echo "output: [${{ steps.set-github-output.outputs.env_json }}]"
+        echo "X output: [${{ steps.set-github-output.outputs.env_json }}]"
 
     - name: set step summary
       if: inputs.show != ''
