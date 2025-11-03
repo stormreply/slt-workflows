@@ -26,8 +26,7 @@ runs:
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
           "SHORT_NAME":         "$SHORT_NAME",
-          "STATE_FILE":         "$STATE_FILE",
-          "TOKEN":              "$TOKEN"
+          "STATE_FILE":         "$STATE_FILE"
         }
         EOF
         echo "env_json=$(cat env.json | jq -c)"
