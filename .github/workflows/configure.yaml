@@ -61,6 +61,19 @@ jobs:
         id: get-access-token
         uses: stormreply/slt-workflows/.github/actions/init/get-access-token@main
 
+      - name: set backend credentials
+        uses: stormreply/slt-workflows/.github/actions/init/set-backend-credentials@main
+        with:
+          access_token: ${{ needs.sso.outputs.access_token }}
+
+      - name: create backend bucket
+        uses: stormreply/slt-workflows/.github/actions/init/create-backend-bucket@main
+
+      - name: save variables in ${{github.repository}}.vars
+        uses: stormreply/slt-workflows/.github/actions/init/save-variables@main
+        with:
+          repository: ${{ github.repository }}
+
   init:
     needs: sso
     runs-on: ubuntu-latest
@@ -84,18 +97,18 @@ jobs:
             ENVIRONMENT: ${{ github.actor }}
             OIDC_PRINCIPAL: ${{ inputs.oidc_principal || vars.OIDC_PRINCIPAL || github.repository_owner }}
 
-      - name: set backend credentials
-        uses: stormreply/slt-workflows/.github/actions/init/set-backend-credentials@main
-        with:
-          access_token: ${{ needs.sso.outputs.access_token }}
+      # - name: set backend credentials
+      #   uses: stormreply/slt-workflows/.github/actions/init/set-backend-credentials@main
+      #   with:
+      #     access_token: ${{ needs.sso.outputs.access_token }}
 
-      - name: create backend bucket
-        uses: stormreply/slt-workflows/.github/actions/init/create-backend-bucket@main
+      # - name: create backend bucket
+      #   uses: stormreply/slt-workflows/.github/actions/init/create-backend-bucket@main
 
-      - name: save variables in ${{github.repository}}.vars
-        uses: stormreply/slt-workflows/.github/actions/init/save-variables@main
-        with:
-          repository: ${{ github.repository }}
+      # - name: save variables in ${{github.repository}}.vars
+      #   uses: stormreply/slt-workflows/.github/actions/init/save-variables@main
+      #   with:
+      #     repository: ${{ github.repository }}
 
       - name: checkout code
         uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
