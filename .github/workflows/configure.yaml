@@ -68,6 +68,12 @@ jobs:
             OIDC_PRINCIPAL: ${{ inputs.oidc_principal || vars.OIDC_PRINCIPAL || github.repository_owner }}
           show: init
 
+      - name: check output
+        id: check-output
+        shell: bash
+        run: |
+          echo "output: [${{ steps.set-environment.outputs.env_json }}]
+
       - name: save variables in ${{github.repository}}
         uses: stormreply/slt-workflows/.github/actions/configure/init/save-variables@main
         with:
