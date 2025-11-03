@@ -9,21 +9,21 @@ runs:
   steps:
 
     - name: set AWS access domain
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.ACCESS_DOMAIN }}
         variable: ACCESS_DOMAIN
 
     - name: set AWS access role
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.ACCESS_ROLE }}
         variable: ACCESS_ROLE
 
     - name: set AWS access principal
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.OIDC_PRINCIPAL }}
@@ -31,7 +31,7 @@ runs:
 
     - name: set backend account
       id: set-backend-account
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.BACKEND_ACCOUNT }}
@@ -39,7 +39,7 @@ runs:
 
     - name: set backend region
       id: set-backend-region
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.BACKEND_REGION }}
@@ -47,7 +47,7 @@ runs:
 
     - name: set deployment account
       id: set-deployment-account
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.DEPLOYMENT_ACCOUNT }}
@@ -55,7 +55,7 @@ runs:
 
     - name: set deployment region
       id: set-deployment-region
-      uses: stormreply/slt-workflows/.github/actions/init/save-variable@main
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.DEPLOYMENT_REGION }}

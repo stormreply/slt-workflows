@@ -1,0 +1,10 @@
+name: Set GITHUB_OUTPUT
+
+runs:
+  using: composite
+  steps:
+    name: set-github-output
+    shell: bash
+    run: |
+      # set-environment/set-github-output
+      cat $GITHUB_ENV

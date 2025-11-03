@@ -1,0 +1,39 @@
+name: Set GITHUB_STEP_SUMMARY
+
+runs:
+  using: composite
+  steps:
+    name: set-step-summary
+    shell: bash
+    run: |
+      # set-environment/set-step-summary
+
+      STATUS="OK"
+      [ -z "$BACKEND_ACCOUNT"    ] && echo "::error ::Github repository variable BACKEND_ACCOUNT not set" && STATUS="ERROR"
+      [ -z "$BACKEND_REGION"     ] && echo "::error ::Github repository variable BACKEND_REGION not set" && STATUS="ERROR"
+      [ -z "$DEPLOYMENT_ACCOUNT" ] && echo "::error ::Github repository variable DEPLOYMENT_ACCOUNT not set" && STATUS="ERROR"
+      [ -z "$DEPLOYMENT_REGION"  ] && echo "::error ::Github repository variable DEPLOYMENT_REGION not set" && STATUS="ERROR"
+      echo "STATUS: [$STATUS]"
+      cat << EOF >> $GITHUB_STEP_SUMMARY
+
+      | Parameters                    |                    |
+      |:------------------------------|--------------------|
+      | access domain                 | $ACCESS_DOMAIN     |
+      | access role                   | $ACCESS_ROLE       |
+      | backend account               | $BACKEND_ACCOUNT   |
+      | backend region                | $BACKEND_REGION    |
+      | deployment account            | $BACKEND_ACCOUNT   |
+      | deployment region             | $BACKEND_REGION    |
+      | environment                   | $ENVIRONMENT       |
+      | oidc principal                | $OIDC_PRINCIPAL    |
+      | terraform app id              | $TERRAFORM_APP_ID  |
+      | **Computed**                  |                    |
+      | backend bucket                | $BACKEND_BUCKET    |
+      | deployment name               | $DEPLOYMENT_NAME   |
+      | short name                    | $SHORT_NAME        |
+      | state file                    | $STATE_FILE        |
+      | **Token type**                | $TOKEN_TYPE        |
+
+      EOF
+
+      [ "$STATUS" = "OK" ] && exit 0 || exit 1
