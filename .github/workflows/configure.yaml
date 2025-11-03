@@ -41,7 +41,7 @@ jobs:
         id: check-token
         shell: bash
         run: |
-          if [ -z "${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}" -a -z "${{ TERRAFORM_PRIVATE_KEY }}" ] ; then
+          if [ -z "${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}" -a -z "${{ secrets.TERRAFORM_PRIVATE_KEY }}" ] ; then
             echo "::error ::It seems like you have no valid token."
             exit 1
           fi
