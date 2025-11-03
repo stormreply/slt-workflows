@@ -22,13 +22,6 @@ runs:
         value: ${{ env.ACCESS_ROLE }}
         variable: ACCESS_ROLE
 
-    - name: set AWS access principal
-      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
-      with:
-        repository: ${{ github.repository }}
-        value: ${{ env.OIDC_PRINCIPAL }}
-        variable: OIDC_PRINCIPAL
-
     - name: set backend account
       id: set-backend-account
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
@@ -61,6 +54,14 @@ runs:
         value: ${{ env.DEPLOYMENT_ACCOUNT }}
         variable: DEPLOYMENT_ACCOUNT
 
+    - name: set deployment name
+      id: set-deployment-name
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+      with:
+        repository: ${{ github.repository }}
+        value: ${{ env.DEPLOYMENT_NAME }}
+        variable: DEPLOYMENT_NAME
+
     - name: set deployment region
       id: set-deployment-region
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
@@ -68,3 +69,27 @@ runs:
         repository: ${{ github.repository }}
         value: ${{ env.DEPLOYMENT_REGION }}
         variable: DEPLOYMENT_REGION
+
+    - name: set OIDC principal
+      id: set-oidc-principal
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+      with:
+        repository: ${{ github.repository }}
+        value: ${{ env.OIDC_PRINCIPAL }}
+        variable: OIDC_PRINCIPAL
+
+    - name: set short name
+      id: set-short-name
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+      with:
+        repository: ${{ github.repository }}
+        value: ${{ env.SHORT_NAME }}
+        variable: SHORT_NAME
+
+    - name: set state file
+      id: set-state-file
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+      with:
+        repository: ${{ github.repository }}
+        value: ${{ env.STATE_FILE }}
+        variable: STATE_FILE

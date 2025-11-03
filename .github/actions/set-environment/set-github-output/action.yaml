@@ -9,6 +9,7 @@ runs:
       run: |
         # set-environment/set-github-output
         cat << EOF > env.json
+        {
           "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
           "ACCESS_ROLE":        "$ACCESS_ROLE",
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
@@ -16,5 +17,6 @@ runs:
           "DEPLOYMENT_ACCOUNT": "$DEPLOYMENT_ACCOUNT",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL"
+        }
         EOF
         echo "env_json=$(cat env.json | jq -c)" >> $GITHUB_OUTPUT
