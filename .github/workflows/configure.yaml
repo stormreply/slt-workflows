@@ -93,6 +93,15 @@ jobs:
     env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
 
+      - name: set token
+        id: set-token
+        uses: stormreply/slt-workflows/.github/actions/set-environment/set-token@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN}}
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
+
       - name: set backend credentials
         uses: stormreply/slt-workflows/.github/actions/configure/sso/set-backend-credentials@main
         with:
