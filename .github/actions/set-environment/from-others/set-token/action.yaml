@@ -24,7 +24,7 @@ runs:
 
         if [ -z "${token}" ] ; then
           token=${{ env.PERSONAL_ACCESS_TOKEN }}
-          type="Personal Access Token"
+          type="Personal_Access_Token"
         fi
 
         if [ -z "${token}" ] ; then
