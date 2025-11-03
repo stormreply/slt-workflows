@@ -35,8 +35,7 @@ jobs:
   init:
     runs-on: ubuntu-latest
     outputs:
-      env_json:
-        value:  ${{ steps.set-environment.outputs.env_json }}
+      env_json: ${{ steps.set-environment.outputs.env_json }}
     steps:
 
       # TODO: add step HERE to check if PAT or APP TOKEN available. GITHUB_TOKEN is NOT sufficient
