@@ -94,13 +94,14 @@ jobs:
         with:
           access_token: ${{ steps.get-access-token.outputs.access_token }}
 
-  # boot:
-  #   needs: sso
-  #   runs-on: ubuntu-latest
-  #   steps:
+  boot:
+    needs: sso
+    runs-on: ubuntu-latest
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
+    steps:
 
-  #     - name: create backend bucket
-  #       uses: stormreply/slt-workflows/.github/actions/init/create-backend-bucket@main
+      - name: create backend bucket
+        uses: stormreply/slt-workflows/.github/actions/configure/boot/create-backend-bucket@main
 
 
   # build:
