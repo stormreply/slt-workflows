@@ -26,7 +26,7 @@ runs:
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
           "SHORT_NAME":         "$SHORT_NAME",
-          "STATE_FILE":         "$STATE_FILE"
+          "STATE_FILE":         "$STATE_FILE",
           "TOKEN_TYPE":         "$TOKEN_TYPE"
         }
         EOF
