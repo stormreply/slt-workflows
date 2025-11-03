@@ -72,7 +72,7 @@ jobs:
         id: check-output
         shell: bash
         run: |
-          echo "output: [${{ steps.set-environment.outputs.env_json }}]
+          echo "output: [${{ steps.set-environment.outputs.env_json }}]"
 
       - name: save variables in ${{github.repository}}
         uses: stormreply/slt-workflows/.github/actions/configure/init/save-variables@main
