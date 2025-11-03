@@ -5,6 +5,8 @@ inputs:
     required: false
   personal_access_token:
     required: false
+  terraform_app_id:
+    required: false
   terraform_private_key:
     required: false
   json:
@@ -16,7 +18,7 @@ inputs:
 
 outputs:
   env_json:
-    value:  ${{ steps.set-github-output.outputs.env_json }}
+    value: ${{ steps.set-github-output.outputs.env_json }}
 
 runs:
   using: composite
@@ -26,12 +28,13 @@ runs:
       shell: bash
       run: date | tee -a $GITHUB_STEP_SUMMARY
 
-    - name: set environment from secrets
-      id: set-environment-from-secrets
-      uses: stormreply/slt-workflows/.github/actions/set-environment/from-secrets@main
+    - name: set token
+      id: set-token
+      uses: stormreply/slt-workflows/.github/actions/set-environment/set-token@main
       with:
         github_token: ${{ inputs.github_token }}
         personal_access_token: ${{ inputs.personal_access_token }}
+        terraform_app_id: ${{ inputs.personal_access_token }}
         terraform_private_key: "${{ inputs.terraform_private_key }}"
 
     - name: set environment from vars

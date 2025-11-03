@@ -1,8 +1,28 @@
 name: Set token
 
+inputs:
+  github_token:
+    required: false
+  personal_access_token:
+    required: false
+  terraform_private_key:
+    required: false
+
 runs:
   using: composite
   steps:
+
+    - name: set environment from secrets
+      shell: bash
+      run: |
+        # set-environment/from-secrets
+        cat << EOF >> $GITHUB_ENV
+        GITHUB_TOKEN=${{ inputs.github_token }}
+        PERSONAL_ACCESS_TOKEN=${{ inputs.personal_access_token }}
+        TERRAFORM_PRIVATE_KEY<<EOK
+        ${{ inputs.terraform_private_key }}
+        EOK
+        EOF
 
     - name: create github app token
       if: env.TERRAFORM_APP_ID != '' && env.TERRAFORM_PRIVATE_KEY != ''

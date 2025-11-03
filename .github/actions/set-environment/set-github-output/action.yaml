@@ -2,7 +2,6 @@ name: Set GITHUB_OUTPUT
 
 outputs:
   env_json:
-    description: "Environment variables as JSON"
     value: ${{ steps.set-github-output.outputs.env_json }}
 
 runs:
@@ -31,7 +30,8 @@ runs:
         }
         EOF
         # Merge TOKEN separately to handle multi-line values
-        env_json=$(jq --arg token "$TOKEN" '. + {TOKEN: $token}' env.json | jq -c)
+        # env_json=$(jq --arg token "$TOKEN" '. + {TOKEN: $token}' env.json | jq -c)
+        env_json=$(cat env.json | jq -c)
         echo "env_json=$env_json"
         echo "env_json=$env_json" >> $GITHUB_OUTPUT
         cat $GITHUB_OUTPUT
