@@ -19,7 +19,7 @@ runs:
         VALUE: ${{ inputs.value }}
         REPO: ${{ inputs.repository }}
       run: |
-        # set/variable vars.${{ inputs.variable }} from ${{ inputs.repository }}
+        # configure/init/save-variable vars.${{ inputs.variable }} from ${{ inputs.repository }}
         output=$(
           curl -X PATCH \
             -H "Authorization: Bearer $TOKEN" \
