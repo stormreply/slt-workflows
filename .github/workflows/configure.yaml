@@ -68,12 +68,6 @@ jobs:
             OIDC_PRINCIPAL: ${{ inputs.oidc_principal || vars.OIDC_PRINCIPAL || github.repository_owner }}
           show: init
 
-      - name: check output
-        id: check-output
-        shell: bash
-        run: |
-          echo "output: [${{ steps.set-environment.outputs.env_json }}]"
-
       - name: save variables in ${{github.repository}}
         uses: stormreply/slt-workflows/.github/actions/configure/init/save-variables@main
         with:
@@ -94,11 +88,11 @@ jobs:
         with:
           access_token: ${{ steps.get-access-token.outputs.access_token }}
 
-  boot:
-    needs: [init, sso]
-    runs-on: ubuntu-latest
-    env: ${{ fromJson(needs.init.outputs.env_json) }}
-    steps:
+  # boot:
+  #   needs: [init, sso]
+  #   runs-on: ubuntu-latest
+  #   env: ${{ fromJson(needs.init.outputs.env_json) }}
+  #   steps:
 
       - name: create backend bucket
         uses: stormreply/slt-workflows/.github/actions/configure/boot/create-backend-bucket@main
