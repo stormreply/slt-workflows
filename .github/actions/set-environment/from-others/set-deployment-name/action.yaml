@@ -5,9 +5,11 @@ runs:
   steps:
 
     - name: download catalog.yaml
+      # TODO: replace download with checkout iot retrieve catalog
       uses: stormreply/slt-workflows/.github/actions/download@main
       with:
         file: catalog.yaml
+      continue-on-error: true
 
     - name: get catalog id
       id: get-catalog-id
@@ -21,18 +23,21 @@ runs:
         # status is "" or HTTP error code
         if [ -n "$status" ] ; then
           cat catalog.yaml
-          echo "::error ::status from download call is $status"
-          exit 1
+          echo "::warn ::status from download call is $status. catalog id set to 42"
+          echo "catalog_id=$catalog_id" >> $GITHUB_OUTPUT
+          exit 0
         fi
 
         repository=${{ github.repository }}
         repo=${repository##*/}
 
         yq '.catalog["'${repo}'"]' catalog.yaml > catalog_item.yaml
-        catalog_id=$(cat catalog_item.yaml | yq .id)
-        [ "$catalog_id" = "null" ] \
-          && echo "::error ::${repo} or its id are not known to the catalog" \
-          && exit 1
+        catalog_id=$(cat catalog_item.yaml | yq -r '.id // 42')
+        if [ "$catalog_id" = "null" ] ; then
+          echo "::warn ::${repo} or its id are not known to the catalog. catalog id set to 42."
+          echo "catalog_id=$catalog_id" >> $GITHUB_OUTPUT
+          exit 0
+        fi
 
         echo "catalog_id=$catalog_id" >> $GITHUB_OUTPUT
 
