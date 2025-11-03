@@ -22,3 +22,5 @@ runs:
             echo "$key=$val" | tee -a $GITHUB_ENV
           fi
         done
+        echo "GITHUB_ENV: [$GITHUB_ENV]"
+        echo "cat $GIHUB_ENV: [$(cat $GITHUB_ENV)]"
