@@ -46,6 +46,9 @@ jobs:
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
           json: "${{ toJson(vars) }}"
+          yaml: |
+            ACCESS_DOMAIN: ${{ inputs.access_domain || vars.ACCESS_DOMAIN }}
+            BACKEND_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
           show: init
 
       - name: get access token
