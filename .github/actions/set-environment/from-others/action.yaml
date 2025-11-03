@@ -1,13 +1,10 @@
 name: Set environment from others
 
+# TODO: resolve from-others; lift everything one level up
+
 runs:
   using: composite
   steps:
-
-    # - name: set token
-    #   if: env.PERSONAL_ACCESS_TOKEN != '' || env.TERRAFORM_PRIVATE_KEY != '' || env.GITHUB_TOKEN != ''
-    #   id: set-token
-    #   uses: stormreply/slt-workflows/.github/actions/set-environment/from-others/set-token@main
 
     - name: set backend bucket
       if: env.BACKEND_ACCOUNT != ''
@@ -22,6 +19,7 @@ runs:
       id: set-state-file
       uses: stormreply/slt-workflows/.github/actions/set-environment/from-others/set-state-file@main
 
+    # TODO: write own set-terraform-roles action
     - name: set env from others
       id: set-environment-from-others
       shell: bash
