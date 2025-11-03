@@ -85,8 +85,6 @@ jobs:
         id: get-access-token
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-access-token@main
 
-
-
   build:
     needs: [init, sso]
     runs-on: ubuntu-latest
