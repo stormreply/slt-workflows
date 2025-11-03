@@ -5,6 +5,8 @@ inputs:
     required: false
   personal_access_token:
     required: false
+  terraform_app_id:
+    required: false
   terraform_private_key:
     required: false
 
