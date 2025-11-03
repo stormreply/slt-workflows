@@ -19,8 +19,8 @@ runs:
 
         cat << EOF >> ${HOME}/.aws/config
         [profile default]
-        sso_region=${{ vars.BACKEND_REGION }}
-        sso_start_url=https://${{ vars.ACCESS_DOMAIN }}.awsapps.com/start/#
+        sso_region=${{ env.BACKEND_REGION }}
+        sso_start_url=https://${{ env.ACCESS_DOMAIN }}.awsapps.com/start/#
         EOF
 
         aws sso login --no-browser > login-output.txt &

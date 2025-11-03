@@ -12,16 +12,16 @@ runs:
       run: |
         # init/set-backend-credentials
 
-        echo "login into account ${{ vars.BACKEND_ACCOUNT }} with role ${{ vars.ACCESS_ROLE }}"
+        echo "login into account ${{ env.BACKEND_ACCOUNT }} with role ${{ env.ACCESS_ROLE }}"
 
         # TODO: fix masking or write to .env before and take from .env here
         echo "::add-mask::${{ inputs.access_token }}"
 
         CREDENTIALS=$(
           aws sso get-role-credentials \
-            --account-id ${{ vars.BACKEND_ACCOUNT }} \
-            --region ${{ vars.BACKEND_REGION }} \
-            --role-name ${{ vars.ACCESS_ROLE }} \
+            --account-id ${{ env.BACKEND_ACCOUNT }} \
+            --region ${{ env.BACKEND_REGION }} \
+            --role-name ${{ env.ACCESS_ROLE }} \
             --access-token '${{ inputs.access_token }}'
         )
 
@@ -37,5 +37,5 @@ runs:
         AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
         AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
-        AWS_DEFAULT_REGION=${{ vars.BACKEND_REGION }}
+        AWS_DEFAULT_REGION=${{ env.BACKEND_REGION }}
         EOF
