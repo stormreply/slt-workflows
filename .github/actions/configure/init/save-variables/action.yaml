@@ -37,6 +37,14 @@ runs:
         value: ${{ env.BACKEND_ACCOUNT }}
         variable: BACKEND_ACCOUNT
 
+    - name: set backend bucket
+      id: set-backend-bucket
+      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+      with:
+        repository: ${{ github.repository }}
+        value: ${{ env.BACKEND_BUCKET }}
+        variable: BACKEND_BUCKET
+
     - name: set backend region
       id: set-backend-region
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
