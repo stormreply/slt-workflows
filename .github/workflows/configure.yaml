@@ -76,6 +76,8 @@ jobs:
   sso:
     needs: init
     runs-on: ubuntu-latest
+    outputs:
+      access_token: ${{ steps.get-access-token.outputs.access_token }}
     env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
 
@@ -83,48 +85,26 @@ jobs:
         id: get-access-token
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-access-token@main
 
+
+
+  build:
+    needs: [init, sso]
+    runs-on: ubuntu-latest
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
+    steps:
+
       - name: set backend credentials
         uses: stormreply/slt-workflows/.github/actions/configure/sso/set-backend-credentials@main
         with:
-          access_token: ${{ steps.get-access-token.outputs.access_token }}
-
-  # boot:
-  #   needs: [init, sso]
-  #   runs-on: ubuntu-latest
-  #   env: ${{ fromJson(needs.init.outputs.env_json) }}
-  #   steps:
+          access_token: ${{ needs.sso.outputs.access_token }}
 
       - name: create backend bucket
         uses: stormreply/slt-workflows/.github/actions/configure/boot/create-backend-bucket@main
 
-
-  # build:
-  #   needs: boot
-  #   runs-on: ubuntu-latest
-  #   steps:
-
-  #     - name: set environment
-  #       id: set-environment
-  #       uses: stormreply/slt-workflows/.github/actions/set-environment@main
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN}}
-  #         personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-  #         terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
-  #         json: ${{ toJson(vars) }}
-  #         yaml: |
-  #           ACCESS_DOMAIN: ${{ inputs.access_domain || vars.ACCESS_DOMAIN }}
-  #           ACCESS_ROLE: ${{ inputs.access_role || vars.ACCESS_ROLE }}
-  #           BACKEND_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
-  #           BACKEND_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
-  #           DEPLOYMENT_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
-  #           DEPLOYMENT_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
-  #           ENVIRONMENT: ${{ github.actor }}
-  #           OIDC_PRINCIPAL: ${{ inputs.oidc_principal || vars.OIDC_PRINCIPAL || github.repository_owner }}
-
-  #     - name: checkout code
-  #       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
-  #       with:
-  #         init: true
+      - name: checkout code
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
+        with:
+          init: true
 
   #     - name: Terraform plan
   #       uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
