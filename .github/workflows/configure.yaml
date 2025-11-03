@@ -78,10 +78,10 @@ jobs:
 
       - name: get access token
         id: get-access-token
-        uses: stormreply/slt-workflows/.github/actions/init/get-access-token@main
+        uses: stormreply/slt-workflows/.github/actions/configure/sso/get-access-token@main
 
       - name: set backend credentials
-        uses: stormreply/slt-workflows/.github/actions/init/set-backend-credentials@main
+        uses: stormreply/slt-workflows/.github/actions/configure/sso/set-backend-credentials@main
         with:
           access_token: ${{ steps.get-access-token.outputs.access_token }}
 
