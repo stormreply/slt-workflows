@@ -37,6 +37,14 @@ jobs:
     steps:
 
       # TODO: add step HERE to check if PAT or APP TOKEN available. GITHUB_TOKEN is NOT sufficient
+      - name: check token
+        id: check-token
+        shell: bash
+        run: |
+          if [ -z "${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}" -a -z "${{ TERRAFORM_PRIVATE_KEY }}" ] ; then
+            echo "::error ::It seems like you have no valid token."
+            exit 1
+          fi
 
       - name: set environment
         id: set-environment
