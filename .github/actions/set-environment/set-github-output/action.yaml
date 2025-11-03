@@ -27,6 +27,7 @@ runs:
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
           "SHORT_NAME":         "$SHORT_NAME",
           "STATE_FILE":         "$STATE_FILE"
+          "TOKEN_TYPE":         "$TOKEN_TYPE"
         }
         EOF
         echo "env_json=$(cat env.json | jq -c)"
