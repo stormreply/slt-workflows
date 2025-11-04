@@ -1,9 +1,5 @@
 name: Scheduler
 
-permissions:
-  contents: read
-  id-token: write
-
 on:
   workflow_call:
     # checkov:skip=CKV_GHA_7: "GitHub Actions workflow_dispatch inputs MUST be empty"
@@ -12,6 +8,11 @@ on:
         required: false
       TERRAFORM_PRIVATE_KEY:
         required: false
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
 
   run:

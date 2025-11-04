@@ -1,8 +1,13 @@
 name: Settings
 
-
 on:
-  workflow_dispatch:
+  workflow_call:
+    # checkov:skip=CKV_GHA_7: "GitHub Actions workflow_dispatch inputs MUST be empty"
+    secrets:
+      STORM_LIBRARY_FOR_TERRAFORM:
+        required: false
+      TERRAFORM_PRIVATE_KEY:
+        required: false
 
 permissions:
   actions: write
