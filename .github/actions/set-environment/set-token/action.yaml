@@ -14,10 +14,11 @@ runs:
   using: composite
   steps:
 
-    - name: set environment from secrets
+    - name: set token parameters
       shell: bash
+      id: set-token-parameters
       run: |
-        # set-environment/from-secrets
+        # set-environment/set-token/set-token-parameters
         cat << EOF >> $GITHUB_ENV
         GITHUB_TOKEN=${{ inputs.github_token }}
         PERSONAL_ACCESS_TOKEN=${{ inputs.personal_access_token }}
@@ -40,7 +41,7 @@ runs:
       id: set-token
       shell: bash
       run: |
-        # set-environment/from-others/set-token
+        # set-environment/set-token/set-token
 
         type="Github App Token" # so far
         token="${{ steps.create-github-app-token.outputs.token }}"
