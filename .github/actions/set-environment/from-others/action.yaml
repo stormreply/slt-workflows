@@ -37,8 +37,8 @@ runs:
         # TEMPORARILY
 
         cat << EOF >> $GITHUB_ENV
-        BACKEND_ROLE=slt-0-slt-workflows-backend
+        BACKEND_ROLE=slt-0-storm-library-for-terraform-backend
         DEPLOYMENT_ACCOUNT=$DEPLOYMENT_ACCOUNT
         DEPLOYMENT_REGION=$DEPLOYMENT_REGION
-        DEPLOYMENT_ROLE=slt-0-slt-workflows-deployment
+        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-deployment
         EOF
