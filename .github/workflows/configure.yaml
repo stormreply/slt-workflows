@@ -20,7 +20,6 @@ on:
         description: "OIDC principal"
         type: string
     secrets:
-      # NOTE: GITHUB_TOKEN can NOT set github variables (like BACKEND_ACCOUNT)
       STORM_LIBRARY_FOR_TERRAFORM:
         required: false
       TERRAFORM_PRIVATE_KEY:
