@@ -1,14 +1,6 @@
 name: Set environment vars
 
 inputs:
-  github_token:
-    required: false
-  personal_access_token:
-    required: false
-  terraform_app_id:
-    required: false
-  terraform_private_key:
-    required: false
   json:
     required: false
   yaml:
@@ -27,15 +19,6 @@ runs:
     - name: Time
       shell: bash
       run: date | tee -a $GITHUB_STEP_SUMMARY
-
-    - name: set token
-      id: set-token
-      uses: stormreply/slt-workflows/.github/actions/set-environment/set-token@main
-      with:
-        github_token: ${{ inputs.github_token }}
-        personal_access_token: ${{ inputs.personal_access_token }}
-        terraform_app_id: ${{ inputs.terraform_app_id }}
-        terraform_private_key: "${{ inputs.terraform_private_key }}"
 
     - name: set environment from vars
       if: inputs.json != ''

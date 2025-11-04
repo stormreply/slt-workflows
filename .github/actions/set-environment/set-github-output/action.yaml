@@ -31,8 +31,6 @@ runs:
           "TOKEN_TYPE":         "$TOKEN_TYPE"
         }
         EOF
-        # Merge TOKEN separately to handle multi-line values
-        # env_json=$(jq --arg token "$TOKEN" '. + {TOKEN: $token}' env.json | jq -c)
         env_json=$(cat env.json | jq -c)
         echo "env_json=$env_json"
         echo "env_json=$env_json" >> $GITHUB_OUTPUT
