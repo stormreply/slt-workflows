@@ -27,12 +27,12 @@ runs:
         | deployment region             | $BACKEND_REGION    |
         | environment                   | $ENVIRONMENT       |
         | oidc principal                | $OIDC_PRINCIPAL    |
-        | terraform app id              | $TERRAFORM_APP_ID  |
         | **Computed**                  |                    |
         | backend bucket                | $BACKEND_BUCKET    |
         | deployment name               | $DEPLOYMENT_NAME   |
         | short name                    | $SHORT_NAME        |
         | state file                    | $STATE_FILE        |
+        | terraform app id              | $TERRAFORM_APP_ID  |
         | **Token type**                | $TOKEN_TYPE        |
 
         EOF
