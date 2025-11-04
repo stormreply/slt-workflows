@@ -5,10 +5,14 @@ permissions:
   id-token: write
 
 on:
-  schedule:
-    - cron: "17 */4 * * *"  # run once every 4 hours
-  workflow_dispatch:
-
+  workflow_call:
+    # checkov:skip=CKV_GHA_7: "GitHub Actions workflow_dispatch inputs MUST be empty"
+    secrets:
+      # NOTE: GITHUB_TOKEN can NOT set github variables (like BACKEND_ACCOUNT)
+      STORM_LIBRARY_FOR_TERRAFORM:
+        required: false
+      TERRAFORM_PRIVATE_KEY:
+        required: false
 jobs:
 
   run:
