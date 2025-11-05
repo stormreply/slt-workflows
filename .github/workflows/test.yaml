@@ -31,9 +31,6 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
           json: "${{ toJson(vars) }}"
           yaml: |
             ENVIRONMENT: ${{ github.actor }}
@@ -50,9 +47,6 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
           json: "${{ toJson(vars) }}"
           yaml: |
             ENVIRONMENT: ${{ github.actor }}
@@ -65,6 +59,7 @@ jobs:
   apply:
     needs: plan
     runs-on: ubuntu-latest
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
 
       - name: set environment
@@ -82,21 +77,11 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/apply@main
 
   destroy:
-    needs: apply
+    needs: [plan, apply]
     if: ${{ always() }}
     runs-on: ubuntu-latest
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
-
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
-          json: "${{ toJson(vars) }}"
-          yaml: |
-            ENVIRONMENT: ${{ github.actor }}
 
       - name: destroy
         uses: stormreply/slt-workflows/.github/actions/destroy@main
