@@ -7,24 +7,30 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: download file
-      id: download-file
-      shell: bash
-      run: |
-        # download ${{ inputs.file }}
-        owner=${{ github.repository_owner }}
+    - name: checkout repository
+      uses: actions/checkout@v4
+      with:
+        repository: stormreply/storm-library-for-terraform
+        sparse-checkout: catalog.yaml
 
-        api="x-access-token:${{ env.TOKEN }}@api.github.com"
-        path="repos/stormreply/storm-library-for-terraform/contents"
-        file=${{ inputs.file }}
+    # - name: download file
+    #   id: download-file
+    #   shell: bash
+    #   run: |
+    #     # download ${{ inputs.file }}
+    #     owner=${{ github.repository_owner }}
 
-        output=$(
-          curl \
-            -o "${file}" \
-            -H "Accept: application/vnd.github.raw" \
-            "https://${api}/${path}/${file}" \
-          2> /dev/null
-        )
+    #     api="x-access-token:${{ env.TOKEN }}@api.github.com"
+    #     path="repos/stormreply/storm-library-for-terraform/contents"
+    #     file=${{ inputs.file }}
 
-        # echo "$file:"
-        # cat $file
+    #     output=$(
+    #       curl \
+    #         -o "${file}" \
+    #         -H "Accept: application/vnd.github.raw" \
+    #         "https://${api}/${path}/${file}" \
+    #       2> /dev/null
+    #     )
+
+    #     # echo "$file:"
+    #     # cat $file
