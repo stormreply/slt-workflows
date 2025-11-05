@@ -14,6 +14,7 @@ runs:
       run: |
         # set-environment/set-github-output
         echo $GITHUB_ENV
+        ls -la $GITHUB_ENV
 
         echo GITHUB_ENV VON HIER
         cat $GITHUB_ENV
