@@ -9,6 +9,8 @@ runs:
       run: |
         # set-environment/set-step-summary
 
+        date >> $GITHUB_STEP_SUMMARY
+
         STATUS="OK"
         [ -z "$BACKEND_ACCOUNT"    ] && echo "::error ::Github repository variable BACKEND_ACCOUNT not set" && STATUS="ERROR"
         [ -z "$BACKEND_REGION"     ] && echo "::error ::Github repository variable BACKEND_REGION not set" && STATUS="ERROR"

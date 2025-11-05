@@ -18,7 +18,7 @@ runs:
 
     - name: Time
       shell: bash
-      run: date | tee -a $GITHUB_STEP_SUMMARY
+      run: date
 
     - name: set environment from vars
       if: inputs.json != ''
