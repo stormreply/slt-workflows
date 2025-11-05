@@ -30,6 +30,7 @@ runs:
           "SHORT_NAME":         "$SHORT_NAME",
           "STATE_FILE":         "$STATE_FILE",
           "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
+          "TOKEN_MD5_SUM":      "$TOKEN_MD5_SUM",
           "TOKEN_TYPE":         "$TOKEN_TYPE"
         }
         EOF
