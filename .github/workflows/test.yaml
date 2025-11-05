@@ -64,17 +64,6 @@ jobs:
     env: ${{ fromJson(needs.plan.outputs.env_json) }}
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
-          json: "${{ toJson(vars) }}"
-          yaml: |
-            ENVIRONMENT: ${{ github.actor }}
-
       - name: apply
         uses: stormreply/slt-workflows/.github/actions/apply@main
 
