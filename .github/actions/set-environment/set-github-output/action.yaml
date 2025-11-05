@@ -13,16 +13,17 @@ runs:
       shell: bash
       run: |
         # set-environment/set-github-output
-        echo $GITHUB_ENV
-        ls -la $GITHUB_ENV
 
-        echo GITHUB_ENV VON HIER
-        cat $GITHUB_ENV
-        echo BIS HIER
+        # echo $GITHUB_ENV
+        # ls -la $GITHUB_ENV
 
-        echo ENV VON HIER
-        env
-        echo BIS HIER
+        # echo GITHUB_ENV VON HIER
+        # cat $GITHUB_ENV
+        # echo BIS HIER
+
+        # echo ENV VON HIER
+        # env
+        # echo BIS HIER
 
         cat << EOF > env.json
         {
@@ -32,6 +33,7 @@ runs:
           "BACKEND_BUCKET":     "$BACKEND_BUCKET",
           "BACKEND_REGION":     "$BACKEND_REGION",
           "BACKEND_ROLE":       "$BACKEND_ROLE",
+          "CATALOG_ID":         "$CATALOG_ID",
           "DEPLOYMENT_ACCOUNT": "$DEPLOYMENT_ACCOUNT",
           "DEPLOYMENT_NAME":    "$DEPLOYMENT_NAME",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
@@ -39,6 +41,7 @@ runs:
           "ENVIRONMENT":        "$ENVIRONMENT",
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
           "REPO":               "$REPO",
+          "REPOSITORY":         "$REPOSITORY",
           "SHORT_NAME":         "$SHORT_NAME",
           "STATE_FILE":         "$STATE_FILE",
           "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
@@ -50,6 +53,6 @@ runs:
         echo "env_json=$env_json"
         echo "env_json=$env_json" >> $GITHUB_OUTPUT
 
-        echo GITHUB_OUTPUT VON HIER
-        cat $GITHUB_OUTPUT
-        echo BIS HIER
+        # echo GITHUB_OUTPUT VON HIER
+        # cat $GITHUB_OUTPUT
+        # echo BIS HIER
