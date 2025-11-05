@@ -78,8 +78,22 @@ jobs:
         id: get-access-token
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-access-token@main
 
-  build:
+  boot:
     needs: [init, sso]
+    runs-on: ubuntu-latest
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
+    steps:
+
+      - name: set backend credentials
+        uses: stormreply/slt-workflows/.github/actions/configure/sso/set-backend-credentials@main
+        with:
+          access_token: ${{ needs.sso.outputs.access_token }}
+
+      - name: create backend bucket
+        uses: stormreply/slt-workflows/.github/actions/configure/boot/create-backend-bucket@main
+
+  build:
+    needs: [init, boot]
     runs-on: ubuntu-latest
     env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
