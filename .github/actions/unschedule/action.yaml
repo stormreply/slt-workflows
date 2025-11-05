@@ -19,6 +19,8 @@ runs:
         account_id=${{ env.DEPLOYMENT_ACCOUNT }}
         region=${{ env.DEPLOYMENT_REGION }}
         repo=${{ env.REPO }}
+        repository="${{ env.REPOSITORY }}"
+        owner=${repository%/*}
         environment=${{ env.ENVIRONMENT }}
 
         jobs=$(
@@ -30,7 +32,7 @@ runs:
 
         [ "${jobs}" != "null" ] && jobs=$(echo "${jobs}" | jq -r ".[]") || jobs=""
 
-        pattern="${action}.${account_id}.${region}.${repo}.${environment}"
+        pattern="${action}.${account_id}.${region}.${owner}.${repo}.${environment}"
 
         if [ -n "$jobs" ] ; then
           for key in $jobs ; do
