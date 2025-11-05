@@ -35,7 +35,9 @@ runs:
         | short name                    | $SHORT_NAME        |
         | state file                    | $STATE_FILE        |
         | terraform app id              | $TERRAFORM_APP_ID  |
-        | **Token type**                | $TOKEN_TYPE        |
+        | **Token**                     |                    |
+        | token type                    | $TOKEN_TYPE        |
+        | token shasum                  | $TOKEN_SHASUM      |
 
         EOF
 
