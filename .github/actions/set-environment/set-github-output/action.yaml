@@ -13,6 +13,8 @@ runs:
       shell: bash
       run: |
         # set-environment/set-github-output
+        echo $GITHUB_ENV
+        cat $GITHUB_ENV
         cat << EOF > env.json
         {
           "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
