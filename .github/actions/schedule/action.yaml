@@ -38,10 +38,12 @@ runs:
         account_id=${{ env.DEPLOYMENT_ACCOUNT }}
         region=${{ env.DEPLOYMENT_REGION }}
         repo="${{ env.REPO }}"
+        repository="${{ env.REPOSITORY }}"
+        owner=${repository%/*}
         environment=${{ inputs.environment || env.ENVIRONMENT || github.actor }}
 
 
-        job="${date}.${time}.${action}.${account_id}.${region}.${repo}.${environment}"
+        job="${date}.${time}.${action}.${account_id}.${region}.${owner}.${repo}.${environment}"
 
         cat << EOF | grep -E -v ': "(null|)"' | yq -o=json >> ${job}
         environment: "$environment"
