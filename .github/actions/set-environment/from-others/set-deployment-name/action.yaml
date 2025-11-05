@@ -4,19 +4,16 @@ runs:
   using: composite
   steps:
 
-    - name: download catalog.yaml
-      # TODO: replace download with checkout iot retrieve catalog
-      uses: stormreply/slt-workflows/.github/actions/download@main
+    - name: checkout storm-library-for-terraform
+      uses: actions/checkout@v4
       with:
-        file: catalog.yaml
-      continue-on-error: true
+        repository: stormreply/storm-library-for-terraform
+        sparse-checkout: catalog.yaml
 
     - name: get catalog id
       id: get-catalog-id
       shell: bash
       run: |
-        ls -la
-
         # set-environment/from-others/get-catalog-id
         status=$(
           cat catalog.yaml | jq '( .status // empty )' 2> /dev/null \
