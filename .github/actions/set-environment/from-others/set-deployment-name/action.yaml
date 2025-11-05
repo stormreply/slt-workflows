@@ -15,6 +15,8 @@ runs:
       id: get-catalog-id
       shell: bash
       run: |
+        ls -la
+
         # set-environment/from-others/get-catalog-id
         status=$(
           cat catalog.yaml | jq '( .status // empty )' 2> /dev/null \
