@@ -41,6 +41,8 @@ jobs:
 
   plan:
     runs-on: ubuntu-latest
+    outputs:
+      env_json: ${{ steps.set-environment.outputs.env_json }}
     steps:
 
       - name: set environment
