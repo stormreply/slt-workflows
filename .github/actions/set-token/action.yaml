@@ -73,7 +73,7 @@ runs:
 
         echo "::notice ::using your $type as token"
 
-        md5sum=$(md5sum($token))
+        md5sum=$(md5sum "$token")
 
         cat << EOF | tee -a $GITHUB_ENV
         TOKEN=$token
