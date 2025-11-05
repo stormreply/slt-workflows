@@ -14,7 +14,11 @@ runs:
       run: |
         # set-environment/set-github-output
         echo $GITHUB_ENV
+
+        echo GITHUB_ENV VON HIER
         cat $GITHUB_ENV
+        echo BIS HIER
+
         cat << EOF > env.json
         {
           "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
@@ -40,4 +44,7 @@ runs:
         env_json=$(cat env.json | jq -c)
         echo "env_json=$env_json"
         echo "env_json=$env_json" >> $GITHUB_OUTPUT
+
+        echo GITHUB_OUTPUT VON HIER
         cat $GITHUB_OUTPUT
+        echo BIS HIER
