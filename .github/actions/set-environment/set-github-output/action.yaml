@@ -27,6 +27,7 @@ runs:
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
           "ENVIRONMENT":        "$ENVIRONMENT",
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
+          "REPO":               "$REPO",
           "SHORT_NAME":         "$SHORT_NAME",
           "STATE_FILE":         "$STATE_FILE",
           "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
