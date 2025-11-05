@@ -20,6 +20,10 @@ runs:
         cat $GITHUB_ENV
         echo BIS HIER
 
+        echo ENV VON HIER
+        env
+        echo BIS HIER
+
         cat << EOF > env.json
         {
           "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
