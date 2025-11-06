@@ -60,11 +60,11 @@ jobs:
             ENVIRONMENT: ${{ inputs.environment || github.actor }}
           show: destroy
 
-      - name: destroy
-        uses: stormreply/slt-workflows/.github/actions/destroy@main
+      # - name: destroy
+      #   uses: stormreply/slt-workflows/.github/actions/destroy@main
 
-      - name: unschedule actions
-        uses: stormreply/slt-workflows/.github/actions/unschedule@main
-        with:
-          action: ".*"
+      # - name: unschedule actions
+      #   uses: stormreply/slt-workflows/.github/actions/unschedule@main
+      #   with:
+      #     action: ".*"
         # continue-on-error: true
