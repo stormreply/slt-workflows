@@ -1,5 +1,5 @@
 name: Set deployment tags
-
+# TODO: delete while action
 runs:
   using: composite
   steps:

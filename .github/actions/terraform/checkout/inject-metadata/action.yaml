@@ -1,13 +1,13 @@
-name: Create _metadata.tfvars
+name: Inject _metadata.tfvars
 
 runs:
   using: composite
   steps:
 
-    - name: create _metadata.tfvars
+    - name: inject _metadata.tfvars
       shell: bash
       run: |
-        # checkout/create-metadata-tfvars
+        # checkout/inject-metadata-tfvars
 
         catalog_id=${{ env.CATALOG_ID }}
         deployment_name=${{ env.DEPLOYMENT_NAME }}

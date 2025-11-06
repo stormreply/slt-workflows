@@ -1,13 +1,13 @@
-name: Create backend
+name: Inject Terraform backend
 
 runs:
   using: composite
   steps:
 
-    - name: create backend.tfvars
+    - name: inject Terraform backend
       shell: bash
       run: |
-        # checkout/create-backend
+        # checkout/inject-backend
         cat << EOF > backend.tf
         terraform {
           backend "s3" {}

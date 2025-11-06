@@ -1,17 +1,23 @@
-name: Create backend
+name: Inject AWS provider
 
 runs:
   using: composite
   steps:
 
-    - name: create backend.tfvars
+    - name: inject aws provider
       shell: bash
       run: |
-        # checkout/create-backend
-        cat << EOF > aws-provider.tf
-        provider "aws" {
-          default_tags {
-            tags = local._default_tags
+        # checkout/inject-aws-provider
+
+        if [ ! -f providers.tf ] ; then
+          echo "INJECTING providers.tf"
+          cat << EOF > providers.tf
+          provider "aws" {
+            default_tags {
+              tags = local._default_tags
+            }
           }
-        }
         EOF
+        else
+          echo "existing providers.tf - no injection"
+        fi

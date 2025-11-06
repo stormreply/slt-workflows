@@ -1,13 +1,13 @@
-name: Create init.tfvars
+name: Inject init.tfvars
 
 runs:
   using: composite
   steps:
 
-    - name: create init.tfvars
+    - name: inject init.tfvars
       shell: bash
       run: |
-        # checkout/create-init-tfvars
+        # checkout/inject-init-tfvars
         cat << EOF >> init.tfvars
         backend_bucket = "${{ env.BACKEND_BUCKET }}"
         oidc_principal = "${{ env.OIDC_PRINCIPAL }}"
