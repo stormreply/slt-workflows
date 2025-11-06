@@ -1,0 +1,17 @@
+name: Create backend
+
+runs:
+  using: composite
+  steps:
+
+    - name: create backend.tfvars
+      shell: bash
+      run: |
+        # checkout/create-backend
+        cat << EOF > aws-provider.tf
+        provider "aws" {
+          default_tags {
+            tags = local._default_tags
+          }
+        }
+        EOF
