@@ -129,5 +129,6 @@ jobs:
           steps.unschedule-apply.outcome == 'failure' ||
           steps.schedule-destroy.outcome == 'failure'
         run: |
+          # failed
           echo "at least one step failed — marking job as failed."
           exit 1
