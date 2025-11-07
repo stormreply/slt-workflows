@@ -1,0 +1,21 @@
+name: Unlock Terraform
+
+runs:
+  using: composite
+  steps:
+
+    - name: remove lockfile
+      id: remove-lockfile
+      shell: bash
+      run: |
+        # remove-lockfile
+
+        backend_bucket=${{ env.BACKEND_BUCKET }}
+        repository=${{ github.repository }}
+        lockfile=${{ env.DEPLOYMENT_NAME }}.tflock
+
+        lockfile="s3://${backend_bucket}/${repository}/${lockfile}"
+
+        echo "removing lockfile ${lockfile}"
+
+        aws s3 rm ${lockfile} > /dev/null 2&>1 || true

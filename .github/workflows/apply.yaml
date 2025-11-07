@@ -98,18 +98,36 @@ jobs:
     steps:
 
       - name: apply
+        id: apply
         uses: stormreply/slt-workflows/.github/actions/apply@main
         continue-on-error: true
 
       - name: unschedule apply
+        id: unschedule-apply
         uses: stormreply/slt-workflows/.github/actions/unschedule@main
         with:
           action: apply
         continue-on-error: true
 
       - name: schedule destroy
+        id: schedule-destroy
         uses: stormreply/slt-workflows/.github/actions/schedule@main
         with:
           action: destroy
           delay: ${{ inputs.lifetime }}
           environment: ${{ inputs.environment || github.actor }}
+        continue-on-error: true
+
+      - name: unlock terraform
+        id: unlock-terraform
+        if: steps.apply.outcome == 'failure'
+        uses: stormreply/slt-workflows/.github/actions/unlock@main
+
+      - name: check failure
+        if: |
+          steps.apply.outcome == 'failure' ||
+          steps.unschedule-apply.outcome == 'failure' ||
+          steps.schedule-destroy.outcome == 'failure'
+        run: |
+          echo "at least one step failed — marking job as failed."
+          exit 1
