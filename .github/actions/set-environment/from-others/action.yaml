@@ -26,9 +26,6 @@ runs:
       run: |
         # set-environment/from-others
 
-        DEPLOYMENT_ACCOUNT=${{ env.DEPLOYMENT_ACCOUNT }}
-        DEPLOYMENT_REGION=${{ env.DEPLOYMENT_REGION }}
-
         [ -z "$DEPLOYMENT_ACCOUNT" ] && DEPLOYMENT_ACCOUNT=${{ env.BACKEND_ACCOUNT }}
         [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
 
