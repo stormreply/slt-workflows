@@ -19,23 +19,23 @@ runs:
         echo "STATUS: [$STATUS]"
         cat << EOF >> $GITHUB_STEP_SUMMARY
 
-        | Parameters                    |                     |   |
-        |:------------------------------|---------------------|---|
-        | access domain                 | $ACCESS_DOMAIN      | P |
-        | access role                   | $ACCESS_ROLE        | P |
-        | backend account               | $BACKEND_ACCOUNT    | P |
-        | backend bucket                | $BACKEND_BUCKET     | C |
-        | backend region                | $BACKEND_REGION     | P |
-        | deployment account            | $DEPLOYMENT_ACCOUNT | P |
-        | deployment name               | $DEPLOYMENT_NAME    | C |
-        | deployment region             | $DEPLOYMENT_REGION  | P |
-        | environment                   | $ENVIRONMENT        | P |
-        | oidc principal                | $OIDC_PRINCIPAL     | P |
-        | short name                    | $SHORT_NAME         | C |
-        | state file                    | $STATE_FILE         | C |
-        | terraform app id              | $TERRAFORM_APP_ID   | V |
-        | token shasum                  | $TOKEN_SHASUM       | C |
-        | token type                    | $TOKEN_TYPE         | C |
+        | ENVIRONMENT                   |                     |
+        |:------------------------------|---------------------|
+        | ACCESS_DOMAIN                 | $ACCESS_DOMAIN      |
+        | ACCESS_ROLE                   | $ACCESS_ROLE        |
+        | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
+        | BACKEND_BUCKET                | $BACKEND_BUCKET     |
+        | BACKEND_REGION                | $BACKEND_REGION     |
+        | DEPLOYMENT_ACCOUNT            | $DEPLOYMENT_ACCOUNT |
+        | DEPLOYMENT_NAME               | $DEPLOYMENT_NAME    |
+        | DEPLOYMENT_REGION             | $DEPLOYMENT_REGION  |
+        | ENVIRONMENT                   | $ENVIRONMENT        |
+        | OIDC_PRINCIPAL                | $OIDC_PRINCIPAL     |
+        | SHORT_NAME                    | $SHORT_NAME         |
+        | STATE_FILE                    | $STATE_FILE         |
+        | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
+        | TOKEN_SHASUM                  | $TOKEN_SHASUM       |
+        | TOKEN_TYPE                    | $TOKEN_TYPE         |
 
         EOF
 
