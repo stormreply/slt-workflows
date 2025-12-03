@@ -26,10 +26,11 @@ runs:
       run: |
         # set-environment/from-others
 
-        # TEMPORARILY
-        DEPLOYMENT_ACCOUNT=${{ env.BACKEND_ACCOUNT }}
-        DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
-        # TEMPORARILY
+        DEPLOYMENT_ACCOUNT=${{ env.DEPLOYMENT_ACCOUNT }}
+        DEPLOYMENT_REGION=${{ env.DEPLOYMENT_REGION }}
+
+        [ -z "$DEPLOYMENT_ACCOUNT" ] && DEPLOYMENT_ACCOUNT=${{ env.BACKEND_ACCOUNT }}
+        [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
 
         cat << EOF >> $GITHUB_ENV
         BACKEND_ROLE=slt-0-storm-library-for-terraform-backend
