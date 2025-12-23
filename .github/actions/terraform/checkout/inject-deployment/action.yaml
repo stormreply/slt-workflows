@@ -13,9 +13,7 @@ runs:
         deployment_name=${{ env.DEPLOYMENT_NAME }}
         short_name=${{ env.SHORT_NAME }}
 
-        [ -n "${{ env.ENVIRONMENT }}" ] \
-        && environment="${{ env.ENVIRONMENT }}" \
-        || environment="${{ github.actor }}"
+        [ -n "${{ env.ACTOR }}" ] && actor="${{ env.ACTOR }}" || actor="${{ github.actor }}"
 
         cat << EOF > deployment.tf
         locals {
@@ -30,7 +28,6 @@ runs:
         variable "deployment" {
           type = object({
             actor       = string # Github actor (deployer) of the deployment
-            environment = string # environment of the deployment
             name        = string # name of the deployment
             ref         = string # Git reference of the deployment
             ref_name    = string # Git ref_name (branch) of the deployment
@@ -42,7 +39,6 @@ runs:
           })
           default = {
             actor       = "${{ github.actor }}"
-            environment = "${environment}"
             name        = "${deployment_name}"
             ref         = "${{ github.ref }}"
             ref_name    = "${{ github.ref_name }}"

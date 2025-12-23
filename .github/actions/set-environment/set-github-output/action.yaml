@@ -38,7 +38,6 @@ runs:
           "DEPLOYMENT_NAME":    "$DEPLOYMENT_NAME",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
-          "ENVIRONMENT":        "$ENVIRONMENT",
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
           "REPO":               "$REPO",
           "REPOSITORY":         "$REPOSITORY",

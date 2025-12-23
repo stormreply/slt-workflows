@@ -15,14 +15,11 @@ runs:
         repo=${repository##*/}
         short_name=${{ env.SHORT_NAME }}
 
-        environment=${${{ env.ENVIRONMENT }}:-${{ github.actor }}}
-
         cat << EOF > _metadata.tfvars
         _metadata = {
           actor       = "${{ github.actor }}"
           catalog_id  = "${catalog_id}"
           deployment  = "${deployment_name}"
-          environment = "${environment}"
           ref         = "${{ github.ref }}"
           ref_name    = "${{ github.ref_name }}"
           repo        = "${repo}"

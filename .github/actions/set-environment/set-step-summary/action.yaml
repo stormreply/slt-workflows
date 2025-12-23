@@ -29,7 +29,6 @@ runs:
         | DEPLOYMENT_ACCOUNT            | $DEPLOYMENT_ACCOUNT |
         | DEPLOYMENT_NAME               | $DEPLOYMENT_NAME    |
         | DEPLOYMENT_REGION             | $DEPLOYMENT_REGION  |
-        | ENVIRONMENT                   | $ENVIRONMENT        |
         | OIDC_PRINCIPAL                | $OIDC_PRINCIPAL     |
         | SHORT_NAME                    | $SHORT_NAME         |
         | STATE_FILE                    | $STATE_FILE         |

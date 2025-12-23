@@ -53,11 +53,11 @@ jobs:
           github_inputs: |
             ACCESS_DOMAIN: ${{ inputs.access_domain || vars.ACCESS_DOMAIN }}
             ACCESS_ROLE: ${{ inputs.access_role || vars.ACCESS_ROLE }}
+            ACTOR: ${{ github.actor }}
             BACKEND_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
             BACKEND_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
             DEPLOYMENT_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
             DEPLOYMENT_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
-            ENVIRONMENT: ${{ github.actor }}
             OIDC_PRINCIPAL: ${{ inputs.oidc_principal || vars.OIDC_PRINCIPAL || github.repository_owner }}
           show: init
 

@@ -34,5 +34,5 @@ jobs:
         with:
           github_vars: "${{ toJson(vars) }}"
           github_inputs: |
-            ENVIRONMENT: ${{ github.actor }}
+            ACTOR: ${{ github.actor }}
           show: settings

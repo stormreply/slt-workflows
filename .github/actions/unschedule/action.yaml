@@ -15,13 +15,13 @@ runs:
 
         backend_bucket=${{ env.BACKEND_BUCKET }}
 
-        action=${{ inputs.action }}
         account_id=${{ env.DEPLOYMENT_ACCOUNT }}
+        action=${{ inputs.action }}
+        actor=${{ github.actor }}
+        owner=${repository%/*}
         region=${{ env.DEPLOYMENT_REGION }}
         repo=${{ env.REPO }}
         repository="${{ env.REPOSITORY }}"
-        owner=${repository%/*}
-        environment=${{ env.ENVIRONMENT }}
 
         jobs=$(
           aws s3api list-objects-v2 \
@@ -32,7 +32,7 @@ runs:
 
         [ "${jobs}" != "null" ] && jobs=$(echo "${jobs}" | jq -r ".[]") || jobs=""
 
-        pattern="${action}.${account_id}.${region}.${owner}.${repo}.${environment}"
+        pattern="${action}.${account_id}.${region}.${owner}.${repo}.${actor}"
 
         if [ -n "$jobs" ] ; then
           for key in $jobs ; do

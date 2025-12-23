@@ -51,18 +51,12 @@ runs:
         short_name="$catalog_reference"
         rm catalog.yaml
 
+        [ -n "${{ env.ACTOR }}" ] && actor="${{ env.ACTOR }}" || actor="${{ github.actor }}"
         repository=${{ github.repository }}
         repo=${repository##*/}
 
-        name="${catalog_reference}-${repo}"
-
-        if [ "${catalog_id}" != "0" ] ; then
-          [ -n "${{ env.ENVIRONMENT }}" ] \
-          && environment="${{ env.ENVIRONMENT }}" \
-          || environment="${{ github.actor }}"
-          name="${name}-${environment}"
-          short_name="${short_name}-${environment}"
-        fi
+        name="${catalog_reference}-${repo}-${actor}"
+        short_name="${short_name}-${actor}"
 
         cat << EOF | tee -a $GITHUB_ENV
         CATALOG_ID=$catalog_id
