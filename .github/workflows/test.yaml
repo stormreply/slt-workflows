@@ -31,7 +31,7 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          json: "${{ toJson(vars) }}"
+          github_vars: "${{ toJson(vars) }}"
           yaml: |
             ENVIRONMENT: ${{ github.actor }}
           show: test
@@ -49,7 +49,7 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          json: "${{ toJson(vars) }}"
+          github_vars: "${{ toJson(vars) }}"
           yaml: |
             ENVIRONMENT: ${{ github.actor }}
 

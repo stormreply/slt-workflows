@@ -32,7 +32,7 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          json: "${{ toJson(vars) }}"
+          github_vars: "${{ toJson(vars) }}"
           show: scheduler
 
       - name: gh auth login

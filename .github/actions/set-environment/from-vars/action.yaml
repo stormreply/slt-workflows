@@ -1,7 +1,7 @@
 name: Set environment from vars
 
 inputs:
-  json:
+  github_vars:
     required: true
 
 runs:
@@ -13,6 +13,6 @@ runs:
       shell: bash
       run: |
         # set-environment/from-vars
-        echo '${{ inputs.json }}' \
+        echo '${{ inputs.github_vars }}' \
         | jq -r 'to_entries | map("\(.key)=\(.value)") | .[]' \
         | tee -a $GITHUB_ENV

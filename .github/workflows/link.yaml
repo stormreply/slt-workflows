@@ -36,7 +36,7 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          json: "${{ toJson(vars) }}"
+          github_vars: "${{ toJson(vars) }}"
           yaml: |
             BACKEND_ACCOUNT: ${{ inputs.backend_account }}
             BACKEND_REGION: ${{ inputs.backend_region }}
