@@ -1,7 +1,7 @@
 name: Set environment from inputs
 
 inputs:
-  yaml:
+  github_inputs:
     required: true
 
 runs:
@@ -12,9 +12,9 @@ runs:
       shell: bash
       run: |
         # set-environment/from-inputs
-        yaml="${{ inputs.yaml }}"
-        # echo "$yaml"
-        IFS=$'\n' lines=($yaml)
+        github_inputs="${{ inputs.github_inputs }}"
+        # echo "$github_inputs"
+        IFS=$'\n' lines=($github_inputs)
         for l in "${lines[@]}" ; do
           key=${l%%:*}
           val=${l##*: }

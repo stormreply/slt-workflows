@@ -28,7 +28,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          yaml: |
+          github_inputs: |
             ENVIRONMENT: ${{ github.actor }}
           show: plan
 
@@ -44,7 +44,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          yaml: |
+          github_inputs: |
             ENVIRONMENT: ${{ github.actor }}
 
       - name: plan

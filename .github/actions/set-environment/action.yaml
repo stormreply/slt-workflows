@@ -1,9 +1,9 @@
 name: Set environment vars
 
 inputs:
-  github_vars:
+  github_inputs:
     required: false
-  yaml:
+  github_vars:
     required: false
   show:
     required: false
@@ -28,11 +28,11 @@ runs:
         github_vars: ${{ inputs.github_vars }}
 
     - name: set environment from inputs
-      if: inputs.yaml != ''
+      if: inputs.github_inputs != ''
       id: set-environment-from-inputs
       uses: stormreply/slt-workflows/.github/actions/set-environment/from-inputs@main
       with:
-        yaml: ${{ inputs.yaml }}
+        github_inputs: ${{ inputs.github_inputs }}
 
     - name: set environment from others
       id: set-environment-from-others

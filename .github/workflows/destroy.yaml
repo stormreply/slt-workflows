@@ -33,7 +33,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          yaml: |
+          github_inputs: |
             ENVIRONMENT: ${{ inputs.environment || github.actor }}
           show: destroy
 
@@ -56,7 +56,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          yaml: |
+          github_inputs: |
             ENVIRONMENT: ${{ inputs.environment || github.actor }}
           show: destroy
 
