@@ -98,6 +98,9 @@ jobs:
       - name: create backend bucket
         uses: stormreply/slt-workflows/.github/actions/configure/build/create-backend-bucket@main
 
+      - name: create github oidc provider
+        uses: stormreply/slt-workflows/.github/actions/configure/build/create-github-oidc-provider@main
+
       - name: checkout code
         uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
         with:

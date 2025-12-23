@@ -1,0 +1,14 @@
+name: Create GitHub OIDC provider
+
+runs:
+  using: composite
+  steps:
+
+    - name: create github oidc provider
+      shell: bash
+      run: |
+        # configure/build/create-github-oidc-provider
+        aws iam create-open-id-connect-provider \
+          --url https://token.actions.githubusercontent.com \
+          --client-id-list sts.amazonaws.com \
+        || true

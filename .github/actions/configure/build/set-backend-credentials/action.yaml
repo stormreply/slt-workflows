@@ -10,7 +10,7 @@ runs:
     - name: Set backend credentials
       shell: bash
       run: |
-        # init/set-backend-credentials
+        # configure/build/set-backend-credentials
 
         echo "login into account ${{ env.BACKEND_ACCOUNT }} with role ${{ env.ACCESS_ROLE }}"
 
