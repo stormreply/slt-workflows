@@ -1,5 +1,10 @@
 name: Set GITHUB_OUTPUT
 
+inputs:
+  show:
+    required: true
+    default: settings
+
 outputs:
   env_json:
     value: ${{ steps.set-github-output.outputs.env_json }}
@@ -27,8 +32,7 @@ runs:
 
         cat << EOF > env.json
         {
-          "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
-          "ACCESS_ROLE":        "$ACCESS_ROLE",
+          "ACTOR":              "$ACTOR",
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
           "BACKEND_BUCKET":     "$BACKEND_BUCKET",
           "BACKEND_REGION":     "$BACKEND_REGION",
@@ -38,16 +42,28 @@ runs:
           "DEPLOYMENT_NAME":    "$DEPLOYMENT_NAME",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
-          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
           "REPO":               "$REPO",
           "REPOSITORY":         "$REPOSITORY",
           "SHORT_NAME":         "$SHORT_NAME",
           "STATE_FILE":         "$STATE_FILE",
-          "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
           "TOKEN_SHASUM":       "$TOKEN_SHASUM",
           "TOKEN_TYPE":         "$TOKEN_TYPE"
+        EOF
+
+        [ "${{ inputs.show }} == "init" ] && cat << EOF >> env.json
+          "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
+          "ACCESS_ROLE":        "$ACCESS_ROLE",
+          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
+        EOF
+
+        [ -n "$TERRAFORM_APP_ID" ] && cat << EOF >> env.json
+          "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
+        EOF
+
+        cat << EOF >> env.json
         }
         EOF
+
         env_json=$(cat env.json | jq -c)
         echo "env_json=$env_json"
         echo "env_json=$env_json" >> $GITHUB_OUTPUT
