@@ -30,8 +30,8 @@ runs:
         [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
 
         cat << EOF >> $GITHUB_ENV
-        BACKEND_ROLE=slt-0-storm-library-for-terraform-backend
+        BACKEND_ROLE=slt-0-storm-library-for-terraform-backend-${{ env.ACTOR }}
         DEPLOYMENT_ACCOUNT=$DEPLOYMENT_ACCOUNT
         DEPLOYMENT_REGION=$DEPLOYMENT_REGION
-        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-deployment
+        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-deployment-${{ env.ACTOR }}
         EOF
