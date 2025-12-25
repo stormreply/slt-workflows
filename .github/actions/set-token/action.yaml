@@ -73,7 +73,7 @@ runs:
 
         echo "::notice ::using your $type as token"
 
-        # echo token_shasum="$(echo "$token" | shasum | awk '{ print $1 }')"
+        token_shasum="$(echo "$token" | shasum | awk '{ print $1 }')"
 
         cat << EOF | tee -a $GITHUB_ENV
         TOKEN=$token
