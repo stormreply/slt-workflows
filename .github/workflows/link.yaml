@@ -38,6 +38,7 @@ jobs:
         with:
           github_vars: "${{ toJson(vars) }}"
           github_inputs: |
+            ACTOR: ${{ github.actor }}
             BACKEND_ACCOUNT: ${{ inputs.backend_account }}
             BACKEND_REGION: ${{ inputs.backend_region }}
           show: set-backend
