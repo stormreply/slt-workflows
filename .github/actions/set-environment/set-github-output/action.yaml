@@ -32,6 +32,14 @@ runs:
 
         cat << EOF > env.json
         {
+        EOF
+
+        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> env.json
+          "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
+          "ACCESS_ROLE":        "$ACCESS_ROLE",
+        EOF
+
+        cat << EOF >> env.json
           "ACTOR":              "$ACTOR",
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
           "BACKEND_BUCKET":     "$BACKEND_BUCKET",
@@ -42,18 +50,17 @@ runs:
           "DEPLOYMENT_NAME":    "$DEPLOYMENT_NAME",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
+        EOF
+
+        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> env.json
+          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
+        EOF
+
+        cat << EOF >> env.json
           "REPO":               "$REPO",
           "REPOSITORY":         "$REPOSITORY",
           "SHORT_NAME":         "$SHORT_NAME",
           "STATE_FILE":         "$STATE_FILE",
-          "TOKEN_SHASUM":       "$TOKEN_SHASUM",
-          "TOKEN_TYPE":         "$TOKEN_TYPE"
-        EOF
-
-        [ "${{ inputs.show }} == "init" ] && cat << EOF >> env.json
-          "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
-          "ACCESS_ROLE":        "$ACCESS_ROLE",
-          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
         EOF
 
         [ -n "$TERRAFORM_APP_ID" ] && cat << EOF >> env.json
@@ -61,6 +68,8 @@ runs:
         EOF
 
         cat << EOF >> env.json
+          "TOKEN_SHASUM":       "$TOKEN_SHASUM",
+          "TOKEN_TYPE":         "$TOKEN_TYPE"
         }
         EOF
 
