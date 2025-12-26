@@ -20,6 +20,7 @@ runs:
     - name: Configure terraform backend role
       shell: bash
       run: |
+        # terraform/checkout/set-backend-profile: configure terraform backend role
         aws configure set profile.backend.region ${{ env.BACKEND_REGION }}
         aws configure set profile.backend.aws_access_key_id $(echo ${AWS_ACCESS_KEY_ID})
         aws configure set profile.backend.aws_secret_access_key $(echo ${AWS_SECRET_ACCESS_KEY})

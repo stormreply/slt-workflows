@@ -34,6 +34,7 @@ runs:
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
         | BACKEND_REGION                | $BACKEND_REGION     |
+        | BACKEND_ROLE                  | $BACKEND_ROLE       |
         | CATALOG_ID                    | $CATALOG_ID         |
         | DEPLOYMENT_ACCOUNT            | $DEPLOYMENT_ACCOUNT |
         | DEPLOYMENT_NAME               | $DEPLOYMENT_NAME    |
