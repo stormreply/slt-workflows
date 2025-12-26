@@ -17,25 +17,48 @@ runs:
         [ -z "$DEPLOYMENT_ACCOUNT" ] && echo "::error ::Github repository variable DEPLOYMENT_ACCOUNT not set" && STATUS="ERROR"
         [ -z "$DEPLOYMENT_REGION"  ] && echo "::error ::Github repository variable DEPLOYMENT_REGION not set" && STATUS="ERROR"
         echo "STATUS: [$STATUS]"
+
         cat << EOF >> $GITHUB_STEP_SUMMARY
 
         | ENVIRONMENT                   |                     |
         |:------------------------------|---------------------|
+        EOF
+
+        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | ACCESS_DOMAIN                 | $ACCESS_DOMAIN      |
         | ACCESS_ROLE                   | $ACCESS_ROLE        |
+        EOF
+
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        | ACTOR                         | $ACTOR              |
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
         | BACKEND_REGION                | $BACKEND_REGION     |
+        | CATALOG_ID                    | $CATALOG_ID         |
         | DEPLOYMENT_ACCOUNT            | $DEPLOYMENT_ACCOUNT |
         | DEPLOYMENT_NAME               | $DEPLOYMENT_NAME    |
         | DEPLOYMENT_REGION             | $DEPLOYMENT_REGION  |
+        | DEPLOYMENT_ROLE               | $DEPLOYMENT_ROLE    |
+        EOF
+
+        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | OIDC_PRINCIPAL                | $OIDC_PRINCIPAL     |
+        EOF
+
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        | REPO                          | $REPO               |
+        | REPOSITORY                    | $REPOSITORY         |
         | SHORT_NAME                    | $SHORT_NAME         |
         | STATE_FILE                    | $STATE_FILE         |
+        EOF
+
+        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
+        EOF
+
+        cat << EOF >> $GITHUB_STEP_SUMMARY
         | TOKEN_SHASUM                  | $TOKEN_SHASUM       |
         | TOKEN_TYPE                    | $TOKEN_TYPE         |
-
         EOF
 
         [ "$STATUS" = "OK" ] && exit 0 || exit 1
