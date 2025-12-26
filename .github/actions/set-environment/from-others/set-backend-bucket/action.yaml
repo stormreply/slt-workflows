@@ -9,5 +9,5 @@ runs:
       run: |
         # set-environment/from-others/set-backend-bucket
         cat << EOF | tee -a $GITHUB_ENV
-        BACKEND_BUCKET=storm-library-for-terraform-${{ env.BACKEND_ACCOUNT }}
+        BACKEND_BUCKET=storm-library-for-terraform-${{ env.ACTOR }}-${{ env.BACKEND_ACCOUNT }}
         EOF
