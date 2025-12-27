@@ -1,7 +1,7 @@
 name: Set GITHUB_OUTPUT
 
 inputs:
-  show:
+  action:
     required: true
     default: settings
 
@@ -34,7 +34,7 @@ runs:
         {
         EOF
 
-        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> env.json
+        [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
           "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
           "ACCESS_ROLE":        "$ACCESS_ROLE",
         EOF
@@ -51,7 +51,7 @@ runs:
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
         EOF
 
-        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> env.json
+        [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
           "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
         EOF
 

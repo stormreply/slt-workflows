@@ -55,7 +55,7 @@ jobs:
             DEPLOYMENT_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
             DEPLOYMENT_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
             OIDC_PRINCIPAL: ${{ github.repository_owner }}
-          show: init
+          action: configure
 
       - name: save variables in ${{github.repository}}
         uses: stormreply/slt-workflows/.github/actions/configure/init/save-variables@main

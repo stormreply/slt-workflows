@@ -40,7 +40,7 @@ jobs:
           github_inputs: |
             BACKEND_ACCOUNT: ${{ inputs.backend_account }}
             BACKEND_REGION: ${{ inputs.backend_region }}
-          show: set-backend
+          action: link
 
       - name: save backend account
         id: save-backend-account

@@ -15,7 +15,7 @@ permissions:
 
 jobs:
 
-  show:
+  settings:
     runs-on: ubuntu-latest
     steps:
 
@@ -33,4 +33,4 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          show: settings
+          action: settings

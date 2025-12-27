@@ -33,7 +33,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          show: scheduler
+          action: scheduler
 
       - name: gh auth login
         # we need gh auth in order to run a gh workflow

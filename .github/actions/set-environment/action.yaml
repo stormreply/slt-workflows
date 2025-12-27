@@ -5,7 +5,7 @@ inputs:
     required: false
   github_vars:
     required: false
-  show:
+  action:
     required: false
 
 outputs:
@@ -42,9 +42,9 @@ runs:
       id: set-github-output
       uses: stormreply/slt-workflows/.github/actions/set-environment/set-github-output@main
       with:
-        show: ${{ inputs.show }}
+        action: ${{ inputs.action }}
 
     - name: set step summary
-      if: inputs.show != ''
+      if: inputs.action != ''
       id: set-github-step-summary
       uses: stormreply/slt-workflows/.github/actions/set-environment/set-step-summary@main

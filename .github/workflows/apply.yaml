@@ -37,7 +37,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          show: apply
+          action: apply
 
       - name: set backend profile in AWS config
         uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-backend-profile@main
@@ -58,7 +58,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          show: apply
+          action: apply
 
       - name: scan
         uses: stormreply/slt-workflows/.github/actions/scan@main

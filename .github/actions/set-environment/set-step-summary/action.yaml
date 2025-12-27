@@ -24,7 +24,7 @@ runs:
         |:------------------------------|---------------------|
         EOF
 
-        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | ACCESS_DOMAIN                 | $ACCESS_DOMAIN      |
         | ACCESS_ROLE                   | $ACCESS_ROLE        |
         EOF
@@ -41,7 +41,7 @@ runs:
         | DEPLOYMENT_ROLE               | $DEPLOYMENT_ROLE    |
         EOF
 
-        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | OIDC_PRINCIPAL                | $OIDC_PRINCIPAL     |
         EOF
 
@@ -52,7 +52,7 @@ runs:
         | STATE_KEY                     | $STATE_KEY          |
         EOF
 
-        [ "${{ inputs.show }}" == "init" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
         EOF
 

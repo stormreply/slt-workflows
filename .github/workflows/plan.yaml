@@ -28,7 +28,7 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          show: plan
+          action: plan
 
       - name: scan
         uses: stormreply/slt-workflows/.github/actions/scan@main
