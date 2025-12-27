@@ -13,8 +13,6 @@ runs:
         deployment_name=${{ env.DEPLOYMENT_NAME }}
         short_name=${{ env.SHORT_NAME }}
 
-        [ -n "${{ env.ACTOR }}" ] && actor="${{ env.ACTOR }}" || actor="${{ github.actor }}"
-
         cat << EOF > deployment.tf
         locals {
           module_name = basename(abspath(path.module))

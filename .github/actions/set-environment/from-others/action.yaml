@@ -29,12 +29,9 @@ runs:
         [ -z "$DEPLOYMENT_ACCOUNT" ] && DEPLOYMENT_ACCOUNT=${{ env.BACKEND_ACCOUNT }}
         [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
 
-        [ -z "${{ env.ACTOR }}" ] && actor=${{ github.actor }} || actor=${{ env.ACTOR }}
-
         cat << EOF >> $GITHUB_ENV
-        ACTOR=${actor}
-        BACKEND_ROLE=slt-0-storm-library-for-terraform-${actor}-backend
+        BACKEND_ROLE=slt-0-storm-library-for-terraform-${{ github.actor }}-backend
         DEPLOYMENT_ACCOUNT=$DEPLOYMENT_ACCOUNT
         DEPLOYMENT_REGION=$DEPLOYMENT_REGION
-        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-${actor}-deployment
+        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-${{ github.actor }}-deployment
         EOF

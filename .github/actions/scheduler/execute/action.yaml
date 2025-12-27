@@ -18,12 +18,11 @@ runs:
           account_id=${f%%.*} ; f=${f##$account_id.}
           region=${f%%.*} ; f=${f##$region.}
           owner=${f%%.*} ; f=${f##$owner.}
-          repo=${f%%.*} ; actor=${f##$repo.}
 
           printf "%-8s %-6s %-7s %-12s %-15s %-15s %-30s %-s\n" \
-            "DATE" "TIME" "ACTION" "ACCOUNT_ID" "REGION" "OWNER" "REPO" "ACTOR"
+            "DATE" "TIME" "ACTION" "ACCOUNT_ID" "REGION" "OWNER" "REPO"
           printf "%-8s %-6s %-7s %-12s %-15s %-15s %-30s %-s\n" \
-            "$date" "$time" "$action" "$account_id" "$region" "$owner" "$repo" "$actor"
+            "$date" "$time" "$action" "$account_id" "$region" "$owner" "$repo"
 
           aws s3 cp \
             s3://${{ env.BACKEND_BUCKET }}/schedule/$file \

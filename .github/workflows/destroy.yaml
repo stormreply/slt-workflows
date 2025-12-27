@@ -11,10 +11,6 @@ on:
         type: string
         required: false
         default: ""
-      actor:
-        type: string
-        required: false
-        default: ""
     secrets:
       STORM_LIBRARY_FOR_TERRAFORM:
         required: false
@@ -33,8 +29,6 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          github_inputs: |
-            ACTOR: ${{ inputs.actor || github.actor }}
           show: destroy
 
       - name: set backend profile in AWS config
@@ -56,8 +50,6 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          github_inputs: |
-            ACTOR: ${{ inputs.actor || github.actor }}
           show: destroy
 
       - name: destroy

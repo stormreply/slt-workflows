@@ -3,8 +3,6 @@ name: Schedule action
 inputs:
   action:
     required: true
-  actor:
-    required: false
   lifetime:
     required: false
   delay:
@@ -35,7 +33,6 @@ runs:
         date="${datetime:0:8}"
         time="${datetime:8:6}"
         action=${{ inputs.action }}
-        actor=${{ github.actor }}
         account_id=${{ env.DEPLOYMENT_ACCOUNT }}
         region=${{ env.DEPLOYMENT_REGION }}
         repo="${{ env.REPO }}"
@@ -43,10 +40,9 @@ runs:
         owner=${repository%/*}
 
 
-        job="${date}.${time}.${action}.${account_id}.${region}.${owner}.${repo}.${actor}"
+        job="${date}.${time}.${action}.${account_id}.${region}.${owner}.${repo}"
 
         cat << EOF | grep -E -v ': "(null|)"' | yq -o=json >> ${job}
-        actor: "$actor"
         lifetime: "$lifetime"
         EOF
 

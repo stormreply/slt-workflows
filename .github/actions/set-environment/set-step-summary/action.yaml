@@ -30,7 +30,6 @@ runs:
         EOF
 
         cat << EOF >> $GITHUB_STEP_SUMMARY
-        | ACTOR                         | $ACTOR              |
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
         | BACKEND_REGION                | $BACKEND_REGION     |

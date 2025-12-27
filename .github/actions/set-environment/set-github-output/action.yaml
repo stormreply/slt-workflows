@@ -40,7 +40,6 @@ runs:
         EOF
 
         cat << EOF >> env.json
-          "ACTOR":              "$ACTOR",
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
           "BACKEND_BUCKET":     "$BACKEND_BUCKET",
           "BACKEND_REGION":     "$BACKEND_REGION",
