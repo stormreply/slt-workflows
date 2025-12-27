@@ -66,13 +66,13 @@ runs:
         repository=${{ github.repository }}
         repo=${repository##*/}
 
-        name="${catalog_reference}-${repo}-${{ github.actor }}"
+        long_name="${catalog_reference}-${repo}-${{ github.actor }}"
         short_name="${short_name}-${{ github.actor }}"
-        state_file="${name}.tfstate"
+        state_file="${catalog_reference}.tfstate"
         state_key="modules/$repo/$state_file"
 
         cat << EOF | tee -a $GITHUB_ENV
-        DEPLOYMENT_NAME=$name
+        DEPLOYMENT_NAME=$long_name
         REPOSITORY=$repository
         REPO=$repo
         SHORT_NAME=$short_name
