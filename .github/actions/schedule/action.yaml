@@ -36,16 +36,14 @@ runs:
         account_id=${{ env.DEPLOYMENT_ACCOUNT }}
         region=${{ env.DEPLOYMENT_REGION }}
         repo="${{ env.REPO }}"
-        repository="${{ env.REPOSITORY }}"
-        owner=${repository%/*}
-
 
         job="${date}.${time}.${action}.${account_id}.${region}.${repo}"
 
-        cat << EOF | grep -E -v ': "(null|)"' | yq -o=json >> ${job}
+        # cat << EOF | grep -E -v ': "(null|)"' | yq -o=json >> ${job}
+        cat << EOF |  yq -o=json >> ${job}
         lifetime: "$lifetime"
         EOF
 
         echo -n "SCHEDULE ${job}... "
-        aws s3 cp "$job" s3://${backend_bucket}/schedule/ > /dev/null
+        aws s3 cp "$job" s3://$backend_bucket/schedule/ > /dev/null
         echo DONE
