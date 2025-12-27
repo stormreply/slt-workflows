@@ -6,25 +6,84 @@ runs:
   using: composite
   steps:
 
+    - name: checkout storm-library-for-terraform
+      uses: actions/checkout@v4
+      with:
+        repository: stormreply/storm-library-for-terraform
+        sparse-checkout: catalog.yaml
+
     - name: set backend bucket
-      if: env.BACKEND_ACCOUNT != ''
       id: set-backend-bucket
-      uses: stormreply/slt-workflows/.github/actions/set-environment/from-others/set-backend-bucket@main
+      shell: bash
+      run: |
+        # set-environment/from-others/set-backend-bucket
+        cat << EOF | tee -a $GITHUB_ENV
+        BACKEND_BUCKET=storm-library-for-terraform-${{ github.actor }}-${{ env.BACKEND_ACCOUNT }}
+        EOF
+
+    - name: set catalog id
+      id: set-catalog-id
+      shell: bash
+      run: |
+        # set-environment/from-others/set-catalog-id
+        status=$(
+          cat catalog.yaml | jq '( .status // empty )' 2> /dev/null \
+          || true
+        ) # "|| true" is for jq can't parse - as it ought to be yaml
+        # status is "" or HTTP error code
+        if [ -n "$status" ] ; then
+          cat catalog.yaml
+          echo "::warn ::status from download call is $status. catalog id set to 42"
+          echo "catalog_id=$catalog_id" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        repository=${{ github.repository }}
+        repo=${repository##*/}
+
+        yq '.catalog["'${repo}'"]' catalog.yaml > catalog_item.yaml
+        catalog_id=$(cat catalog_item.yaml | yq -r '.id // 42')
+        if [ "$catalog_id" = "null" ] ; then
+          echo "::warn ::${repo} or its id are not known to the catalog. catalog id set to 42."
+          echo "catalog_id=$catalog_id" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        cat << EOF | tee -a $GITHUB_ENV
+        CATALOG_ID=$catalog_id
+        EOF
 
     - name: set deployment name
       id: set-deployment-name
-      uses: stormreply/slt-workflows/.github/actions/set-environment/from-others/set-deployment-name@main
-
-    - name: set state file
-      id: set-state-file
-      uses: stormreply/slt-workflows/.github/actions/set-environment/from-others/set-state-file@main
-
-    # TODO: write own set-terraform-roles action
-    - name: set env from others
-      id: set-environment-from-others
       shell: bash
       run: |
-        # set-environment/from-others
+        # set-environment/from-others/set-deployment-name
+
+        catalog_reference="slt-${CATALOG_ID}"
+        short_name="$catalog_reference"
+        rm catalog.yaml
+
+        repository=${{ github.repository }}
+        repo=${repository##*/}
+
+        name="${catalog_reference}-${repo}-${{ github.actor }}"
+        short_name="${short_name}-${{ github.actor }}"
+        state_file="${name}.tfstate"
+        state_key="modules/$repo/$state_file"
+
+        cat << EOF | tee -a $GITHUB_ENV
+        DEPLOYMENT_NAME=$name
+        REPOSITORY=$repository
+        REPO=$repo
+        SHORT_NAME=$short_name
+        STATE_KEY=$state_key
+        EOF
+
+    - name: set roles
+      id: set-roles
+      shell: bash
+      run: |
+        # set-environment/from-others/set-roles
 
         [ -z "$DEPLOYMENT_ACCOUNT" ] && DEPLOYMENT_ACCOUNT=${{ env.BACKEND_ACCOUNT }}
         [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}

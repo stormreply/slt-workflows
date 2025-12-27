@@ -59,7 +59,7 @@ runs:
           "REPO":               "$REPO",
           "REPOSITORY":         "$REPOSITORY",
           "SHORT_NAME":         "$SHORT_NAME",
-          "STATE_FILE":         "$STATE_FILE",
+          "STATE_KEY":          "$STATE_KEY",
         EOF
 
         [ -n "$TERRAFORM_APP_ID" ] && cat << EOF >> env.json

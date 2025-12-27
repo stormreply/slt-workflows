@@ -18,7 +18,7 @@ runs:
         terraform init \
           -backend-config="bucket=${{ env.BACKEND_BUCKET }}" \
           -backend-config="profile=backend" \
-          -backend-config="key=${{ github.repository }}/${{ env.STATE_FILE }}" \
+          -backend-config="key=${{ env.STATE_KEY }}" \
           -backend-config="region=${{ env.BACKEND_REGION }}" \
           -backend-config="use_lockfile=true"
 

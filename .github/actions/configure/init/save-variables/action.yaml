@@ -8,88 +8,82 @@ runs:
   using: composite
   steps:
 
-    - name: set AWS access domain
+    - name: save AWS access domain
+      id: save-aws-access-domain
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.ACCESS_DOMAIN }}
         variable: ACCESS_DOMAIN
 
-    - name: set AWS access role
+    - name: save AWS access role
+      id: save-aws-access-role
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.ACCESS_ROLE }}
         variable: ACCESS_ROLE
 
-    - name: set backend account
-      id: set-backend-account
+    - name: save backend account
+      id: save-backend-account
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.BACKEND_ACCOUNT }}
         variable: BACKEND_ACCOUNT
 
-    - name: set backend bucket
-      id: set-backend-bucket
+    - name: save backend bucket
+      id: save-backend-bucket
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.BACKEND_BUCKET }}
         variable: BACKEND_BUCKET
 
-    - name: set backend region
-      id: set-backend-region
+    - name: save backend region
+      id: save-backend-region
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.BACKEND_REGION }}
         variable: BACKEND_REGION
 
-    - name: set deployment account
-      id: set-deployment-account
+    - name: save deployment account
+      id: save-deployment-account
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.DEPLOYMENT_ACCOUNT }}
         variable: DEPLOYMENT_ACCOUNT
 
-    - name: set deployment name
-      id: set-deployment-name
+    - name: save deployment name
+      id: save-deployment-name
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.DEPLOYMENT_NAME }}
         variable: DEPLOYMENT_NAME
 
-    - name: set deployment region
-      id: set-deployment-region
+    - name: save deployment region
+      id: save-deployment-region
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.DEPLOYMENT_REGION }}
         variable: DEPLOYMENT_REGION
 
-    - name: set OIDC principal
-      id: set-oidc-principal
+    - name: save OIDC principal
+      id: save-oidc-principal
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.OIDC_PRINCIPAL }}
         variable: OIDC_PRINCIPAL
 
-    - name: set short name
-      id: set-short-name
+    - name: save short name
+      id: save-short-name
       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
       with:
         repository: ${{ github.repository }}
         value: ${{ env.SHORT_NAME }}
         variable: SHORT_NAME
-
-    - name: set state file
-      id: set-state-file
-      uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
-      with:
-        repository: ${{ github.repository }}
-        value: ${{ env.STATE_FILE }}
-        variable: STATE_FILE
