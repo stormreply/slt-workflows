@@ -31,7 +31,7 @@ runs:
 
         [ "${jobs}" != "null" ] && jobs=$(echo "${jobs}" | jq -r ".[]") || jobs=""
 
-        pattern="${action}.${account_id}.${region}.${owner}.${repo}"
+        pattern="${action}.${account_id}.${region}.${repo}"
 
         if [ -n "$jobs" ] ; then
           for key in $jobs ; do

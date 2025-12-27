@@ -40,7 +40,7 @@ runs:
         owner=${repository%/*}
 
 
-        job="${date}.${time}.${action}.${account_id}.${region}.${owner}.${repo}"
+        job="${date}.${time}.${action}.${account_id}.${region}.${repo}"
 
         cat << EOF | grep -E -v ': "(null|)"' | yq -o=json >> ${job}
         lifetime: "$lifetime"

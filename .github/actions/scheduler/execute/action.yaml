@@ -17,12 +17,14 @@ runs:
           action=${f%%.*} ; f=${f##$action.}
           account_id=${f%%.*} ; f=${f##$account_id.}
           region=${f%%.*} ; f=${f##$region.}
-          owner=${f%%.*} ; f=${f##$owner.}
+          repo=${f%%.*} ; f=${f##$repo.}
 
-          printf "%-8s %-6s %-7s %-12s %-15s %-15s %-30s %-s\n" \
-            "DATE" "TIME" "ACTION" "ACCOUNT_ID" "REGION" "OWNER" "REPO"
-          printf "%-8s %-6s %-7s %-12s %-15s %-15s %-30s %-s\n" \
-            "$date" "$time" "$action" "$account_id" "$region" "$owner" "$repo"
+          printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
+            "DATE" "TIME" "ACTION" "ACCOUNT_ID" "REGION" "REPO"
+          printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
+            "$date" "$time" "$action" "$account_id" "$region" "$repo"
+
+          repository="${{ github.actor }}/$repo"
 
           aws s3 cp \
             s3://${{ env.BACKEND_BUCKET }}/schedule/$file \
@@ -31,14 +33,9 @@ runs:
 
           cat << EOF
           EXECUTE
-            cat /tmp/$file
-            | gh workflow run ${action}.yaml --repo ${owner}/${repo} --json
+            cat /tmp/$file | gh workflow run ${action}.yaml --repo "$repository" --json
         EOF
 
-          cat /tmp/$file \
-          | gh workflow run ${action}.yaml \
-            --repo ${owner}/${repo} \
-            --json \
-            &
+          cat /tmp/$file | gh workflow run ${action}.yaml --repo "$repository" --json &
 
         done
