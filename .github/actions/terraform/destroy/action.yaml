@@ -10,6 +10,7 @@ runs:
     - name: Terraform init with S3 backend
       shell: bash
       run: |
+        # terraform init
         terraform init \
           -backend-config="bucket=${{ env.BACKEND_BUCKET }}" \
           -backend-config="profile=backend" \
@@ -20,6 +21,7 @@ runs:
     - name: Terraform destroy
       shell: bash
       run: |
+        # terraform/destroy
         unset AWS_SECRET_ACCESS_KEY
         unset AWS_SESSION_TOKEN
         unset AWS_ACCESS_KEY_ID
