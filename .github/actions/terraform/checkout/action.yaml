@@ -15,13 +15,6 @@ runs:
 
     - name: checkout repository
       uses: actions/checkout@v4
-      # with:
-      #   token: ${{ env.TOKEN }}
-
-    # - name: debug
-    #   shell: bash
-    #   run: |
-    #     ls -la
 
     - name: rewrite github URL (add x-access-token)
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/rewrite-github-url@main
