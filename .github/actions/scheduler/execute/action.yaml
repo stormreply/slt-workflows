@@ -24,7 +24,7 @@ runs:
           printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
             "$date" "$time" "$action" "$account_id" "$region" "$repo"
 
-          repository="${{ github.actor }}/$repo"
+          repository="${{ github.repository_owner }}/$repo"
 
           aws s3 cp \
             s3://${{ env.BACKEND_BUCKET }}/schedule/$file \
