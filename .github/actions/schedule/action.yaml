@@ -24,6 +24,8 @@ runs:
       run: |
         # schedule
 
+        set -x
+
         delay="${{ inputs.delay }}"
         lifetime="${{ inputs.lifetime }}"
 
