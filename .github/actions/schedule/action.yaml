@@ -24,8 +24,6 @@ runs:
       run: |
         # schedule
 
-        set -x
-
         delay="${{ inputs.delay }}"
         lifetime="${{ inputs.lifetime }}"
 
@@ -41,7 +39,7 @@ runs:
 
         job="${date}.${time}.${action}.${account_id}.${region}.${repo}"
 
-        cat << EOF | grep -E -v ': "(null|)"' | yq -o=json >> ${job}
+        cat << EOF | grep -E -v ': "(null|)"' || true | yq -o=json 'select(.)' >> ${job}
         lifetime: "$lifetime"
         EOF
 
