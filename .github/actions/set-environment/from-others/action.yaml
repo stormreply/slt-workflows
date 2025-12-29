@@ -18,7 +18,7 @@ runs:
       run: |
         # set-environment/from-others/set-backend-bucket
         cat << EOF | tee -a $GITHUB_ENV
-        BACKEND_BUCKET=storm-library-for-terraform-${{ github.actor }}-${{ env.BACKEND_ACCOUNT }}
+        BACKEND_BUCKET=storm-library-for-terraform-${{ github.repository_owner }}-${{ env.BACKEND_ACCOUNT }}
         EOF
 
     - name: set catalog id
@@ -66,8 +66,8 @@ runs:
         repository=${{ github.repository }}
         repo=${repository##*/}
 
-        long_name="${catalog_reference}-${repo}-${{ github.actor }}"
-        short_name="${short_name}-${{ github.actor }}"
+        long_name="${catalog_reference}-${repo}-${{ github.repository_owner }}"
+        short_name="${short_name}-${{ github.repository_owner }}"
         state_file="${catalog_reference}.tfstate"
         state_key="modules/$repo/$state_file"
 
@@ -89,8 +89,8 @@ runs:
         [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
 
         cat << EOF >> $GITHUB_ENV
-        BACKEND_ROLE=slt-0-storm-library-for-terraform-${{ github.actor }}-backend
+        BACKEND_ROLE=slt-0-storm-library-for-terraform-${{ github.repository_owner }}-backend
         DEPLOYMENT_ACCOUNT=$DEPLOYMENT_ACCOUNT
         DEPLOYMENT_REGION=$DEPLOYMENT_REGION
-        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-${{ github.actor }}-deployment
+        DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-${{ github.repository_owner }}-deployment
         EOF
