@@ -7,7 +7,7 @@ runs:
     - name: inject aws provider
       shell: bash
       run: |
-        # checkout/inject-aws-provider
+        # checkout/inject-provider
 
         if [ ! -f providers.tf ] ; then
           echo "INJECTING providers.tf"
