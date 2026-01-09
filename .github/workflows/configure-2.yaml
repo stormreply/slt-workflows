@@ -50,7 +50,6 @@ jobs:
   #         repository: ${{ github.repository }}
 
   login:
-    needs: init
     runs-on: ubuntu-latest
     steps:
 
