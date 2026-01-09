@@ -55,7 +55,7 @@ runs:
         echo "redirect link: $redirect_link"
 
         i=0
-        while [ -n "$(ps -p ${pid} -o pid=)" -a $i -lt 60 ]; do
+        while [ -n "$(ps -p ${pid} -o pid=)" -a $i -lt 30 ]; do
           sleep 1
           echo $i
           i=$((i + 1))
@@ -66,4 +66,4 @@ runs:
         ls -la $HOME/.aws/login/cache || true
         cat $HOME/.aws/login/cache/*.json | jq . || true
 
-        # aws sts assume-role --
+        aws sts assume-role --
