@@ -52,6 +52,8 @@ runs:
           sleep 1
         done
 
+        echo "redirect link: $redirect_link"
+
         i=0
         while [ -n "$(ps -p ${pid} -o pid=)" -a $i -lt 60 ]; do
           sleep 1
