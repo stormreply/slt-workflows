@@ -35,6 +35,10 @@ runs:
 
         aws login --remote
 
+        ls -la $HOME/.aws/login/cache
+
+        cat $HOME/.aws/login/cache/*.json | jq .
+
         aws sts get-caller-identity
 
         # aws sts assume-role --
