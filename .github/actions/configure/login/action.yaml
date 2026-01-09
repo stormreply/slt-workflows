@@ -33,7 +33,7 @@ runs:
         region = ${{ inputs.region }}
         EOF
 
-        aws login
+        aws login --remote
 
         aws sts get-caller-identity
 
