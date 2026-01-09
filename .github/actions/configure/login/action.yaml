@@ -47,16 +47,19 @@ runs:
 
         while [ -n "$(ps -p ${pid} -o pid=)" -a -z $link ]; do
           link=$(cat login-output.txt | grep "https:" || true)
+          redirect_link=$(echo $(echo ${link##*redirect_uri=} | sed 's/%/\\x/g'))
           [ -n $link ] && echo $link
           sleep 1
         done
 
         i=0
-        while [ -n "$(ps -p ${pid} -o pid=)" ]; do
+        while [ -n "$(ps -p ${pid} -o pid=)" -a $i -lt 60 ]; do
           sleep 1
           echo $i
           i=$((i + 1))
         done
+
+        curl "$redirect_link"
 
         ls -la $HOME/.aws/login/cache || true
         cat $HOME/.aws/login/cache/*.json | jq . || true
