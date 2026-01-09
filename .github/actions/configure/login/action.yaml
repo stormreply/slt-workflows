@@ -47,7 +47,7 @@ runs:
 
         while [ -n "$(ps -p ${pid} -o pid=)" -a -z $link ]; do
           link=$(cat login-output.txt | grep "https:" || true)
-          redirect_link=$(echo $(echo ${link##*redirect_uri=} | sed 's/%/\\x/g'))
+          redirect_link=$(echo -e $(echo ${link##*redirect_uri=} | sed 's/%/\\x/g'))
           [ -n $link ] && echo $link
           sleep 1
         done
