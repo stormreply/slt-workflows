@@ -56,6 +56,8 @@ jobs:
       - name: aws login
         id: aws-login
         uses: stormreply/slt-workflows/.github/actions/configure/login@main
+        with:
+          region: ${{ inputs.region }}
 
   # build:
   #   needs: login
