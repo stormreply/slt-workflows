@@ -33,16 +33,22 @@ runs:
         region = ${{ inputs.region }}
         EOF
 
-        aws login &
-        i=0
-        while [ $i -lt 60 ] ; do
-          echo $i
-          ls -la $HOME/.aws/login/cache || true
-          echo hier
-          cat $HOME/.aws/login/cache/*.json | jq . || true
-          i=$((i + 1))
+        aws login > login-output.txt &
+
+        pid=$!
+        while [ ! -f login-output.txt ]; do
           sleep 1
         done
-        aws sts get-caller-identity
+
+        cat << EOF
+        Click the link below:
+        EOF
+        while [ -n "$(ps -p ${pid} -o pid=)" ]; do
+          cat login-output.txt | grep "https:" || true
+          sleep 5
+        done
+
+        ls -la $HOME/.aws/login/cache || true
+        cat $HOME/.aws/login/cache/*.json | jq . || true
 
         # aws sts assume-role --
