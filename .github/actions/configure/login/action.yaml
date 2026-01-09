@@ -1,0 +1,40 @@
+name: AWS Login
+
+inputs:
+  region:
+    required: true
+
+outputs:
+  aws_access_key_id:
+    value: ${{ steps.aws-login.outputs.AWS_ACCESS_KEY_ID }}
+
+        AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
+        AWS_DEFAULT_REGION=${{ env.BACKEND_REGION }}
+
+  access_token:
+    value:  ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
+
+runs:
+  using: composite
+  steps:
+
+    - name: aws login
+      shell: bash
+      id: aws-login
+      run: |
+        # configure/login
+
+        cd ${{ github.action_path }}
+        mkdir -p ${HOME}/.aws
+
+        cat << EOF >> ${HOME}/.aws/config
+        [default]
+        region = ${{ inputs.region }}
+        EOF
+
+        aws login
+
+        aws sts get-caller-identity
+
+        # aws sts assume-role --
