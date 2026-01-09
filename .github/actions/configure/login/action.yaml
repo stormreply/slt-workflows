@@ -33,7 +33,7 @@ runs:
         region = ${{ inputs.region }}
         EOF
 
-        aws login --remote
+        aws login # --remote
 
         ls -la $HOME/.aws/login/cache
 
