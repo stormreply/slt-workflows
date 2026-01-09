@@ -36,8 +36,10 @@ runs:
         aws login &
         i=0
         while [ $i -lt 60 ] ; do
-          ls -la $HOME/.aws/login/cache
-          cat $HOME/.aws/login/cache/*.json | jq .
+          echo $i
+          ls -la $HOME/.aws/login/cache || true
+          echo hier
+          cat $HOME/.aws/login/cache/*.json | jq . || true
           i=$((i + 1))
           sleep 1
         done
