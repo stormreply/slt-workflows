@@ -45,6 +45,7 @@ runs:
         EOF
         while [ -n "$(ps -p ${pid} -o pid=)" ]; do
           cat login-output.txt | grep "https:" || true
+          ls -la $HOME/.aws/login/cache || true
           sleep 5
         done
 
