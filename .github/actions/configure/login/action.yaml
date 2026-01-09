@@ -40,13 +40,22 @@ runs:
           sleep 1
         done
 
+        link=""
         cat << EOF
         Click the link below:
         EOF
+
+        while [ -n "$(ps -p ${pid} -o pid=)" -a -z $link ]; do
+          link=$(cat login-output.txt | grep "https:" || true)
+          [ -n $link ] && echo $link
+          sleep 1
+        done
+
+        i=0
         while [ -n "$(ps -p ${pid} -o pid=)" ]; do
-          cat login-output.txt | grep "https:" || true
-          ls -la $HOME/.aws/login/cache || true
-          sleep 5
+          sleep 1
+          echo $i
+          i=$((i + 1))
         done
 
         ls -la $HOME/.aws/login/cache || true
