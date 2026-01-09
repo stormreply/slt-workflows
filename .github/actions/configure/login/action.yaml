@@ -66,4 +66,4 @@ runs:
         ls -la $HOME/.aws/login/cache || true
         cat $HOME/.aws/login/cache/*.json | jq . || true
 
-        aws sts assume-role --
+        aws sts get-caller-identity
