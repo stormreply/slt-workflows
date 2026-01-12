@@ -3,67 +3,34 @@ name: AWS Login
 inputs:
   region:
     required: true
-
-outputs:
-  aws_access_key_id:
-    value: ${{ steps.aws-login.outputs.AWS_ACCESS_KEY_ID }}
-
-        AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
-        AWS_DEFAULT_REGION=${{ env.BACKEND_REGION }}
-
-  access_token:
-    value:  ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
+    description: "AWS Region"
+  role-to-assume:
+    required: false
+    description: "AWS Role ARN to assume (for OIDC)"
+  aws-access-key-id:
+    required: false
+    description: "AWS Access Key ID (if not using OIDC)"
+  aws-secret-access-key:
+    required: false
+    description: "AWS Secret Access Key (if not using OIDC)"
+  aws-session-token:
+    required: false
+    description: "AWS Session Token (if using temporary credentials)"
 
 runs:
   using: composite
   steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ inputs.region }}
+        role-to-assume: ${{ inputs.role-to-assume }}
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-session-token: ${{ inputs.aws-session-token }}
 
-    - name: aws login
+    - name: Verify AWS Identity
       shell: bash
-      id: aws-login
       run: |
-        # configure/login
-
-        cd ${{ github.action_path }}
-        mkdir -p ${HOME}/.aws
-
-        cat << EOF >> ${HOME}/.aws/config
-        [default]
-        region = ${{ inputs.region }}
-        EOF
-
-        aws login > login-output.txt &
-
-        pid=$!
-        while [ ! -f login-output.txt ]; do
-          sleep 1
-        done
-
-        link=""
-        cat << EOF
-        Click the link below:
-        EOF
-
-        while [ -n "$(ps -p ${pid} -o pid=)" -a -z $link ]; do
-          link=$(cat login-output.txt | grep "https:" || true)
-          redirect_link=$(echo -e $(echo ${link##*redirect_uri=} | sed 's/%/\\x/g'))
-          [ -n $link ] && echo $link
-          sleep 1
-        done
-
-        echo "redirect link: $redirect_link"
-
-        i=0
-        while [ -n "$(ps -p ${pid} -o pid=)" -a $i -lt 30 ]; do
-          sleep 1
-          echo $i
-          i=$((i + 1))
-        done
-
-        curl "$redirect_link"
-
-        ls -la $HOME/.aws/login/cache || true
-        cat $HOME/.aws/login/cache/*.json | jq . || true
-
+        echo "Verifying AWS credentials..."
         aws sts get-caller-identity
