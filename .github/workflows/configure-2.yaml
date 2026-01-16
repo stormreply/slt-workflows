@@ -4,25 +4,22 @@ on:
   workflow_call:
     # checkov:skip=CKV_GHA_7: "GitHub Actions workflow_dispatch inputs MUST be empty"
     inputs:
-      account_id:
-        description: "AWS Account Id"
-        type: string
       configuration_target:
-        description: "Configuration Target"
+        description: Configuration Target
+        type: string
+      account_id:
+        description: AWS Account Id
         type: string
       region:
-        description: "AWS Region"
-        type: string
-      role:
-        description: "AWS role"
+        description: AWS Region
         type: string
     secrets:
-      aws_access_key_id:
+      AWS_ACCESS_KEY_ID:
         required: true
-        description: "AWS Access Key ID for bootstrap authentication"
-      aws_secret_access_key:
+        description: AWS Access Key ID for bootstrap authentication
+      AWS_SECRET_ACCESS_KEY:
         required: true
-        description: "AWS Secret Access Key for bootstrap authentication"
+        description: AWS Secret Access Key for bootstrap authentication
 
 jobs:
 
@@ -55,14 +52,13 @@ jobs:
   login:
     runs-on: ubuntu-latest
     steps:
-
       - name: aws login
         id: aws-login
         uses: stormreply/slt-workflows/.github/actions/configure/login@main
         with:
           region: ${{ inputs.region }}
-          aws-access-key-id: ${{ secrets.aws_access_key_id }}
-          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # build:
   #   needs: login
