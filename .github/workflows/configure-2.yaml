@@ -5,50 +5,16 @@ on:
     # checkov:skip=CKV_GHA_7: "GitHub Actions workflow_dispatch inputs MUST be empty"
     inputs:
       configuration_target:
-        description: Configuration Target
         type: string
       account_id:
-        description: AWS Account Id
         type: string
       region:
-        description: AWS Region
         type: string
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-        description: AWS Access Key ID for bootstrap authentication
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-        description: AWS Secret Access Key for bootstrap authentication
-
+      aws_access_key_id:
+        type: string
+      aws_secret_access_key:
+        type: string
 jobs:
-
-  # init:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     env_json: ${{ steps.set-environment.outputs.env_json }}
-  #   steps:
-
-  #     - name: set environment
-  #       id: set-environment
-  #       uses: stormreply/slt-workflows/.github/actions/set-environment@main
-  #       with:
-  #         github_vars: "${{ toJson(vars) }}"
-  #         github_inputs: |
-  #           ACCESS_DOMAIN: ${{ inputs.access_domain || vars.ACCESS_DOMAIN }}
-  #           ACCESS_ROLE: ${{ inputs.access_role || vars.ACCESS_ROLE }}
-  #           BACKEND_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
-  #           BACKEND_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
-  #           DEPLOYMENT_ACCOUNT: ${{ inputs.backend_account || vars.BACKEND_ACCOUNT }}
-  #           DEPLOYMENT_REGION: ${{ inputs.backend_region || vars.BACKEND_REGION }}
-  #           OIDC_PRINCIPAL: ${{ github.repository_owner }}
-  #         action: configure
-
-  #     - name: save variables in ${{github.repository}}
-  #       uses: stormreply/slt-workflows/.github/actions/configure/init/save-variables@main
-  #       with:
-  #         repository: ${{ github.repository }}
-
   login:
     runs-on: ubuntu-latest
     steps:
@@ -57,37 +23,5 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/configure/login@main
         with:
           region: ${{ inputs.region }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-  # build:
-  #   needs: login
-  #   runs-on: ubuntu-latest
-  #   env: ${{ fromJson(needs.init.outputs.env_json) }}
-  #   steps:
-
-  #     - name: get role credentials
-  #       uses: stormreply/slt-workflows/.github/actions/configure/build/set-backend-credentials@main
-  #       with:
-  #         access_token: ${{ needs.sso.outputs.access_token }}
-
-  #     - name: create backend bucket
-  #       uses: stormreply/slt-workflows/.github/actions/configure/build/create-backend-bucket@main
-
-  #     - name: create github oidc provider
-  #       uses: stormreply/slt-workflows/.github/actions/configure/build/create-github-oidc-provider@main
-
-  #     - name: checkout code
-  #       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
-  #       with:
-  #         init: true
-
-  #     - name: Terraform plan
-  #       uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
-  #       with:
-  #         var_file: init.tfvars
-
-  #     - name: Terraform apply
-  #       uses: stormreply/slt-workflows/.github/actions/terraform/apply@main
-  #       # with:
-  #       #   var_file: init.tfvars
+          aws-access-key-id: ${{ inputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ inputs.aws_secret_access_key }}
