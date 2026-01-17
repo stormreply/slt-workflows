@@ -51,7 +51,11 @@ jobs:
   build:
     needs: sso
     runs-on: ubuntu-latest
-    env: ${{ fromJson(needs.sso.outputs.env_json) }}
+    env:
+      AWS_ACCESS_KEY_ID:     ${{ needs.sso.outputs.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ needs.sso.outputs.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN:     ${{ needs.sso.outputs.AWS_SESSION_TOKEN }}
+      AWS_DEFAULT_REGION:    ${{ needs.sso.outputs.AWS_DEFAULT_REGION }}
     steps:
 
       - name: Verify AWS Identity
