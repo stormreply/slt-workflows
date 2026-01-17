@@ -10,10 +10,21 @@ inputs:
   region:
     required: true
 
+outputs:
+  AWS_ACCESS_KEY_ID:
+    value:  ${{ steps.get-credentials.outputs.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:
+    value:  ${{ steps.get-credentials.outputs.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN:
+    value:  ${{ steps.get-credentials.outputs.AWS_SESSION_TOKEN }}
+  AWS_DEFAULT_REGION:
+    value:  ${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
+
 runs:
   using: composite
   steps:
     - name: get credentials
+      id: get-credentials
       shell: bash
       run: |
         # configure/sso/get-credentials

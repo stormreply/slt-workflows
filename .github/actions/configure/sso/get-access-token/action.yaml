@@ -6,10 +6,6 @@ inputs:
   region:
     required: true
 
-outputs:
-  access_token:
-    value:  ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
-
 runs:
   using: composite
   steps:
@@ -45,7 +41,6 @@ runs:
           sleep 5
         done
 
-        ACCESS_TOKEN=$(jq -r '. | select(.accessToken != null) | .accessToken' ${HOME}/.aws/sso/cache/*.json)"
+        ACCESS_TOKEN=$(jq -r '. | select(.accessToken != null) | .accessToken' ${HOME}/.aws/sso/cache/*.json)
         echo "ACCESS_TOKEN=$ACCESS_TOKEN"
-        echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
         echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
