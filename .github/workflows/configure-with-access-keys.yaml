@@ -1,4 +1,4 @@
-name: Configure v2
+name: Configure with Access Keys
 
 on:
   workflow_call:
@@ -6,13 +6,7 @@ on:
     inputs:
       configuration_target:
         type: string
-      account_id:
-        type: string
       region:
-        type: string
-      aws_access_key_id:
-        type: string
-      aws_secret_access_key:
         type: string
     secrets:
       AWS_ACCESS_KEY_ID:
