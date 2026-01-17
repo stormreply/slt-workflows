@@ -25,7 +25,6 @@ permissions:
 jobs:
 
   sso:
-    needs: init
     runs-on: ubuntu-latest
     outputs:
       access_token: ${{ steps.get-access-token.outputs.access_token }}
