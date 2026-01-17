@@ -31,13 +31,13 @@ runs:
 
         echo "get credentials for permission set ${{ inputs.permission_set}} in account ${{ inputs.account_id}}"
 
-        # echo "::add-mask::${{ inputs.access_token }}"
+        echo "ACCESS_TOKEN=$ACCESS_TOKEN"
 
         CREDENTIALS=$(
           aws sso get-role-credentials \
             --account-id ${{ inputs.account_id }} \
             --region ${{ inputs.region }} \
-            --role-name ${{ inputs.permissions_set }} \
+            --role-name ${{ inputs.permission_set }} \
             --access-token '${{ inputs.access_token }}'
         )
 
