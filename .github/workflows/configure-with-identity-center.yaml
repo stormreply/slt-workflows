@@ -28,7 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       access_token: ${{ steps.get-access-token.outputs.access_token }}
-    env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
 
       - name: get access token
