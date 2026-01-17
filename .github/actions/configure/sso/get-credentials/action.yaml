@@ -44,8 +44,8 @@ runs:
         export AWS_SESSION_TOKEN=$(echo $CREDENTIALS | yq '.roleCredentials.sessionToken')
 
         # echo "::add-mask::$AWS_ACCESS_KEY_ID"
-        echo "::add-mask::$AWS_SECRET_ACCESS_KEY"
-        echo "::add-mask::$AWS_SESSION_TOKEN"
+        # echo "::add-mask::$AWS_SECRET_ACCESS_KEY"
+        # echo "::add-mask::$AWS_SESSION_TOKEN"
 
         cat << EOF | tee -a $GITHUB_OUTPUT
         AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
