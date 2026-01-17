@@ -73,6 +73,9 @@ jobs:
       - name: get access token
         id: get-access-token
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-access-token@main
+        with:
+          access_token: ${{ env.ACCESS_TOKEN }}
+          region: ${{ env.BACKEND_REGION }}
 
   build:
     needs: [init, sso]

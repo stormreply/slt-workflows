@@ -1,5 +1,11 @@
 name: Get access token
 
+inputs:
+  access_domain:
+    required: true
+  region:
+    required: true
+
 outputs:
   access_token:
     value:  ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
@@ -19,21 +25,27 @@ runs:
 
         cat << EOF >> ${HOME}/.aws/config
         [profile default]
-        sso_region=${{ env.BACKEND_REGION }}
-        sso_start_url=https://${{ env.ACCESS_DOMAIN }}.awsapps.com/start/#
+        sso_region=${{ inputs.region }}
+        sso_start_url=https://${{ inputs.access_domain }}.awsapps.com/start/#
         EOF
 
         aws sso login --no-browser > login-output.txt &
+
         pid=$!
         while [ ! -f login-output.txt ]; do
           sleep 1
         done
+
         cat << EOF
         Click the link below:
         EOF
+
         while [ -n "$(ps -p ${pid} -o pid=)" ]; do
           cat login-output.txt | grep "?user_code=" || true
           sleep 5
         done
-        export "ACCESS_TOKEN=$(jq -r '. | select(.accessToken != null) | .accessToken' ${HOME}/.aws/sso/cache/*.json)"
-        echo "ACCESS_TOKEN=${ACCESS_TOKEN}" >> $GITHUB_OUTPUT
+
+        ACCESS_TOKEN=$(jq -r '. | select(.accessToken != null) | .accessToken' ${HOME}/.aws/sso/cache/*.json)"
+        echo "ACCESS_TOKEN=$ACCESS_TOKEN"
+        echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
+        echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV

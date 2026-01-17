@@ -15,14 +15,18 @@ on:
         required: true
 
 jobs:
-  login:
+
+  build:
+    needs: sso
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ inputs.region }}
     steps:
-      - name: aws login
-        id: aws-login
-        uses: stormreply/slt-workflows/.github/actions/configure/login@main
-        with:
-          region: ${{ inputs.region }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Verify AWS Identity
+        shell: bash
+        run: |
+          echo "Verifying AWS credentials..."
+          aws sts get-caller-identity
