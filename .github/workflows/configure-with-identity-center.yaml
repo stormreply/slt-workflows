@@ -27,7 +27,14 @@ jobs:
   sso:
     runs-on: ubuntu-latest
     outputs:
-      access_token: ${{ steps.get-access-token.outputs.access_token }}
+      AWS_ACCESS_KEY_ID:
+        value:  ${{ steps.get-credentials.outputs.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY:
+        value:  ${{ steps.get-credentials.outputs.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN:
+        value:  ${{ steps.get-credentials.outputs.AWS_SESSION_TOKEN }}
+      AWS_DEFAULT_REGION:
+        value:  ${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
     steps:
 
       - name: get access token
@@ -37,6 +44,7 @@ jobs:
           region: ${{ inputs.region }}
 
       - name: get credentials
+        id: get-credentials
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-credentials@main
         with:
           access_token: ${{ env.ACCESS_TOKEN }}

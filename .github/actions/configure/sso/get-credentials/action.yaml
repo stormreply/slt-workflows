@@ -31,8 +31,6 @@ runs:
 
         echo "get credentials for permission set ${{ inputs.permission_set}} in account ${{ inputs.account_id}}"
 
-        echo "ACCESS_TOKEN=$ACCESS_TOKEN"
-
         CREDENTIALS=$(
           aws sso get-role-credentials \
             --account-id ${{ inputs.account_id }} \
