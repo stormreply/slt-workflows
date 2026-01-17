@@ -27,14 +27,10 @@ jobs:
   sso:
     runs-on: ubuntu-latest
     outputs:
-      AWS_ACCESS_KEY_ID:
-        value:  ${{ steps.get-credentials.outputs.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY:
-        value:  ${{ steps.get-credentials.outputs.AWS_SECRET_ACCESS_KEY }}
-      AWS_SESSION_TOKEN:
-        value:  ${{ steps.get-credentials.outputs.AWS_SESSION_TOKEN }}
-      AWS_DEFAULT_REGION:
-        value:  ${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
+      AWS_ACCESS_KEY_ID:     ${{ steps.get-credentials.outputs.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ steps.get-credentials.outputs.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN:     ${{ steps.get-credentials.outputs.AWS_SESSION_TOKEN }}
+      AWS_DEFAULT_REGION:    ${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
     steps:
 
       - name: get access token
