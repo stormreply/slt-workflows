@@ -50,7 +50,7 @@ jobs:
         id: get-credentials
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-credentials@main
         with:
-          access_token: ${{ env.ACCESS_TOKEN }}
+          access_token: ${{ needs.sso.outputs.ACCESS_TOKEN }}
           account_id: ${{ inputs.account_id }}
           permission_set: ${{ inputs.permission_set }}
           region: ${{ inputs.region }}
