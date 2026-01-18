@@ -39,10 +39,6 @@ jobs:
             ACCESS_ROLE: ${{ inputs.permission_set }}
             BACKEND_ACCOUNT: ${{ inputs.account_id }}
             BACKEND_REGION: ${{ inputs.region }}
-            DEPLOYMENT_ACCOUNT: ${{ inputs.account_id }}
-            DEPLOYMENT_REGION: ${{ inputs.region }}
-            OIDC_PRINCIPAL: ${{ github.repository_owner }}
-          action: configure
 
   sso:
     needs: init

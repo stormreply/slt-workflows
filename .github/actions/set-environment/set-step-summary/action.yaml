@@ -30,11 +30,6 @@ runs:
         |:------------------------------|---------------------|
         EOF
 
-        [ -z "${action##configure*}" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
-        | ACCESS_DOMAIN                 | $ACCESS_DOMAIN      |
-        | ACCESS_ROLE                   | $ACCESS_ROLE        |
-        EOF
-
         cat << EOF >> $GITHUB_STEP_SUMMARY
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
@@ -45,26 +40,10 @@ runs:
         | DEPLOYMENT_NAME               | $DEPLOYMENT_NAME    |
         | DEPLOYMENT_REGION             | $DEPLOYMENT_REGION  |
         | DEPLOYMENT_ROLE               | $DEPLOYMENT_ROLE    |
-        EOF
-
-        [ -z "${action##configure*}" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
-        | OIDC_PRINCIPAL                | $OIDC_PRINCIPAL     |
-        EOF
-
-        cat << EOF >> $GITHUB_STEP_SUMMARY
         | REPO                          | $REPO               |
         | REPOSITORY                    | $REPOSITORY         |
         | SHORT_NAME                    | $SHORT_NAME         |
         | STATE_KEY                     | $STATE_KEY          |
         EOF
-
-        # [ -z "${action##configure*}" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
-        # | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
-        # EOF
-
-        # cat << EOF >> $GITHUB_STEP_SUMMARY
-        # | TOKEN_SHASUM                  | $TOKEN_SHASUM       |
-        # | TOKEN_TYPE                    | $TOKEN_TYPE         |
-        # EOF
 
         [ "$STATUS" = "OK" ] && exit 0 || exit 1

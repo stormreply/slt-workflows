@@ -19,27 +19,8 @@ runs:
       run: |
         # set-environment/set-github-output
 
-        # echo $GITHUB_ENV
-        # ls -la $GITHUB_ENV
-
-        # echo GITHUB_ENV VON HIER
-        # cat $GITHUB_ENV
-        # echo BIS HIER
-
-        # echo ENV VON HIER
-        # env
-        # echo BIS HIER
-
-        cat << EOF > env.json
-        {
-        EOF
-
-        # [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
-        #   "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
-        #   "ACCESS_ROLE":        "$ACCESS_ROLE",
-        # EOF
-
         cat << EOF >> env.json
+        {
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
           "BACKEND_BUCKET":     "$BACKEND_BUCKET",
           "BACKEND_REGION":     "$BACKEND_REGION",
@@ -49,13 +30,6 @@ runs:
           "DEPLOYMENT_NAME":    "$DEPLOYMENT_NAME",
           "DEPLOYMENT_REGION":  "$DEPLOYMENT_REGION",
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
-        EOF
-
-        # [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
-        #   "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
-        # EOF
-
-        cat << EOF >> env.json
           "REPO":               "$REPO",
           "REPOSITORY":         "$REPOSITORY",
           "SHORT_NAME":         "$SHORT_NAME",
@@ -63,20 +37,6 @@ runs:
         }
         EOF
 
-        # [ -n "$TERRAFORM_APP_ID" ] && cat << EOF >> env.json
-        #   "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
-        # EOF
-
-        # cat << EOF >> env.json
-        #   "TOKEN_SHASUM":       "$TOKEN_SHASUM",
-        #   "TOKEN_TYPE":         "$TOKEN_TYPE"
-        # }
-        # EOF
-
         env_json=$(cat env.json | jq -c)
         echo "env_json=$env_json"
         echo "env_json=$env_json" >> $GITHUB_OUTPUT
-
-        # echo GITHUB_OUTPUT VON HIER
-        # cat $GITHUB_OUTPUT
-        # echo BIS HIER

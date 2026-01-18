@@ -10,7 +10,7 @@ runs:
         # checkout/inject-init-tfvars
         cat << EOF >> init.tfvars
         backend_bucket = "${{ env.BACKEND_BUCKET }}"
-        oidc_principal = "${{ env.OIDC_PRINCIPAL }}"
+        oidc_principal = "${{ github.repository_owner }}"
         EOF
         echo "init.tfvars:"
         cat init.tfvars
