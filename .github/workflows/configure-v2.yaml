@@ -46,7 +46,7 @@ jobs:
       AWS_DEFAULT_REGION:    ${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
     steps:
 
-      - name: get-credentials
+      - name: get-credentials-from-identity-center
         if: inputs.sso == 'true'
         id: get-credentials
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-credentials@main
@@ -61,19 +61,19 @@ jobs:
         run: |
           # configure-v2/get-credentials
 
-          if [[ "" == "" ]] ; then
+          if [[ "${{ inputs.sso }}" == "true" ]] ; then
             cat << EOF >> $GITHUB_OUTPUT
             AWS_ACCESS_KEY_ID=${{ steps.get-credentials.outputs.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY=${{ steps.get-credentials.outputs.AWS_SECRET_ACCESS_KEY }}
             AWS_SESSION_TOKEN=${{ steps.get-credentials.outputs.AWS_SESSION_TOKEN }}
             AWS_DEFAULT_REGION=${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
-            EOF
+          EOF
           else
             cat << EOF >> $GITHUB_OUTPUT
             AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_DEFAULT_REGION=${{ inputs.region }}
-            EOF
+          EOF
           fi
 
   build:
