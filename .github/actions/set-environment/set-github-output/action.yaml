@@ -62,15 +62,15 @@ runs:
           "STATE_KEY":          "$STATE_KEY",
         EOF
 
-        [ -n "$TERRAFORM_APP_ID" ] && cat << EOF >> env.json
-          "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
-        EOF
+        # [ -n "$TERRAFORM_APP_ID" ] && cat << EOF >> env.json
+        #   "TERRAFORM_APP_ID":   "$TERRAFORM_APP_ID",
+        # EOF
 
-        cat << EOF >> env.json
-          "TOKEN_SHASUM":       "$TOKEN_SHASUM",
-          "TOKEN_TYPE":         "$TOKEN_TYPE"
-        }
-        EOF
+        # cat << EOF >> env.json
+        #   "TOKEN_SHASUM":       "$TOKEN_SHASUM",
+        #   "TOKEN_TYPE":         "$TOKEN_TYPE"
+        # }
+        # EOF
 
         env_json=$(cat env.json | jq -c)
         echo "env_json=$env_json"

@@ -52,13 +52,13 @@ runs:
         | STATE_KEY                     | $STATE_KEY          |
         EOF
 
-        [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
-        | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
-        EOF
+        # [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        # | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
+        # EOF
 
-        cat << EOF >> $GITHUB_STEP_SUMMARY
-        | TOKEN_SHASUM                  | $TOKEN_SHASUM       |
-        | TOKEN_TYPE                    | $TOKEN_TYPE         |
-        EOF
+        # cat << EOF >> $GITHUB_STEP_SUMMARY
+        # | TOKEN_SHASUM                  | $TOKEN_SHASUM       |
+        # | TOKEN_TYPE                    | $TOKEN_TYPE         |
+        # EOF
 
         [ "$STATUS" = "OK" ] && exit 0 || exit 1
