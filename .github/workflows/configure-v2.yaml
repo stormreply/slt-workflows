@@ -52,11 +52,11 @@ jobs:
           region: ${{ inputs.region }}
 
       - name: get-creds-from-github-secrets
+        if: inputs.sso != 'true'
         id: get-creds-from-github-secrets
         shell: bash
         run: |
           # configure-v2/get-credentials
-
           cat << EOF >> $GITHUB_ENV
           AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
