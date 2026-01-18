@@ -6,6 +6,10 @@ inputs:
   region:
     required: true
 
+outputs:
+  ACCESS_TOKEN:
+    value:  ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
+
 runs:
   using: composite
   steps:
