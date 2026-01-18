@@ -21,6 +21,7 @@ runs:
       shell: bash
       run: |
         # terraform/checkout/set-backend-profile
+
         [ -n "$AWS_SESSION_TOKEN" ] && \
         aws configure set profile.backend.aws_session_token $AWS_SESSION_TOKEN
         aws configure set profile.backend.region ${{ env.BACKEND_REGION }}
