@@ -35,20 +35,15 @@ jobs:
           access_domain: ${{ inputs.access_domain }}
           region: ${{ inputs.region }}
 
-  access:
-    if: always()
+  build:
     needs: sso
+    if: always()
     runs-on: ubuntu-latest
-    outputs:
-      AWS_ACCESS_KEY_ID:     ${{ steps.get-credentials.outputs.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ steps.get-credentials.outputs.AWS_SECRET_ACCESS_KEY }}
-      AWS_SESSION_TOKEN:     ${{ steps.get-credentials.outputs.AWS_SESSION_TOKEN }}
-      AWS_DEFAULT_REGION:    ${{ steps.get-credentials.outputs.AWS_DEFAULT_REGION }}
     steps:
 
-      - name: get-creds-from-idc
+      - name: get-creds-from-identity-center
         if: inputs.sso == 'true'
-        id: get-creds-from-idc
+        id: get-creds-from-identity-center
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-credentials@main
         with:
           access_token: ${{ needs.sso.outputs.ACCESS_TOKEN }}
@@ -56,35 +51,22 @@ jobs:
           permission_set: ${{ inputs.permission_set }}
           region: ${{ inputs.region }}
 
-      - name: get-credentials
-        id: get-credentials
+      - name: get-creds-from-github-secrets
+        id: get-creds-from-github-secrets
         shell: bash
         run: |
           # configure-v2/get-credentials
 
-          if [[ "${{ inputs.sso }}" == "true" ]] ; then
-            cat << EOF >> $GITHUB_OUTPUT
-            AWS_ACCESS_KEY_ID=${{ steps.get-creds-from-idc.outputs.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY=${{ steps.get-creds-from-idc.outputs.AWS_SECRET_ACCESS_KEY }}
-            AWS_SESSION_TOKEN=${{ steps.get-creds-from-idc.outputs.AWS_SESSION_TOKEN }}
-            AWS_DEFAULT_REGION=${{ steps.get-creds-from-idc.outputs.AWS_DEFAULT_REGION }}
+          cat << EOF >> $GITHUB_ENV
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION=${{ inputs.region }}
           EOF
-          else
-            cat << EOF >> $GITHUB_OUTPUT
-            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_DEFAULT_REGION=${{ inputs.region }}
-          EOF
-          fi
-
-  build:
-    needs: access
-    runs-on: ubuntu-latest
-    steps:
 
       - name: Verify AWS Identity
         shell: bash
         run: |
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
           echo "Verifying AWS credentials..."
           aws sts get-caller-identity
 
