@@ -34,10 +34,10 @@ runs:
         {
         EOF
 
-        [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
-          "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
-          "ACCESS_ROLE":        "$ACCESS_ROLE",
-        EOF
+        # [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
+        #   "ACCESS_DOMAIN":      "$ACCESS_DOMAIN",
+        #   "ACCESS_ROLE":        "$ACCESS_ROLE",
+        # EOF
 
         cat << EOF >> env.json
           "BACKEND_ACCOUNT":    "$BACKEND_ACCOUNT",
@@ -51,9 +51,9 @@ runs:
           "DEPLOYMENT_ROLE":    "$DEPLOYMENT_ROLE",
         EOF
 
-        [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
-          "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
-        EOF
+        # [ "${{ inputs.action }}" == "configure" ] && cat << EOF >> env.json
+        #   "OIDC_PRINCIPAL":     "$OIDC_PRINCIPAL",
+        # EOF
 
         cat << EOF >> env.json
           "REPO":               "$REPO",

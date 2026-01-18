@@ -12,15 +12,6 @@ runs:
         repository: stormreply/storm-library-for-terraform
         sparse-checkout: catalog.yaml
 
-    - name: set backend bucket
-      id: set-backend-bucket
-      shell: bash
-      run: |
-        # set-environment/from-others/set-backend-bucket
-        cat << EOF | tee -a $GITHUB_ENV
-        BACKEND_BUCKET=storm-library-for-terraform-${{ github.repository_owner }}-${{ env.BACKEND_ACCOUNT }}
-        EOF
-
     - name: set catalog id
       id: set-catalog-id
       shell: bash
@@ -53,11 +44,11 @@ runs:
         CATALOG_ID=$catalog_id
         EOF
 
-    - name: set deployment name
-      id: set-deployment-name
+    - name: set deployment tags
+      id: set-deployment-tags
       shell: bash
       run: |
-        # set-environment/from-others/set-deployment-name
+        # set-environment/from-others/set-deployment-tags
 
         catalog_reference="slt-${CATALOG_ID}"
         short_name="$catalog_reference"
@@ -79,18 +70,32 @@ runs:
         STATE_KEY=$state_key
         EOF
 
-    - name: set roles
-      id: set-roles
+    - name: set from defaults
+      id: set-from-defaults
       shell: bash
       run: |
-        # set-environment/from-others/set-roles
+        # set-environment/from-others/set-from-defaults
 
-        [ -z "$DEPLOYMENT_ACCOUNT" ] && DEPLOYMENT_ACCOUNT=${{ env.BACKEND_ACCOUNT }}
-        [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=${{ env.BACKEND_REGION }}
+        if [ -z "$BACKEND_ACCOUNT" ] ; then
+          BACKEND_ACCOUNT=$(aws sts get-caller-identity | jq -r .Account)
+        fi
+
+        [ -z "$DEPLOYMENT_ACCOUNT" ] && DEPLOYMENT_ACCOUNT=$BACKEND_ACCOUNT
+        [ -z "$DEPLOYMENT_REGION"  ] && DEPLOYMENT_REGION=$BACKEND_REGION
 
         cat << EOF >> $GITHUB_ENV
+        BACKEND_ACCOUNT=$BACKEND_ACCOUNT
         BACKEND_ROLE=slt-0-storm-library-for-terraform-${{ github.repository_owner }}-backend
         DEPLOYMENT_ACCOUNT=$DEPLOYMENT_ACCOUNT
         DEPLOYMENT_REGION=$DEPLOYMENT_REGION
         DEPLOYMENT_ROLE=slt-0-storm-library-for-terraform-${{ github.repository_owner }}-deployment
+        EOF
+
+    - name: set backend bucket
+      id: set-backend-bucket
+      shell: bash
+      run: |
+        # set-environment/from-others/set-backend-bucket
+        cat << EOF | tee -a $GITHUB_ENV
+        BACKEND_BUCKET=storm-library-for-terraform-${{ github.repository_owner }}-$BACKEND_ACCOUNT
         EOF
