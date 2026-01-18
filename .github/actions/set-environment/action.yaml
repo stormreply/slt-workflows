@@ -48,3 +48,5 @@ runs:
       if: inputs.action != ''
       id: set-github-step-summary
       uses: stormreply/slt-workflows/.github/actions/set-environment/set-step-summary@main
+      with:
+        action: ${{ inputs.action }}

@@ -1,5 +1,10 @@
 name: Set GITHUB_STEP_SUMMARY
 
+inputs:
+  action:
+    required: true
+    default: settings
+
 runs:
   using: composite
   steps:
@@ -9,6 +14,7 @@ runs:
       run: |
         # set-environment/set-step-summary
 
+        action=${{ inputs.action }}
         date >> $GITHUB_STEP_SUMMARY
 
         STATUS="OK"
@@ -24,7 +30,7 @@ runs:
         |:------------------------------|---------------------|
         EOF
 
-        [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        [ -z "${action##configure*}" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | ACCESS_DOMAIN                 | $ACCESS_DOMAIN      |
         | ACCESS_ROLE                   | $ACCESS_ROLE        |
         EOF
@@ -41,7 +47,7 @@ runs:
         | DEPLOYMENT_ROLE               | $DEPLOYMENT_ROLE    |
         EOF
 
-        [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        [ -z "${action##configure*}" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         | OIDC_PRINCIPAL                | $OIDC_PRINCIPAL     |
         EOF
 
@@ -52,7 +58,7 @@ runs:
         | STATE_KEY                     | $STATE_KEY          |
         EOF
 
-        # [ "${{ inputs.show }}" == "configure" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        # [ -z "${action##configure*}" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
         # | TERRAFORM_APP_ID              | $TERRAFORM_APP_ID   |
         # EOF
 

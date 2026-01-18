@@ -31,7 +31,6 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          github_vars: "${{ toJson(vars) }}"
           github_inputs: |
             ACCESS_DOMAIN: ${{ inputs.access_domain }}
             ACCESS_ROLE: ${{ inputs.permission_set }}
