@@ -42,5 +42,6 @@ runs:
         done
 
         ACCESS_TOKEN=$(jq -r '. | select(.accessToken != null) | .accessToken' ${HOME}/.aws/sso/cache/*.json)
-        echo "::add-mask::$ACCESS_TOKEN"
+
+        echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
         echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
