@@ -24,4 +24,4 @@ runs:
         aws configure set profile.backend.region ${{ env.BACKEND_REGION }}
         aws configure set profile.backend.aws_access_key_id $AWS_ACCESS_KEY_ID
         aws configure set profile.backend.aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        aws configure set profile.backend.aws_session_token $AWS_SESSION_TOKEN
+        [ -n "$AWS_SESSION_TOKEN" ] && aws configure set profile.backend.aws_session_token $AWS_SESSION_TOKEN
