@@ -61,7 +61,7 @@ jobs:
     needs: sso
     if: always()
     runs-on: ubuntu-latest
-    env: ${{ fromJson(needs.sso.outputs.env_json) }}
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
 
       - name: get-creds-from-identity-center
