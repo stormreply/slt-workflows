@@ -22,11 +22,33 @@ on:
 
 jobs:
 
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+      env_json: ${{ steps.set-environment.outputs.env_json }}
+    steps:
+      - name: set environment
+        id: set-environment
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+        with:
+          github_vars: "${{ toJson(vars) }}"
+          github_inputs: |
+            ACCESS_DOMAIN: ${{ inputs.access_domain }}
+            ACCESS_ROLE: ${{ inputs.permission_set }}
+            BACKEND_ACCOUNT: ${{ inputs.account_id }}
+            BACKEND_REGION: ${{ inputs.region }}
+            DEPLOYMENT_ACCOUNT: ${{ inputs.account_id }}
+            DEPLOYMENT_REGION: ${{ inputs.region }}
+            OIDC_PRINCIPAL: ${{ github.repository_owner }}
+          action: configure
+
   sso:
+    needs: init
     if: inputs.sso == 'true'
     runs-on: ubuntu-latest
     outputs:
       ACCESS_TOKEN: ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
+    env: ${{ fromJson(needs.init.outputs.env_json) }}
     steps:
       - name: get access token
         id: get-access-token
@@ -66,20 +88,19 @@ jobs:
       - name: Verify AWS Identity
         shell: bash
         run: |
-          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
           echo "Verifying AWS credentials..."
           aws sts get-caller-identity
 
-      # - name: create backend bucket
-      #   uses: stormreply/slt-workflows/.github/actions/configure/build/create-backend-bucket@main
+      - name: create backend bucket
+        uses: stormreply/slt-workflows/.github/actions/configure/build/create-backend-bucket@main
 
-      # - name: create github oidc provider
-      #   uses: stormreply/slt-workflows/.github/actions/configure/build/create-github-oidc-provider@main
+      - name: create github oidc provider
+        uses: stormreply/slt-workflows/.github/actions/configure/build/create-github-oidc-provider@main
 
-      # - name: checkout code
-      #   uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
-      #   with:
-      #     init: true
+      - name: checkout code
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
+        with:
+          init: true
 
       # - name: Terraform plan
       #   uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
