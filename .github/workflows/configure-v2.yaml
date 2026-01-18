@@ -26,9 +26,10 @@ jobs:
     if: inputs.sso == 'true'
     runs-on: ubuntu-latest
     outputs:
-      ACCESS_TOKEN: ${{ steps.get-credentials.outputs.ACCESS_TOKEN }}
+      ACCESS_TOKEN: ${{ steps.get-access-token.outputs.ACCESS_TOKEN }}
     steps:
       - name: get access token
+        id: get-access-token
         uses: stormreply/slt-workflows/.github/actions/configure/sso/get-access-token@main
         with:
           access_domain: ${{ inputs.access_domain }}
