@@ -101,10 +101,10 @@ jobs:
         with:
           init: true
 
-      # - name: Terraform plan
-      #   uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
-      #   with:
-      #     var_file: init.tfvars
+      - name: Terraform plan
+        uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
+        with:
+          var_file: init.tfvars
 
       # - name: Terraform apply
       #   uses: stormreply/slt-workflows/.github/actions/terraform/apply@main
