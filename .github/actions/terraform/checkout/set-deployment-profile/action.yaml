@@ -14,7 +14,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-region: ${{ env.DEPLOYMENT_REGION }}
-        role-session-name: TerraformdeploymentSession
+        role-session-name: TerraformDeploymentSession
         role-to-assume: arn:aws:iam::${{ env.DEPLOYMENT_ACCOUNT }}:role/${{ env.DEPLOYMENT_ROLE }}
 
     - name: set deployment profile
@@ -23,5 +23,4 @@ runs:
         aws configure set profile.deployment.region ${{ env.DEPLOYMENT_REGION }}
         aws configure set profile.deployment.aws_access_key_id $AWS_ACCESS_KEY_ID
         aws configure set profile.deployment.aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        [ -n "$AWS_SESSION_TOKEN" ] && \
         aws configure set profile.deployment.aws_session_token $AWS_SESSION_TOKEN
