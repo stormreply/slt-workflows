@@ -14,11 +14,10 @@ runs:
   steps:
     - name: Set repository variable
       shell: bash
-      env:
       run: |
         # configure/init/save-variable vars.${{ inputs.variable }} from ${{ inputs.repository }}
         repo=${{ inputs.repository }}
-        token=${{ env.TOKEN }} # TODO:
+        token=${{ env.TOKEN }}
         variable=${{ inputs.variable }}
         value=${{ inputs.value }}
         output=$(

@@ -53,14 +53,14 @@ jobs:
       - name: save BACKEND_ACCOUNT
         uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
         with:
-          value: ${{ inputs.account_id }}
           variable: BACKEND_ACCOUNT
+          value: ${{ inputs.account_id }}
 
       - name: save BACKEND_REGION
         uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
         with:
-          value: ${{ inputs.region }}
           variable: BACKEND_REGION
+          value: ${{ inputs.region }}
 
   sso:
     needs: init
