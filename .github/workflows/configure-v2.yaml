@@ -30,6 +30,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
+
       - name: set environment
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
@@ -39,6 +40,18 @@ jobs:
             ACCESS_ROLE: ${{ inputs.permission_set }}
             BACKEND_ACCOUNT: ${{ inputs.account_id }}
             BACKEND_REGION: ${{ inputs.region }}
+
+      - name: save BACKEND_ACCOUNT
+        uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+        with:
+          value: ${{ inputs.account_id }}
+          variable: BACKEND_ACCOUNT
+
+      - name: save BACKEND_REGION
+        uses: stormreply/slt-workflows/.github/actions/configure/init/save-variable@main
+        with:
+          value: ${{ inputs.region }}
+          variable: BACKEND_REGION
 
   sso:
     needs: init

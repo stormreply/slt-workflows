@@ -2,7 +2,8 @@ name: Save variable
 
 inputs:
   repository:
-    required: true
+    required: false
+    default: ${{ github.repository }}
   value:
     required: true
   variable:
