@@ -1,6 +1,8 @@
 name: Init
 
 inputs:
+  infracost_api_key:
+    required: false
   var_file:
     required: false
 
@@ -10,6 +12,8 @@ runs:
 
       - name: checkout code
         uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
+        with:
+          infracost_api_key: ${{ inputs.infracost_api_key }}
 
       - name: terraform plan
         uses: stormreply/slt-workflows/.github/actions/terraform/plan@main

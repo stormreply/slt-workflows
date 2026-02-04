@@ -16,10 +16,6 @@ runs:
         date >> $GITHUB_STEP_SUMMARY
 
         if [ ${{ inputs.infracost_api_key}} != "" ] ; then
-        #   mkdir -p ~/.config/infracost/
-        #   cat << EOF >> ~/.config/infracost/credentials.yml
-        # EOF
-        #   chmod 0600 ~/.config/infracost/credentials.yml
           export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
           infracost breakdown --path . --format json | jq .
         fi

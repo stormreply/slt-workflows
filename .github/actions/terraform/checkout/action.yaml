@@ -2,6 +2,8 @@ name: Checkout Code
 
 inputs:
 
+  infracost_api_key:
+    required: false
   init: # have we been called from the init workflow?
     type: boolean
     required: false
@@ -41,3 +43,10 @@ runs:
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-deployment-profile@main
       with:
         use_oidc: ${{ inputs.init != 'true' }} # use oidc if we are not in the init workflow
+
+    - name: Check cost
+      if: inputs.infracost_api_key != ''
+      shell: bash
+      run: |
+        export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
+        infracost breakdown --path . --format json | jq .
