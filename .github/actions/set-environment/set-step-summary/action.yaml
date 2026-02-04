@@ -1,9 +1,5 @@
 name: Set GITHUB_STEP_SUMMARY
 
-inputs:
-  infracost_api_key:
-    required: false
-
 runs:
   using: composite
   steps:
@@ -14,11 +10,6 @@ runs:
         # set-environment/set-step-summary
 
         date >> $GITHUB_STEP_SUMMARY
-
-        if [ ${{ inputs.infracost_api_key}} != "" ] ; then
-          export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
-          infracost breakdown --path . --format json | jq .
-        fi
 
         STATUS="OK"
         [ -z "$BACKEND_ACCOUNT"    ] && echo "::error ::Github repository variable BACKEND_ACCOUNT not set" && STATUS="ERROR"

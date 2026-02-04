@@ -48,5 +48,3 @@ runs:
       if: inputs.action != ''
       id: set-github-step-summary
       uses: stormreply/slt-workflows/.github/actions/set-environment/set-step-summary@main
-      with:
-        infracost_api_key: ${{ inputs.infracost_api_key }}
