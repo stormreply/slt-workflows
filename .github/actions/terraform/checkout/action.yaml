@@ -48,5 +48,6 @@ runs:
       if: inputs.infracost_api_key != ''
       shell: bash
       run: |
+        curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
         export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
         infracost breakdown --path . --format json | jq .

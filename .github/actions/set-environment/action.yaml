@@ -22,15 +22,6 @@ runs:
       shell: bash
       run: date
 
-    - name: download infracost
-      if: inputs.infracost_api_key != ''
-      id: download-infracost
-      shell: bash
-      run: |
-        which infracost || true
-        # Downloads the CLI based on your OS/arch and puts it in /usr/local/bin
-        curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
-
     - name: set environment from vars
       if: inputs.github_vars != ''
       id: set-environment-from-vars
