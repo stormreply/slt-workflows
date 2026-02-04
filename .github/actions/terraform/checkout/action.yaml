@@ -53,10 +53,10 @@ runs:
         # infracost breakdown --path . --format json 2> /dev/null | jq .
         thc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalHourlyCost)
         echo "thc: $thc"
-        thc=$(printf "%.2f" "$thc")
+        thc=$(echo "$thc" | awk '{printf "%.2f\n", $1}')
         echo "thc: $thc"
         tmc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalMonthlyCost)
         echo "tmc: $tmc"
-        tmc=$(printf "%.2f" "$tmc")
+        tmc=$(echo "$tmc" | awk '{printf "%.2f\n", $1}')
         echo "tmc: $tmc"
         echo "The total hourly cost of this deployment is $thc USD. Monthly: $tmc USD" >> $GITHUB_STEP_SUMMARY
