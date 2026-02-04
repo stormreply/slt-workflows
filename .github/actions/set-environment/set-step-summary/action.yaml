@@ -16,7 +16,7 @@ runs:
         date >> $GITHUB_STEP_SUMMARY
 
         if [ ${{ inputs.infracost_api_key}} != "" ] ; then
-          INFRACOST_API_KEY=${{ secrets.INFRACOST_API_KEY }}
+          INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
           infracost breakdown --path . --format json
         fi
 
