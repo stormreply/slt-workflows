@@ -54,7 +54,9 @@ runs:
         thc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalHourlyCost)
         echo "thc: $thc"
         thc=$(printf "%.2f" "$thc")
+        echo "thc: $thc"
         tmc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalMonthlyCost)
         echo "tmc: $tmc"
         tmc=$(printf "%.2f" "$tmc")
+        echo "tmc: $tmc"
         echo "The total hourly cost of this deployment is $thc USD. Monthly: $tmc USD" >> $GITHUB_STEP_SUMMARY
