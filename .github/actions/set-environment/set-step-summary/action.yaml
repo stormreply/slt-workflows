@@ -21,7 +21,7 @@ runs:
         # EOF
         #   chmod 0600 ~/.config/infracost/credentials.yml
           export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
-          infracost breakdown --path . --format json
+          infracost breakdown --path . --format json | jq .
         fi
 
         STATUS="OK"
