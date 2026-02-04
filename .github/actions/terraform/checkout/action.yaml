@@ -52,7 +52,9 @@ runs:
         export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
         # infracost breakdown --path . --format json 2> /dev/null | jq .
         thc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalHourlyCost)
+        echo "thc: $thc"
         thc=$(printf "%.2f" "$thc")
         tmc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalMonthlyCost)
+        echo "tmc: $tmc"
         tmc=$(printf "%.2f" "$tmc")
-        echo "The total hourly cost of this deployment is $thc USD. Monthly: $tmc" >> $GITHUB_STEP_SUMMARY
+        echo "The total hourly cost of this deployment is $thc USD. Monthly: $tmc USD" >> $GITHUB_STEP_SUMMARY
