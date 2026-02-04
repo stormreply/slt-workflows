@@ -5,6 +5,8 @@ inputs:
     required: false
   github_vars:
     required: false
+  infracost_api_key:
+    required: false
   action:
     required: false
 
@@ -21,7 +23,7 @@ runs:
       run: date
 
     - name: download infracost
-      if: secrets.INFRACOST_API_KEY != ''
+      if: inputs.infracost_api_key != ''
       id: download-infracost
       shell: bash
       run: |
