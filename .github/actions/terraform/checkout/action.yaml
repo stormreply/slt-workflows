@@ -51,5 +51,5 @@ runs:
         curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
         export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
         cost=$(infracost breakdown --path . --format json | jq .totalHourlyCost)
-        cost=$(prinff "%.2f" "$ost")
+        cost=$(printf "%.2f" "$ost")
         echo "The hourly cost of this deployment is $cost USD" >> $GITHUB_STEP_SUMMARY
