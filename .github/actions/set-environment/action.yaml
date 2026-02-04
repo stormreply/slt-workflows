@@ -27,7 +27,7 @@ runs:
       id: download-infracost
       shell: bash
       run: |
-        which infracost
+        which infracost || true
         # Downloads the CLI based on your OS/arch and puts it in /usr/local/bin
         curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
 
