@@ -51,11 +51,11 @@ runs:
         curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
         export INFRACOST_API_KEY=${{ inputs.infracost_api_key }}
         # infracost breakdown --path . --format json 2> /dev/null | jq .
-        thc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalHourlyCost)
+        thc=$(infracost breakdown --path . --format json 2> /dev/null | jq -r .totalHourlyCost)
         echo "thc: $thc"
-        thc=$(echo "$thc" | awk '{printf "%.2f\n", $1}')
+        thc=$(printf "%.2f" $thc)
         echo "thc: $thc"
-        tmc=$(infracost breakdown --path . --format json 2> /dev/null | jq .totalMonthlyCost)
+        tmc=$(infracost breakdown --path . --format json 2> /dev/null | jq -r .totalMonthlyCost)
         echo "tmc: $tmc"
         tmc=$(echo "$tmc" | awk '{printf "%.2f\n", $1}')
         echo "tmc: $tmc"
