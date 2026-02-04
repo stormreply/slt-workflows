@@ -30,7 +30,6 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          infracost_api_key: ${{ secrets.INFRACOST_API_KEY }}
           action: plan
 
       - name: scan
