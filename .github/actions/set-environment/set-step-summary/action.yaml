@@ -1,5 +1,9 @@
 name: Set GITHUB_STEP_SUMMARY
 
+inputs:
+  infracost_api_key:
+    required: false
+
 runs:
   using: composite
   steps:
@@ -9,15 +13,12 @@ runs:
       run: |
         # set-environment/set-step-summary
 
-        INFRACOST_API_KEY=${{ secrets.INFRACOST_API_KEY }}
-
         date >> $GITHUB_STEP_SUMMARY
 
-        echo KEY=${{ secrets.INFRACOST_API_KEY }} >> $GITHUB_STEP_SUMMARY
-        key_shasum="$(echo "${{ secrets.INFRACOST_API_KEY }}" | shasum | awk '{ print $1 }')"
-        echo KEY_SHASUM=$key_shasum >> $GITHUB_STEP_SUMMARY
-
-        infracost breakdown --path . --format json
+        if [ ${{ inputs.infracost_api_key}} != "" ] ; then
+          INFRACOST_API_KEY=${{ secrets.INFRACOST_API_KEY }}
+          infracost breakdown --path . --format json
+        fi
 
         STATUS="OK"
         [ -z "$BACKEND_ACCOUNT"    ] && echo "::error ::Github repository variable BACKEND_ACCOUNT not set" && STATUS="ERROR"
