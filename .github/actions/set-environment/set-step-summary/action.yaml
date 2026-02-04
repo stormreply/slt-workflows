@@ -1,10 +1,5 @@
 name: Set GITHUB_STEP_SUMMARY
 
-inputs:
-  action:
-    required: true
-    default: settings
-
 runs:
   using: composite
   steps:
@@ -14,7 +9,6 @@ runs:
       run: |
         # set-environment/set-step-summary
 
-        action=${{ inputs.action }}
         date >> $GITHUB_STEP_SUMMARY
 
         STATUS="OK"

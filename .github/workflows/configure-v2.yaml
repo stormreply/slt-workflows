@@ -19,6 +19,8 @@ on:
         required: false
       AWS_SECRET_ACCESS_KEY:
         required: false
+      INFRACOST_API_KEY:
+        required: false
       STORM_LIBRARY_FOR_TERRAFORM:
         required: false
       TERRAFORM_PRIVATE_KEY:

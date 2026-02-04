@@ -1,10 +1,5 @@
 name: Set GITHUB_OUTPUT
 
-inputs:
-  action:
-    required: true
-    default: settings
-
 outputs:
   env_json:
     value: ${{ steps.set-github-output.outputs.env_json }}
