@@ -9,9 +9,9 @@ runs:
   steps:
 
       - name: checkout code
-        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@feat/init-tfvars-from-vars
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
         with:
           infracost_api_key: ${{ inputs.infracost_api_key }}
 
       - name: terraform plan
-        uses: stormreply/slt-workflows/.github/actions/terraform/plan@feat/init-tfvars-from-vars
+        uses: stormreply/slt-workflows/.github/actions/terraform/plan@main

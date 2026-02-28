@@ -41,6 +41,6 @@ jobs:
           github_vars: "${{ toJson(vars) }}"
 
       - name: plan
-        uses: stormreply/slt-workflows/.github/actions/plan@feat/init-tfvars-from-vars
+        uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
           infracost_api_key: ${{ secrets.INFRACOST_API_KEY }}
