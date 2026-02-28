@@ -1,7 +1,5 @@
 name: plan
 
-inputs:
-
 runs:
   using: composite
   steps:
