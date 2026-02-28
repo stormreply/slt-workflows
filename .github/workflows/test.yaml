@@ -6,11 +6,6 @@ permissions:
 
 on:
   workflow_call:
-    inputs:
-      var_file:
-        type: string
-        required: false
-        default: ""
     secrets:
       INFRACOST_API_KEY:
         required: false
@@ -54,7 +49,6 @@ jobs:
       - name: plan
         uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
-          var_file: ${{ inputs.var_file }}
           infracost_api_key: ${{ secrets.INFRACOST_API_KEY }}
 
   apply:
