@@ -34,6 +34,10 @@ runs:
       if: inputs.init == 'true'
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-init-tfvars@main
 
+    - name: inject demo.tfvars
+      if: var.tfvars != ''
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-demo-tfvars@main
+
     - name: Set backend profile in AWS config
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-backend-profile@main
       with:

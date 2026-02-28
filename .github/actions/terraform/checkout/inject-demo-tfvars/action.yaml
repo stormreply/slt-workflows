@@ -1,0 +1,15 @@
+name: Inject demo.tfvars
+
+runs:
+  using: composite
+  steps:
+
+    - name: inject demo.tfvars
+      shell: bash
+      run: |
+        # checkout/inject-demo-tfvars
+        cat << EOF >> demo.tfvars
+        ${{vars.tfvars}}
+        EOF
+        echo "demo.tfvars:"
+        cat demo.tfvars

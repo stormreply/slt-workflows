@@ -11,7 +11,7 @@ runs:
   steps:
 
       - name: checkout code
-        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
+        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@feat/init-tfvars-from-vars
         with:
           infracost_api_key: ${{ inputs.infracost_api_key }}
 
