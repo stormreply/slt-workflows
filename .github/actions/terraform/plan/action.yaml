@@ -2,9 +2,6 @@ name: plan
 
 inputs:
 
-  var_file:
-    required: false
-
 runs:
   using: composite
   steps:
@@ -36,7 +33,9 @@ runs:
         echo "AWS_PROFILE=deployment" >> $GITHUB_ENV
 
         [ -f _metadata.tfvars ] && var_files="-var-file=_metadata.tfvars"
-        [ -n "${{ inputs.var_file }}" ] && var_files="$var_files -var-file=${{ inputs.var_file }}"
+        for tfvars in *.tfvars ; do
+          var_files="$var_files -var-file=$tfvars"
+        done
 
         terraform version
         terraform plan \

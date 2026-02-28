@@ -3,8 +3,6 @@ name: Init
 inputs:
   infracost_api_key:
     required: false
-  var_file:
-    required: false
 
 runs:
   using: composite
@@ -17,5 +15,3 @@ runs:
 
       - name: terraform plan
         uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
-        with:
-          var_file: ${{ inputs.var_file }}
