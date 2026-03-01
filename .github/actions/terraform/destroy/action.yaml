@@ -29,7 +29,12 @@ runs:
         export AWS_PROFILE=deployment
         echo  "AWS_PROFILE=deployment" >> $GITHUB_ENV
 
+        for tfvars in *.tfvars ; do
+          var_files="$var_files -var-file=$tfvars"
+        done
+
         terraform version
         terraform destroy \
           -auto-approve \
-          -input=false
+          -input=false \
+          $var_files
