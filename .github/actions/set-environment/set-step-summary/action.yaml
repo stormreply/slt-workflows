@@ -22,10 +22,10 @@ runs:
 
         <details>
         <summary><b>ENVIRONMENT</b></summary>
-
+        <br>
 
         | VARIABLE                      | VALUE               |
-        |:------------------------------|---------------------|
+        |:------------------------------|:--------------------|
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
         | BACKEND_REGION                | $BACKEND_REGION     |
