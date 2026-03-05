@@ -20,11 +20,11 @@ runs:
 
         cat << EOF >> $GITHUB_STEP_SUMMARY
 
+        <details>
+        <summary><b>ENVIRONMENT</b></summary>
+
         | ENVIRONMENT                   |                     |
         |:------------------------------|---------------------|
-        EOF
-
-        cat << EOF >> $GITHUB_STEP_SUMMARY
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
         | BACKEND_REGION                | $BACKEND_REGION     |
@@ -38,6 +38,8 @@ runs:
         | REPOSITORY                    | $REPOSITORY         |
         | SHORT_NAME                    | $SHORT_NAME         |
         | STATE_KEY                     | $STATE_KEY          |
+
+        </details>
         EOF
 
         [ "$STATUS" = "OK" ] && exit 0 || exit 1
