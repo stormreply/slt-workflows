@@ -23,6 +23,8 @@ runs:
         <details>
         <summary><b>ENVIRONMENT</b></summary>
 
+
+        | VARIABLE                      | VALUE               |
         |:------------------------------|---------------------|
         | BACKEND_ACCOUNT               | $BACKEND_ACCOUNT    |
         | BACKEND_BUCKET                | $BACKEND_BUCKET     |
