@@ -21,8 +21,8 @@ runs:
     - name: rewrite github URL (add x-access-token)
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/rewrite-github-url@main
 
-    # - name: inject provider.tf
-    #   uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-provider@main
+    - name: inject provider.tf
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-provider@main
 
     - name: inject backend.tf
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-backend@main
