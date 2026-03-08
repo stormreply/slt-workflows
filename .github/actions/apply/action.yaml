@@ -4,8 +4,17 @@ runs:
   using: composite
   steps:
 
-      - name: checkout code
-        uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
+    - name: set token
+      if: secrets.STORM_LIBRARY_FOR_TERRAFORM != '' || secrets.TERRAFORM_PRIVATE_KEY != ''
+      id: set-token
+      uses: stormreply/slt-workflows/.github/actions/set-token@main
+      with:
+        personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+        terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+        terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
-      - name: terraform apply
-        uses: stormreply/slt-workflows/.github/actions/terraform/apply@main
+    - name: checkout code
+      uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
+
+    - name: terraform apply
+      uses: stormreply/slt-workflows/.github/actions/terraform/apply@main
