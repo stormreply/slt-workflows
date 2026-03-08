@@ -28,8 +28,11 @@ jobs:
         id: set-environment
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
-          github_vars: "${{ toJson(vars) }}"
           action: test
+          github_vars: "${{ toJson(vars) }}"
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: scan
         uses: stormreply/slt-workflows/.github/actions/scan@main
@@ -45,6 +48,9 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: plan
         uses: stormreply/slt-workflows/.github/actions/plan@main
@@ -57,6 +63,14 @@ jobs:
     env: ${{ fromJson(needs.plan.outputs.env_json) }}
     steps:
 
+      # - name: set environment
+      #   id: set-environment
+      #   uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      #   with:
+      #     personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+      #     terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+      #     terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
+
       - name: apply
         uses: stormreply/slt-workflows/.github/actions/apply@main
 
@@ -66,6 +80,14 @@ jobs:
     runs-on: ubuntu-latest
     env: ${{ fromJson(needs.plan.outputs.env_json) }}
     steps:
+
+      # - name: set environment
+      #   id: set-environment
+      #   uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      #   with:
+      #     personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+      #     terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+      #     terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: destroy
         uses: stormreply/slt-workflows/.github/actions/destroy@main
