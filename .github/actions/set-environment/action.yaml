@@ -38,9 +38,6 @@ runs:
         terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
         terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
-    - name: rewrite github URL (add x-access-token)
-      uses: stormreply/slt-workflows/.github/actions/terraform/checkout/rewrite-github-url@main
-
     - name: set environment from vars
       if: inputs.github_vars != ''
       id: set-environment-from-vars
