@@ -38,6 +38,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: set environment
+        id: set-environment
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+        with:
+          github_vars: "${{ toJson(vars) }}"
+
       - name: plan
         uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
