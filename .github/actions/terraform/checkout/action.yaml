@@ -2,18 +2,22 @@ name: Checkout Code
 
 inputs:
 
+  workflow:
+    required: false
   infracost_api_key:
     required: false
-  init: # have we been called from the init workflow?
-    type: boolean
+  personal_access_token:
     required: false
-    default: false
-
-# TODO: maybe move set-aws-profiles somewhere else
+  terraform_app_id:
+    required: false
+  terraform_private_key:
+    required: false
 
 runs:
   using: composite
   steps:
+
+
 
     - name: checkout repository
       uses: actions/checkout@v4
@@ -41,12 +45,12 @@ runs:
     - name: Set backend profile in AWS config
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-backend-profile@main
       with:
-        use_oidc: ${{ inputs.init != 'true' }} # use oidc if we are not in the init workflow
+        use_oidc: ${{ inputs.workflow != 'configure' }}
 
     - name: Set deployment profile in AWS config
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-deployment-profile@main
       with:
-        use_oidc: ${{ inputs.init != 'true' }} # use oidc if we are not in the init workflow
+        use_oidc: ${{ inputs.workflow != 'configure' }}
 
     - name: Check cost
       if: inputs.infracost_api_key != ''

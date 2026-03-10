@@ -127,7 +127,7 @@ jobs:
       - name: checkout code
         uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
         with:
-          init: true
+          workflow: configure
 
       - name: Terraform plan
         uses: stormreply/slt-workflows/.github/actions/terraform/plan@main
