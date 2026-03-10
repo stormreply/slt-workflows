@@ -36,9 +36,6 @@ jobs:
         with:
           action: apply
           github_vars: "${{ toJson(vars) }}"
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: set backend profile in AWS config
         uses: stormreply/slt-workflows/.github/actions/terraform/checkout/set-backend-profile@main
@@ -60,12 +57,13 @@ jobs:
         with:
           action: apply
           github_vars: "${{ toJson(vars) }}"
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: scan
         uses: stormreply/slt-workflows/.github/actions/scan@main
+        with:
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
   plan:
     if: inputs.delay == ''
@@ -79,28 +77,20 @@ jobs:
         uses: stormreply/slt-workflows/.github/actions/set-environment@main
         with:
           github_vars: "${{ toJson(vars) }}"
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: plan
         uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
           infracost_api_key: ${{ secrets.INFRACOST_API_KEY }}
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
   apply:
     needs: plan
     runs-on: ubuntu-latest
     env: ${{ fromJson(needs.plan.outputs.env_json) }}
     steps:
-
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
-        with:
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: apply
         id: apply
