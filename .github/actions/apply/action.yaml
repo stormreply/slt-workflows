@@ -1,8 +1,6 @@
 name: Apply
 
 inputs:
-  infracost_api_key:
-    required: false
   personal_access_token:
     required: false
   terraform_app_id:
