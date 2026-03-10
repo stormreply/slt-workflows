@@ -1,8 +1,25 @@
 name: Scan code
 
+inputs:
+  personal_access_token:
+    required: false
+  terraform_app_id:
+    required: false
+  terraform_private_key:
+    required: false
+
 runs:
   using: composite
   steps:
+
+    - name: set token
+      if: inputs.personal_access_token != '' || inputs.terraform_private_key != ''
+      id: set-token
+      uses: stormreply/slt-workflows/.github/actions/set-token@main
+      with:
+        personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+        terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+        terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
     - name: checkout code
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
