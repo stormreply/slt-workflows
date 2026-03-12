@@ -33,7 +33,7 @@ runs:
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-metadata@main
 
     - name: inject init.tfvars
-      if: inputs.init == 'true'
+      if: inputs.workflow == 'configure'
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout/inject-init-tfvars@main
 
     - name: inject demo.tfvars
