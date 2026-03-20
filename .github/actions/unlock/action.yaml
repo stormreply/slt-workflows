@@ -16,4 +16,4 @@ runs:
 
         echo "removing lockfile ${lockfile}"
 
-        aws s3 rm ${lockfile} > /dev/null 2&>1 || true
+        aws s3 rm ${lockfile} || true
