@@ -11,10 +11,8 @@ runs:
         # remove-lockfile
 
         backend_bucket=${{ env.BACKEND_BUCKET }}
-        repository=${{ github.repository }}
-        lockfile=${{ env.DEPLOYMENT_NAME }}.tflock
-
-        lockfile="s3://${backend_bucket}/${repository}/${lockfile}"
+        state_key=${{ env.STATE_KEY }}
+        lockfile="s3://${backend_bucket}/${state_key}.tflock"
 
         echo "removing lockfile ${lockfile}"
 
