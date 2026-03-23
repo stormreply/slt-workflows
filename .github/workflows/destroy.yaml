@@ -66,3 +66,8 @@ jobs:
         with:
           action: ".*"
         # continue-on-error: true
+
+      - name: unlock terraform
+        id: unlock-terraform
+        if: always()
+        uses: stormreply/slt-workflows/.github/actions/unlock@main
