@@ -72,7 +72,7 @@ runs:
 
             cat << EOF >> $GITHUB_STEP_SUMMARY
             <b>$key</b>
-              $value
+            &nbsp; &nbsp; $value
 
             EOF
 
