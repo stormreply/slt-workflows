@@ -64,7 +64,7 @@ runs:
       run: |
         # check for summary output
         set +e
-        summary=$(terraform output -json summary 2> /dev/null)
+        summary=$(terraform output -json _summary 2> /dev/null)
         if [ $? -eq 0 ] ; then
           cat << EOF >> $GITHUB_STEP_SUMMARY
         <b>OUTPUT</b>
