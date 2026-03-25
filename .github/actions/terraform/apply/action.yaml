@@ -76,6 +76,12 @@ runs:
 
         EOF
 
+            cat << EOF
+            <b>$key</b>
+            &nbsp; &nbsp; $value
+
+        EOF
+
           done
         fi
         set -e
