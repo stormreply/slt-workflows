@@ -74,7 +74,7 @@ runs:
             <b>$key</b>
             &nbsp; &nbsp; $value
 
-            EOF
+        EOF
 
           done
         fi
