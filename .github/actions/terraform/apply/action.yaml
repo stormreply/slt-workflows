@@ -65,24 +65,16 @@ runs:
         # check for summary output
         set +e
         summary=$(terraform output -json summary 2> /dev/null)
-        echo "summary: [$summary]"
         if [ $? -eq 0 ] ; then
           echo "$summary" | jq -c 'to_entries[]' | while read -r entry; do
             key=$(echo "$entry" | jq -r '.key')
             value=$(echo "$entry" | jq -c '.value')
 
             cat << EOF >> $GITHUB_STEP_SUMMARY
-            <b>$key</b>
-            &nbsp; &nbsp; $value
+        <b>$key</b>
+        &nbsp; &nbsp; $value
 
         EOF
-
-            cat << EOF
-            <b>$key</b>
-            &nbsp; &nbsp; $value
-
-        EOF
-
           done
         fi
         set -e
