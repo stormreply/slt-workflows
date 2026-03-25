@@ -65,6 +65,7 @@ runs:
         # check for summary output
         set +e
         summary=$(terraform output -raw _summary 2> /dev/null)
+        echo "summary: [$summary]"
         if [ $? -eq 0 ] ; then
           echo "$summary" | jq -c 'to_entries[]' | while read -r entry; do
             key=$(echo "$entry" | jq -r '.key')
