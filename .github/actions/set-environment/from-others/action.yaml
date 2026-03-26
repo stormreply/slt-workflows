@@ -7,7 +7,7 @@ runs:
   steps:
 
     - name: checkout storm-library-for-terraform
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: stormreply/storm-library-for-terraform
         sparse-checkout: catalog.yaml
