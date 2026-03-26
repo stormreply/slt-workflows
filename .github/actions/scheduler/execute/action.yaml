@@ -40,7 +40,7 @@ runs:
 
           cat /tmp/$file \
           | gh workflow run ${action}.yaml --repo "$repository" --json 2>&1 \
-          | tee /tmp/$job &
+          | tee /tmp/$job
 
         done
 
