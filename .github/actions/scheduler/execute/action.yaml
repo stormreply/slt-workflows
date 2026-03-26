@@ -12,8 +12,8 @@ runs:
         cat << EOF >> $GITHUB_STEP_SUMMARY
         <b>EXECUTED</b>
 
-        | Status | Job |
-        |:-------|:----|
+        | Status | Action | Repo | Date | Time |
+        |:-------|:-------|:-----|:-----|:-----|
         EOF
 
         for job in $(cat /tmp/selected) ; do
@@ -26,10 +26,10 @@ runs:
           region=${f%%.*} ; f=${f##$region.}
           repo=${f%%.*} ; f=${f##$repo.}
 
-          printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
-            "DATE" "TIME" "ACTION" "ACCOUNT_ID" "REGION" "REPO"
-          printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
-            "$date" "$time" "$action" "$account_id" "$region" "$repo"
+          # printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
+          #   "DATE" "TIME" "ACTION" "ACCOUNT_ID" "REGION" "REPO"
+          # printf "%-8s %-6s %-7s %-12s %-15s %-15s %-s\n" \
+          #   "$date" "$time" "$action" "$account_id" "$region" "$repo"
 
           repository="${{ github.repository_owner }}/$repo"
 
@@ -51,7 +51,7 @@ runs:
           status=$(tail -n -1 /tmp/$job)
 
           cat << EOF >> $GITHUB_STEP_SUMMARY
-        | $status | $job |
+        | $status | $action | $repo | $date | $time |
         EOF
 
         done
