@@ -1,5 +1,9 @@
 name: Inject demo.tfvars
 
+inputs:
+  tfvars:
+    required: false
+
 runs:
   using: composite
   steps:
@@ -9,7 +13,7 @@ runs:
       run: |
         # checkout/inject-demo-tfvars
         cat << EOF >> demo.tfvars
-        ${{vars.TFVARS}}
+        ${{ inputs.tfvars }}
         EOF
         echo "demo.tfvars:"
         cat demo.tfvars
