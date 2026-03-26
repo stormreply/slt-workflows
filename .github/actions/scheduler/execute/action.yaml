@@ -12,7 +12,8 @@ runs:
         cat << EOF >> $GITHUB_STEP_SUMMARY
         <b>EXECUTED</b>
 
-        |:-|:-|
+        | Status | Job |
+        |:-------|:----|
         EOF
 
         for job in $(cat /tmp/selected) ; do
