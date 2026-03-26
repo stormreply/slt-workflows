@@ -11,7 +11,7 @@ runs:
 
     - name: assume terraform deployment role
       if: inputs.use_oidc == 'true'
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v6
       with:
         aws-region: ${{ env.DEPLOYMENT_REGION }}
         role-session-name: TerraformDeploymentSession
