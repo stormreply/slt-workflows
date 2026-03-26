@@ -9,6 +9,9 @@ runs:
       run: |
         # scheduler/execute
 
+        echo EXECUTE
+        echo
+
         for job in $(cat /tmp/selected) ; do
 
           file=${job##*/} ; f=${file}
@@ -32,10 +35,15 @@ runs:
             --quiet
 
           cat << EOF
-          EXECUTE
-            cat /tmp/$file | gh workflow run ${action}.yaml --repo "$repository" --json
+        cat /tmp/$file | gh workflow run ${action}.yaml --repo "$repository" --json
         EOF
 
-          cat /tmp/$file | gh workflow run ${action}.yaml --repo "$repository" --json &
+          cat /tmp/$file \
+          | gh workflow run ${action}.yaml --repo "$repository" --json 2>&1 \
+          | tee /tmp/$job &
 
+        done
+
+        for job in $(cat /tmp/selected) ; do
+          cat /tmp/$job
         done
