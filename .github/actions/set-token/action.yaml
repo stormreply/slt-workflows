@@ -41,7 +41,7 @@ runs:
     - name: create github app token
       if: env.TERRAFORM_APP_ID != '' && env.TERRAFORM_PRIVATE_KEY != ''
       id: create-github-app-token
-      uses: actions/create-github-app-token@v1
+      uses: actions/create-github-app-token@v3
       with:
         app-id: ${{ env.TERRAFORM_APP_ID }}
         private-key: ${{ env.TERRAFORM_PRIVATE_KEY }}
