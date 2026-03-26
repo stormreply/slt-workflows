@@ -50,7 +50,7 @@ runs:
           status=$(tail -n -1 /tmp/$job)
 
           cat << EOF >> $GITHUB_STEP_SUMMARY
-          | $status | $job |
-          EOF
+        | $status | $job |
+        EOF
 
         done
