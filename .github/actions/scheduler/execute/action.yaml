@@ -44,6 +44,10 @@ runs:
 
         done
 
+        echo
+        echo now show job output
+        echo
+
         for job in $(cat /tmp/selected) ; do
           cat /tmp/$job
         done
