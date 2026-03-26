@@ -39,8 +39,9 @@ runs:
         EOF
 
           cat /tmp/$file \
-          | gh workflow run ${action}.yaml --repo "$repository" --json 2>&1 || true \
-          | tee /tmp/$job
+          | gh workflow run ${action}.yaml --repo "$repository" --json 2>&1 \
+          | tee /tmp/$job \
+          || true
 
         done
 
