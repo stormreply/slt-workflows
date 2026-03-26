@@ -51,7 +51,7 @@ runs:
           status=$(tail -n -1 /tmp/$job)
 
           date="${date:0:4}-${date:4:2}-${date:6:2}"
-          time="%{time:0:2}:${time:2:2}:${time:4:2}"
+          time="${time:0:2}:${time:2:2}:${time:4:2}"
 
           cat << EOF >> $GITHUB_STEP_SUMMARY
         | $status | $action | $repo | $date | $time |
