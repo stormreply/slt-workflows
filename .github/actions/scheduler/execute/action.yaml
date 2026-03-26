@@ -12,8 +12,8 @@ runs:
         cat << EOF >> $GITHUB_STEP_SUMMARY
         <b>EXECUTED</b>
 
-        | Status | Action | Repo | Date | Time |
-        |:-------|:-------|:-----|:-----|:-----|
+        | Status | Action | Repo | Due Date | Due Time |
+        |:-------|:-------|:-----|:---------|:---------|
         EOF
 
         for job in $(cat /tmp/selected) ; do
@@ -46,9 +46,12 @@ runs:
           | gh workflow run ${action}.yaml --repo "$repository" --json 2>&1 \
           | tee /tmp/$job \
           && echo "OK" >> /tmp/$job \
-          || echo "FAILED" >> /tmp/$job
+          || echo "**FAILED**" >> /tmp/$job
 
           status=$(tail -n -1 /tmp/$job)
+
+          date="${date:0:4}-${date:4:2}-${date:6:2}"
+          time="%{time:0:2}:${time:2:2}:${time:4:2}"
 
           cat << EOF >> $GITHUB_STEP_SUMMARY
         | $status | $action | $repo | $date | $time |
