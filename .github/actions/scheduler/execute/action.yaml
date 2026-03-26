@@ -9,8 +9,11 @@ runs:
       run: |
         # scheduler/execute
 
-        echo EXECUTE
-        echo
+        cat << EOF >> $GITHUB_STEP_SUMMARY
+        <b>EXECUTED</b>
+
+        |:-|:-|
+        EOF
 
         for job in $(cat /tmp/selected) ; do
 
@@ -44,8 +47,10 @@ runs:
           && echo "OK" >> /tmp/$job \
           || echo "FAILED" >> /tmp/$job
 
-        done
+          status=$(tail -n -1 /tmp/$job)
 
-        for job in $(cat /tmp/selected) ; do
-          tail -n -1 /tmp/$job
+          cat << EOF >> $GITHUB_STEP_SUMMARY
+          | $status | $job |
+          EOF
+
         done
