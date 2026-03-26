@@ -41,14 +41,11 @@ runs:
           cat /tmp/$file \
           | gh workflow run ${action}.yaml --repo "$repository" --json 2>&1 \
           | tee /tmp/$job \
-          || true
+          && echo "OK" >> /tmp/$job \
+          || echo "FAILED" >> /tmp/$job
 
         done
 
-        echo
-        echo now show job output
-        echo
-
         for job in $(cat /tmp/selected) ; do
-          ls -la /tmp/$job
+          cat /tmp/$job
         done
