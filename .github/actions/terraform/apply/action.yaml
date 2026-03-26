@@ -5,12 +5,12 @@ runs:
   steps:
 
     - name: Download tfplan
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: tfplan
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v4
 
     - name: Terraform init with S3 backend
       shell: bash
@@ -54,7 +54,7 @@ runs:
 
     - name: Upload artifact
       if: env.ARTIFACT != ''
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ env.ARTIFACT }}
         path: ${{ env.ARTIFACT }}

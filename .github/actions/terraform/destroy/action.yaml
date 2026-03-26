@@ -5,7 +5,7 @@ runs:
   steps:
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v4
 
     - name: Terraform init with S3 backend
       shell: bash
