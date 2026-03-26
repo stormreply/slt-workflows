@@ -47,5 +47,5 @@ runs:
         done
 
         for job in $(cat /tmp/selected) ; do
-          cat /tmp/$job
+          tail -n -1 /tmp/$job
         done
