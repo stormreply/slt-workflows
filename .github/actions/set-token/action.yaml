@@ -43,7 +43,7 @@ runs:
       id: create-github-app-token
       uses: actions/create-github-app-token@v3
       with:
-        app-id: ${{ env.TERRAFORM_APP_ID }}
+        client-id: ${{ env.TERRAFORM_APP_ID }}
         private-key: ${{ env.TERRAFORM_PRIVATE_KEY }}
         owner: ${{ github.repository_owner }}
 
