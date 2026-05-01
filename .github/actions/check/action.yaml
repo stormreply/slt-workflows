@@ -27,18 +27,13 @@ runs:
     - name: checkout support
       uses: actions/checkout@v6
       with:
+        # checkout under /home/runner/work/slt-member-example/slt-member-example/slt-repo-template
         repository: stormreply/slt-repo-template
         path: slt-repo-template
 
-    - name: show runner folder structure
-      id: show-runner-folder-structure
+    - name: check
+      id: check
       shell: bash
       run: |
-        echo "pwd:"
-        pwd
-        echo "ls -la"
-        ls -la
-        echo "ls -la .."
-        ls -la ..
-        echo "ls -la slt-repo-template"
-        ls -la slt-repo-template
+        ls -la slt-repo-template/.support
+        ./slt-repo-template/.support/check-conformity.sh
