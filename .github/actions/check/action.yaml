@@ -24,9 +24,16 @@ runs:
     - name: checkout code
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
 
+    - name: checkout support
+      uses: actions/checkout@v6
+
     - name: show runner folder structure
       id: show-runner-folder-structure
       shell: bash
       run: |
+        echo "pwd:"
         pwd
+        echo "ls -la"
         ls -la
+        echo "ls -la .."
+        ls -la ..
