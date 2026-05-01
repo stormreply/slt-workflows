@@ -26,6 +26,8 @@ runs:
 
     - name: checkout support
       uses: actions/checkout@v6
+      with:
+        repository: stormreply/slt-repo-template
 
     - name: show runner folder structure
       id: show-runner-folder-structure
