@@ -1,0 +1,51 @@
+Legende:  [W] workflow  [J] job  [A] action  [S] shell
+          Lokale Actions ohne Präfix "stormreply/slt-workflows/.github/actions/"
+          ①②③  Markierung für wiederverwendete Teilbäume (erster Vorkommnis expandiert)
+
+[W] plan.yaml
+├── [J] check
+│   ├── [A] set-environment                                    ①
+│   │   ├── [A] set-token                                      ②
+│   │   │   ├── [S] check-token
+│   │   │   ├── [S] set-token-parameters
+│   │   │   ├── [A] actions/create-github-app-token@v3
+│   │   │   └── [S] set-Token
+│   │   ├── [A] set-environment/from-vars
+│   │   │   └── [S] set-environment-from-vars
+│   │   ├── [A] set-environment/from-inputs
+│   │   │   └── [S] set-environment-from-inputs
+│   │   ├── [A] set-environment/from-others
+│   │   │   ├── [A] actions/checkout@v6
+│   │   │   ├── [S] set-catalog-id
+│   │   │   ├── [S] set-deployment-tags
+│   │   │   ├── [S] set-from-defaults
+│   │   │   └── [S] set-backend-bucket
+│   │   ├── [A] set-environment/set-github-output
+│   │   │   └── [S] set-github-output
+│   │   └── [A] set-environment/set-step-summary
+│   │       └── [S] set-step-summary
+│   └── [A] scan
+│       ├── [A] set-token                                      ②
+│       ├── [A] terraform/checkout                             ③
+│       │   ├── [A] actions/checkout@v6
+│       │   ├── [A] terraform/checkout/rewrite-github-url
+│       │   ├── [A] terraform/checkout/inject-provider
+│       │   ├── [A] terraform/checkout/inject-backend
+│       │   ├── [A] terraform/checkout/inject-metadata
+│       │   ├── [A] terraform/checkout/inject-init-tfvars
+│       │   ├── [A] terraform/checkout/inject-demo-tfvars
+│       │   ├── [A] terraform/checkout/set-backend-profile
+│       │   ├── [A] terraform/checkout/set-deployment-profile
+│       │   └── [S] check-cost
+│       └── [A] scan/pre-commit
+│           └── [S] pre-commit-terraform (docker)
+└── [J] plan
+    ├── [A] set-environment                                    ①
+    └── [A] plan
+        ├── [A] set-token                                      ②
+        ├── [A] terraform/checkout                             ③
+        └── [A] terraform/plan
+            ├── [A] hashicorp/setup-terraform@v4
+            ├── [S] terraform-init
+            ├── [S] terraform-plan
+            └── [A] actions/upload-artifact@v7
