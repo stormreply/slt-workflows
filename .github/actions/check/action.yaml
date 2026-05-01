@@ -28,8 +28,6 @@ runs:
       uses: actions/checkout@v6
       with:
         repository: stormreply/slt-repo-template
-        sparse-checkout: .support
-        path: .support
 
     - name: show runner folder structure
       id: show-runner-folder-structure
@@ -41,5 +39,5 @@ runs:
         ls -la
         echo "ls -la .."
         ls -la ..
-        echo "ls -la .support"
-        ls -la .support
+        echo "ls -la slt-repo-template"
+        ls -la slt-repo-template
