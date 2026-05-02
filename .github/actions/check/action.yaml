@@ -42,8 +42,8 @@ runs:
         echo "exit_on_fail: ${{inputs.exit_on_fail}}"
         if [ $? -ne 0 ] ; then
           if [ "${{ inputs.exit_on_fail }}" = "true" ] ; then
-            echo "::error title=Not compliant::This repository is not SLT compliant (anymore)."
+            echo "::error title=Not compliant::This repository is not SLT compliant. Maybe it was before."
           else
-            echo "::warning title=Not compliant::This repository is not SLT compliant (anymore)."
+            echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
           fi
         fi
