@@ -40,8 +40,10 @@ runs:
         # check-conformity
         ./slt-repo-template/.support/check-conformity.sh
         echo "exit_on_fail: ${{inputs.exit_on_fail}}"
-        # if [ $? -nq 0 ] ; then
-        #   if [ ] ; then
-        #   else
-        #   fi
-        # fi
+        if [ $? -nq 0 ] ; then
+          if [ "${{ inputs.exit_on_fail }}" = "true" ] ; then
+            echo "::error title=Not compliant::This repository is not SLT compliant (anymore)."
+          else
+            echo "::warning title=Not compliant::This repository is not SLT compliant (anymore)."
+          fi
+        fi
