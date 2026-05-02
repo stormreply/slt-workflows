@@ -1,6 +1,8 @@
 name: Check code
 
 inputs:
+  exit_on_fail:
+    required: false
   personal_access_token:
     required: false
   terraform_app_id:
@@ -31,9 +33,10 @@ runs:
         repository: stormreply/slt-repo-template
         path: slt-repo-template
 
-    - name: check
-      id: check
+    - name: check-conformity
+      id: check-conformity
       shell: bash
       run: |
-        ls -la slt-repo-template/.support
+        # check-conformity
         ./slt-repo-template/.support/check-conformity.sh
+        echo "exit_on_fail: ${{exit_on_fail}}"
