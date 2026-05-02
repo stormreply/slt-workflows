@@ -40,3 +40,8 @@ runs:
         # check-conformity
         ./slt-repo-template/.support/check-conformity.sh
         echo "exit_on_fail: ${{inputs.exit_on_fail}}"
+        # if [ $? -nq 0 ] ; then
+        #   if [ ] ; then
+        #   else
+        #   fi
+        # fi
