@@ -39,4 +39,4 @@ runs:
       run: |
         # check-conformity
         ./slt-repo-template/.support/check-conformity.sh
-        echo "exit_on_fail: ${{exit_on_fail}}"
+        echo "exit_on_fail: ${{inputs.exit_on_fail}}"
