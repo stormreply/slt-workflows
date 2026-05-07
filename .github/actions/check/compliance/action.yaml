@@ -29,7 +29,6 @@ runs:
     - name: checkout support
       uses: actions/checkout@v6
       with:
-        # checkout under /home/runner/work/slt-member-example/slt-member-example/slt-repo-template
         repository: stormreply/slt-repo-template
         path: slt-repo-template
 
