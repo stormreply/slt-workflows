@@ -92,6 +92,16 @@ runs:
 
         score_to_color "${{ inputs.score }}" "${{ inputs.color_list }}"
         color=$(score_to_color "${{ inputs.score }}" "${{ inputs.color_list }}")
+        echo "color: $color"
+
+        cat <<EOF
+        {
+          "schemaVersion": 1,
+          "label": "${{ inputs.label }}",
+          "message": "${{ inputs.message }}",
+          "color": "${color}"
+        }
+        EOF
 
         cat > "${{ inputs.label }}.json" <<EOF
         {
@@ -109,5 +119,6 @@ runs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add "${{ inputs.label }}.json"
+        git diff
         git diff --cached --quiet || git commit -m "update badge: ${{ inputs.label }} [skip ci]"
         git push origin badges
