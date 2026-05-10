@@ -90,14 +90,15 @@ runs:
           printf '%s' "${color_arr[$idx]}"
         }
 
+        score_to_color "${{ inputs.score }}" "${{ inputs.color_list }}"
         color=$(score_to_color "${{ inputs.score }}" "${{ inputs.color_list }}")
 
-        cat > "${{ inputs.label }}.json" <<'EOF'
+        cat > "${{ inputs.label }}.json" <<EOF
         {
           "schemaVersion": 1,
           "label": "${{ inputs.label }}",
           "message": "${{ inputs.message }}",
-          "color": "$color"
+          "color": "${color}"
         }
         EOF
 
