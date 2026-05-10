@@ -5,8 +5,10 @@ inputs:
     required: true
   message:
     required: true
-  color:
+  score:
     required: true
+  color_list:
+    required: false
 
 runs:
   using: composite
@@ -31,12 +33,71 @@ runs:
       shell: bash
       run: |
         # write badge
+
+        score_to_color() {
+
+          local value="${1}"
+          local colors="${2:-green,red}"
+
+          # Wenn value keine nicht-negative Zahl ist: als String zurückgeben.
+          if ! [[ "$value" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+            printf '%s' "$value"
+            return 0
+          fi
+
+          # Zahl muss in [0, 1] liegen.
+          if ! awk -v v="$value" 'BEGIN { exit !(v >= 0 && v <= 1) }'; then
+            printf 'score_to_color: value out of range [0,1]: %s\n' "$value" >&2
+            return 1
+          fi
+
+          # Farben aus Komma-Liste aufteilen + Whitespace stripten.
+          local -a color_arr
+          IFS=',' read -r -a color_arr <<< "$colors"
+          local i
+          for i in "${!color_arr[@]}"; do
+            color_arr[$i]="${color_arr[$i]// /}"
+          done
+
+          local n="${#color_arr[@]}"
+          if (( n == 0 )); then
+            printf 'score_to_color: empty color list\n' >&2
+            return 1
+          fi
+
+          # Index berechnen.
+          local idx
+          if awk -v v="$value" 'BEGIN { exit !(v == 0) }'; then
+            idx=0
+          elif (( n == 1 )); then
+            idx=0
+          else
+            # Buckets = n - 1, Index = ceil(v * Buckets).
+            # ceil ist hier so definiert, dass die Grenze v = k/Buckets
+            # noch zum Bucket k gehört (linke Grenze offen, rechte geschlossen).
+            idx=$(
+              awk -v v="$value" -v n="$n" '
+                BEGIN {
+                  buckets = n - 1
+                  x = v * buckets
+                  ceil = (x == int(x)) ? x : int(x) + 1
+                  print ceil
+                }
+              '
+            )
+          fi
+
+          printf '%s' "${color_arr[$idx]}"
+        }
+
+        color=$(score_to_color "${{ inputs.score }}" "${{ inputs.color_list }}")
+
         cat > "${{ inputs.label }}.json" <<'EOF'
         {
           "schemaVersion": 1,
           "label": "${{ inputs.label }}",
           "message": "${{ inputs.message }}",
-          "color": "${{ inputs.color }}"
+          "color": "$color"
         }
         EOF
 
@@ -45,7 +106,7 @@ runs:
       run: |
         # commit badge
         git config user.name "github-actions[bot]"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
         git add "${{ inputs.label }}.json"
         git diff --cached --quiet || git commit -m "update badge: ${{ inputs.label }} [skip ci]"
         git push origin badges
