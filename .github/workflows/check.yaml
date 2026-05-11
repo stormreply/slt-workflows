@@ -28,6 +28,7 @@ jobs:
           github_vars: "${{ toJson(vars) }}"
 
       - name: check compliance
+        id: check-compliance
         uses: stormreply/slt-workflows/.github/actions/check/compliance@main
         with:
           exit_on_fail: false
@@ -39,9 +40,9 @@ jobs:
       - name: publish badge
         uses: stormreply/slt-workflows/.github/actions/badges@main
         with:
-          label: label
-          message: message
-          score: 0
+          label: Status
+          message: compliant
+          score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
 
   code:
     runs-on: ubuntu-latest
