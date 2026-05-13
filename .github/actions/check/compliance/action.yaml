@@ -9,6 +9,8 @@ inputs:
     required: false
   exit_on_fail:
     required: false
+  publish_badge:
+    required: false
 
 runs:
   using: composite
@@ -48,3 +50,11 @@ runs:
             echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
           fi
         fi
+
+    - name: publish badge
+      if: inputs.publish_badge == 'true'
+      uses: stormreply/slt-workflows/.github/actions/badges@main
+      with:
+        label: Compliance
+        message: ""
+        score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
