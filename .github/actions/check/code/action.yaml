@@ -55,5 +55,5 @@ runs:
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
         label: Code
-        message: ""
+        message: " "
         score: ${{ steps.check-code.outcome == 'success' && '0' || '1' }}

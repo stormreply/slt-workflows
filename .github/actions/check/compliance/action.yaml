@@ -56,5 +56,5 @@ runs:
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
         label: Compliance
-        message: ""
+        message: " "
         score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
