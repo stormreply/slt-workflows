@@ -1,15 +1,15 @@
 name: Check compliance
 
 inputs:
+  exit_on_fail:
+    required: false
+  publish_badge:
+    required: false
   personal_access_token:
     required: false
   terraform_app_id:
     required: false
   terraform_private_key:
-    required: false
-  exit_on_fail:
-    required: false
-  publish_badge:
     required: false
 
 runs:

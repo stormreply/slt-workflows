@@ -1,13 +1,13 @@
 name: Check code
 
 inputs:
+  publish_badge:
+    required: false
   personal_access_token:
     required: false
   terraform_app_id:
     required: false
   terraform_private_key:
-    required: false
-  publish_badge:
     required: false
 
 runs:
@@ -44,6 +44,11 @@ runs:
             terraform --version
             pre-commit run -a
           '
+
+    - name: fix permissions
+      if: always()
+      shell: bash
+      run: sudo chown -R "$(id -u):$(id -g)" .
 
     - name: publish badge
       if: inputs.publish_badge == 'true'
