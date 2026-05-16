@@ -1,0 +1,36 @@
+name: Bedrock Compliance Check
+
+inputs:
+  region:
+    required: true
+  bedrock_model_id:
+    required: true
+  compliance_file:
+    description: path to compliance markdown file
+    required: true
+  compliance_script:
+    description: path to compliance check script
+    required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+runs:
+  using: composite
+  steps:
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install dependencies
+      run: pip install --quiet boto3
+
+    - name: Run Bedrock compliance check
+      env:
+        AWS_REGION: ${{ inputs.region }}
+        BEDROCK_MODEL_ID: ${{ inputs.bedrock_model_id }}
+        COMPLIANCE_FILE: ${{ inputs.compliance_file }}
+      run: python ${{ inputs.compliance_script }} # .support/check_compliance.py

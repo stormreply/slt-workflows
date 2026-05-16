@@ -40,7 +40,7 @@ runs:
       run: |
         # check/compliance
         rc=0
-        ./slt-repo-template/.support/check-conformity.sh || rc=$?
+        ./slt-repo-template/.support/check-compliance.sh || rc=$?
         echo "exit_on_fail: ${{inputs.exit_on_fail}}"
         if [ $rc -ne 0 ] ; then
           if [ "${{ inputs.exit_on_fail }}" = "true" ] ; then
@@ -58,3 +58,11 @@ runs:
         label: Compliance
         message: " "
         score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
+
+    - name: check extended compliance
+      uses: stormreply/slt-workflows/.github/actions/bedrock@main
+      with:
+        region: ${{ var.BACKEND_REGION }}
+        bedrock_model_id: anthropic.claude-opus-4-7
+        compliance_file: .support/compliance.md
+        compliance_script: .support/check-compliance.py
