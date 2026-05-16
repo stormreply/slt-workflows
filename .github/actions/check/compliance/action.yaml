@@ -47,6 +47,6 @@ runs:
       env:
         AWS_REGION: eu-central-1   # TODO: pass from workflow
         BEDROCK_MODEL_ID: anthropic.claude-opus-4-7
-        COMPLIANCE_FILE: .support/compliance.md
+        COMPLIANCE_FILE: ./slt-repo-template/.support/compliance.md
       shell: bash
       run: python ./slt-repo-template/.support/check-compliance.py   # .support/check_compliance.py
