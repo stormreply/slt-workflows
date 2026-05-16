@@ -16,7 +16,7 @@ on:
 
 jobs:
 
-  compliance:
+  files:
     runs-on: ubuntu-latest
     steps:
 
@@ -27,9 +27,9 @@ jobs:
           action: check
           github_vars: "${{ toJson(vars) }}"
 
-      - name: check compliance
-        id: check-compliance
-        uses: stormreply/slt-workflows/.github/actions/check/compliance@main
+      - name: check files
+        id: check-files
+        uses: stormreply/slt-workflows/.github/actions/check/files@main
         with:
           exit_on_fail: false
           publish_badge: true
@@ -51,6 +51,25 @@ jobs:
 
       - name: check code
         uses: stormreply/slt-workflows/.github/actions/check/code@main
+        with:
+          publish_badge: true
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
+
+  compliance:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: set environment
+        id: set-environment
+        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+        with:
+          action: check
+          github_vars: "${{ toJson(vars) }}"
+
+      - name: check compliance
+        uses: stormreply/slt-workflows/.github/actions/check/compliance@main
         with:
           publish_badge: true
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
