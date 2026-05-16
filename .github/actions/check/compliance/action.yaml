@@ -49,4 +49,4 @@ runs:
         BEDROCK_MODEL_ID: anthropic.claude-opus-4-7
         COMPLIANCE_FILE: .support/compliance.md
       shell: bash
-      run: python .support/check-compliance.py   # .support/check_compliance.py
+      run: python ./slt-repo-template/.support/check-compliance.py   # .support/check_compliance.py
