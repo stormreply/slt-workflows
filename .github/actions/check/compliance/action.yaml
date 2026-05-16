@@ -62,7 +62,7 @@ runs:
     - name: check extended compliance
       uses: stormreply/slt-workflows/.github/actions/bedrock@main
       with:
-        region: ${{ var.BACKEND_REGION }}
+        region: eu-central-1 # TODO: pass from workflow
         bedrock_model_id: anthropic.claude-opus-4-7
         compliance_file: .support/compliance.md
         compliance_script: .support/check-compliance.py
