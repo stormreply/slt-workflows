@@ -9,6 +9,9 @@ inputs:
     required: false
   terraform_private_key:
     required: false
+  token_notice:
+    required: false
+    default: false
 
 runs:
   using: composite
