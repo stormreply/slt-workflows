@@ -22,6 +22,7 @@ runs:
         personal_access_token: ${{ inputs.personal_access_token }}
         terraform_app_id: ${{ inputs.terraform_app_id }}
         terraform_private_key: ${{ inputs.terraform_private_key }}
+        token_notice: true
 
     - name: checkout code
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
