@@ -53,6 +53,7 @@ runs:
       run: |
         # check/compliance
         python ./slt-repo-template/.support/check-compliance.py || rc=$?
+        echo "RC $rc"
         [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT
 
     - name: publish badge
@@ -61,8 +62,8 @@ runs:
       with:
         file: check-compliance.json
         label: "Check Compliance"
-        message: ${{ steps.check-compliance.outcome == 'success' && 'passed' || 'failed' }}
-        score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
+        message: ${{ steps.check-compliance.outputs.compliant == 'false' && 'failing' || 'passing' }}
+        score: ${{ steps.check-compliance.outputs.compliant == 'false' && '0' || '1' }}
 
     - name: check failure
       if: steps.check-compliance.outputs.compliant == 'false' && inputs.exit_on_fail == 'true'

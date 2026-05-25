@@ -41,6 +41,7 @@ runs:
         # check/files
         rc=0
         ./slt-repo-template/.support/check-files.sh || rc=$?
+        echo "RC $rc"
         [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT
 
     - name: publish badge
@@ -50,7 +51,7 @@ runs:
         file: check-files.json
         label: "Check Files"
         message: ${{ steps.check-files.outputs.compliant == 'false' && 'failing' || 'passing' }}
-        score: ${{ steps.check-files.outputs.compliant == 'false' && '1' || '0' }}
+        score: ${{ steps.check-files.outputs.compliant == 'false' && '0' || '1' }}
 
     - name: check failure
       if: steps.check-files.outputs.compliant == 'false' && inputs.exit_on_fail == 'true'
