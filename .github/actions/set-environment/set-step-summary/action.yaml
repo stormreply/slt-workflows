@@ -21,8 +21,8 @@ runs:
 
         cat << EOF >> $GITHUB_STEP_SUMMARY
 
-        $date<details>
-        <summary>ENVIRONMENT</summary>
+        <details>
+        <summary>$date ENVIRONMENT</summary>
         <br>
 
         | VARIABLE                      | VALUE               |
