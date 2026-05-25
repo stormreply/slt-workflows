@@ -41,10 +41,7 @@ runs:
         # check/files
         rc=0
         ./slt-repo-template/.support/check-files.sh || rc=$?
-        if [ $rc -ne 0 ] ; then
-          echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
-          echo "compliant=false" >> $GITHUB_OUTPUT
-        fi
+        [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT
 
     - name: publish badge
       if: always() && inputs.publish_badge == 'true'
