@@ -10,7 +10,6 @@ runs:
         # set-environment/set-step-summary
 
         date=$(date)
-        date >> $GITHUB_STEP_SUMMARY
 
         STATUS="OK"
         [ -z "$BACKEND_ACCOUNT"    ] && echo "::error ::Github repository variable BACKEND_ACCOUNT not set" && STATUS="ERROR"
@@ -22,7 +21,7 @@ runs:
         cat << EOF >> $GITHUB_STEP_SUMMARY
 
         <details>
-        <summary>$date ENVIRONMENT</summary>
+        <summary>ENVIRONMENT &nbsp; $date</summary>
         <br>
 
         | VARIABLE                      | VALUE               |
