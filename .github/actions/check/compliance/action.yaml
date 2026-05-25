@@ -34,19 +34,37 @@ runs:
         repository: stormreply/slt-repo-template
         path: slt-repo-template
 
-    - name: Set up Python
+    - name: set up python
       uses: actions/setup-python@v6
       with:
         python-version: "3.12"
 
-    - name: Install dependencies
+    - name: install dependencies
       shell: bash
       run: pip install --quiet boto3
 
-    - name: Run Bedrock compliance check
+    - name: check compliance
+      id: check-compliance
       env:
         AWS_REGION: eu-central-1   # TODO: pass from workflow
         BEDROCK_MODEL_ID: eu.anthropic.claude-sonnet-4-6 # anthropic.claude-opus-4-7
         COMPLIANCE_FILE: ./slt-repo-template/.support/compliance.md
       shell: bash
-      run: python ./slt-repo-template/.support/check-compliance.py   # .support/check_compliance.py
+      run: |
+        # check/compliance
+        python ./slt-repo-template/.support/check-compliance.py
+      continue-on-error: true
+
+    - name: publish badge
+      if: inputs.publish_badge == 'true'
+      uses: stormreply/slt-workflows/.github/actions/badges@main
+      with:
+        label: "Check Compliance"
+        message: ${{ steps.check-compliance.outcome == 'success' && 'passed' || 'failed' }}
+        score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
+
+    - name: check failure
+      if: |
+        steps.check-compliance.outcome == 'failure'
+      run: |
+        exit 1

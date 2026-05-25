@@ -31,7 +31,7 @@ jobs:
         id: check-files
         uses: stormreply/slt-workflows/.github/actions/check/files@main
         with:
-          exit_on_fail: false
+          exit_on_fail: true
           publish_badge: true
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}

@@ -34,11 +34,11 @@ runs:
         repository: stormreply/slt-repo-template
         path: slt-repo-template
 
-    - name: check compliance
-      id: check-compliance
+    - name: check files
+      id: check-files
       shell: bash
       run: |
-        # check/compliance
+        # check/files
         rc=0
         ./slt-repo-template/.support/check-files.sh || rc=$?
         echo "exit_on_fail: ${{inputs.exit_on_fail}}"
@@ -50,11 +50,18 @@ runs:
             echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
           fi
         fi
+      continue-on-error: true
 
     - name: publish badge
       if: inputs.publish_badge == 'true'
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
-        label: Compliance
-        message: " "
-        score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
+        label: "Check Compliance"
+        message: ${{ steps.check-files.outcome == 'success' && 'passed' || 'failed' }}
+        score: ${{ steps.check-files.outcome == 'success' && '0' || '1' }}
+
+    - name: check failure
+      if: |
+        steps.check-files.outcome == 'failure'
+      run: |
+        exit 1
