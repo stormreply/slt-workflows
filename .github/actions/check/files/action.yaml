@@ -39,10 +39,8 @@ runs:
       shell: bash
       run: |
         # check/files
-        rc=0
         ./slt-repo-template/.support/check-files.sh && rc=0 || rc=$?
-        echo "RC $rc"
-        [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT
+        [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT || true
 
     - name: publish badge
       if: always() && inputs.publish_badge == 'true'

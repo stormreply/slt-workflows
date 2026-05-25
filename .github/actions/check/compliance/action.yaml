@@ -53,8 +53,7 @@ runs:
       run: |
         # check/compliance
         python ./slt-repo-template/.support/check-compliance.py && rc=0 || rc=$?
-        echo "RC $rc"
-        [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT
+        [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT || true
 
     - name: publish badge
       if: always() && inputs.publish_badge == 'true'
