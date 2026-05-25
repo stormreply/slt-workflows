@@ -44,8 +44,7 @@ runs:
         echo "exit_on_fail: ${{inputs.exit_on_fail}}"
         if [ $rc -ne 0 ] ; then
           if [ "${{ inputs.exit_on_fail }}" = "true" ] ; then
-            echo "::error title=Not compliant::This repository is not SLT compliant. Maybe it was before."
-            exit 1
+            return 1
           else
             echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
           fi
@@ -56,7 +55,8 @@ runs:
       if: inputs.publish_badge == 'true'
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
-        label: "Check Compliance"
+        file: check-files.json
+        label: "Check Files"
         message: ${{ steps.check-files.outcome == 'success' && 'passed' || 'failed' }}
         score: ${{ steps.check-files.outcome == 'success' && '0' || '1' }}
 

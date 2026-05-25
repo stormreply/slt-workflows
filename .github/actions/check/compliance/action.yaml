@@ -59,6 +59,7 @@ runs:
       if: inputs.publish_badge == 'true'
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
+        file: check-compliance.json
         label: "Check Compliance"
         message: ${{ steps.check-compliance.outcome == 'success' && 'passed' || 'failed' }}
         score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
