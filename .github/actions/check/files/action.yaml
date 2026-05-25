@@ -41,26 +41,21 @@ runs:
         # check/files
         rc=0
         ./slt-repo-template/.support/check-files.sh || rc=$?
-        echo "exit_on_fail: ${{inputs.exit_on_fail}}"
         if [ $rc -ne 0 ] ; then
-          if [ "${{ inputs.exit_on_fail }}" = "true" ] ; then
-            exit 1
-          else
-            echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
-          fi
+          echo "::warning title=Not compliant::This repository is not SLT compliant. Maybe it was before."
+          echo "compliant=false" >> $GITHUB_OUTPUT
         fi
-      continue-on-error: true
 
     - name: publish badge
-      if: inputs.publish_badge == 'true'
+      if: always() && inputs.publish_badge == 'true'
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
         file: check-files.json
         label: "Check Files"
-        message: ${{ steps.check-files.outcome == 'success' && 'passed' || 'failed' }}
-        score: ${{ steps.check-files.outcome == 'success' && '0' || '1' }}
+        message: ${{ steps.check-files.outputs.compliant == 'false' && 'failing' || 'passing' }}
+        score: ${{ steps.check-files.outputs.compliant == 'false' && '1' || '0' }}
 
     - name: check failure
-      if: steps.check-files.outcome == 'failure'
+      if: steps.check-files.outputs.compliant == 'false' && inputs.exit_on_fail == 'true'
       shell: bash
       run: exit 1
