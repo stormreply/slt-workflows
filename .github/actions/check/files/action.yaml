@@ -61,7 +61,5 @@ runs:
         score: ${{ steps.check-files.outcome == 'success' && '0' || '1' }}
 
     - name: check failure
-      if: |
-        steps.check-files.outcome == 'failure'
-      run: |
-        exit 1
+      if: steps.check-files.outcome == 'failure'
+      run: exit 1

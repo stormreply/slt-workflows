@@ -64,7 +64,5 @@ runs:
         score: ${{ steps.check-compliance.outcome == 'success' && '0' || '1' }}
 
     - name: check failure
-      if: |
-        steps.check-compliance.outcome == 'failure'
-      run: |
-        exit 1
+      if: steps.check-compliance.outcome == 'failure'
+      run: exit 1
