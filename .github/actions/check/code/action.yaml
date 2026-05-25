@@ -58,6 +58,7 @@ runs:
       if: inputs.publish_badge == 'true'
       uses: stormreply/slt-workflows/.github/actions/badges@main
       with:
-        label: Code
-        message: " "
+        file: check-code.json
+        label: "Check Code"
+        message: ${{ steps.check-code.outcome == 'success' && 'passed' || 'failed' }}
         score: ${{ steps.check-code.outcome == 'success' && '0' || '1' }}
