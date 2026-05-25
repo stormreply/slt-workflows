@@ -96,16 +96,7 @@ runs:
         color=$(score_to_color "${{ inputs.score }}" "${{ inputs.color_list }}")
         echo "color: $color"
 
-        cat <<EOF
-        {
-          "schemaVersion": 1,
-          "label": "${{ inputs.label }}",
-          "message": "${{ inputs.message }}",
-          "color": "${color}"
-        }
-        EOF
-
-        cat > "${{ inputs.label }}.json" <<EOF
+        cat << EOF | tee > "${{ inputs.file }}"
         {
           "schemaVersion": 1,
           "label": "${{ inputs.label }}",
