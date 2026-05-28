@@ -20,12 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           action: check
           github_vars: "${{ toJson(vars) }}"
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: check files
         id: check-files
@@ -33,45 +36,43 @@ jobs:
         with:
           exit_on_fail: true
           publish_badge: true
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
   code:
     runs-on: ubuntu-latest
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           action: check
           github_vars: "${{ toJson(vars) }}"
-
-      - name: check code
-        uses: stormreply/slt-workflows/.github/actions/check/code@main
-        with:
-          publish_badge: true
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
           terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
           token_notice: true
 
+      - name: check code
+        uses: stormreply/slt-workflows/.github/actions/check/code@main
+        with:
+          publish_badge: true
+
   compliance:
     runs-on: ubuntu-latest
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           action: check
           github_vars: "${{ toJson(vars) }}"
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: check compliance
         uses: stormreply/slt-workflows/.github/actions/check/compliance@main
         with:
+          exit_on_fail: true
           publish_badge: true
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}

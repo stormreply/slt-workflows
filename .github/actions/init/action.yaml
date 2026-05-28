@@ -1,0 +1,59 @@
+name: Init
+
+inputs:
+  action:
+    required: false
+  github_inputs:
+    required: false
+  github_vars:
+    required: false
+  github_token:
+    required: false
+  personal_access_token:
+    required: false
+  terraform_app_id:
+    required: false
+  terraform_private_key:
+    required: false
+  token_notice:
+    required: false
+    default: false
+
+
+outputs:
+  env_json:
+    value: ${{ steps.set-github-output.outputs.env_json }}
+
+runs:
+  using: composite
+  steps:
+
+    - name: set github env
+      if: inputs.action != '' || inputs.github_inputs != '' || inputs.github_vars != ''
+      id: set-github-env
+      uses: stormreply/slt-workflows/.github/actions/init/set-github-env@main
+      with:
+        action: ${{ inputs.action }}
+        github_inputs: ${{ inputs.github_inputs }}
+        github_vars: ${{ inputs.github_vars }}
+
+    - name: set token
+      if: inputs.github_token != '' || inputs.personal_access_token != '' || inputs.terraform_app_id != ''
+      id: set-token
+      uses: stormreply/slt-workflows/.github/actions/init/set-token@main
+      with:
+        github_token: ${{ inputs.github_token }}
+        personal_access_token: ${{ inputs.personal_access_token }}
+        terraform_app_id: ${{ inputs.terraform_app_id }}
+        terraform_private_key: ${{ inputs.terraform_private_key }}
+        token_notice: ${{ inputs.token_notice }}
+
+    - name: set github output
+      if: inputs.action != '' || inputs.github_inputs != '' || inputs.github_vars != ''
+      id: set-github-output
+      uses: stormreply/slt-workflows/.github/actions/init/set-github-output@main
+
+    - name: set github step summary
+      if: inputs.action != '' || inputs.github_inputs != '' || inputs.github_vars != ''
+      id: set-github-step-summary
+      uses: stormreply/slt-workflows/.github/actions/init/set-github-step-summary@main

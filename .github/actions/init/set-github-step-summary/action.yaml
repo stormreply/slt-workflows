@@ -7,7 +7,7 @@ runs:
     - name: set-step-summary
       shell: bash
       run: |
-        # set-environment/set-step-summary
+        # set-github-env/set-step-summary
 
         date=$(date)
 

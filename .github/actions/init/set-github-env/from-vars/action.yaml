@@ -8,11 +8,11 @@ runs:
   using: composite
   steps:
 
-    - name: set-environment-from-vars
-      id: set-environment-from-vars
+    - name: set-github-env-from-vars
+      id: set-github-env-from-vars
       shell: bash
       run: |
-        # set-environment/from-vars
+        # set-github-env/from-vars
         echo '${{ inputs.github_vars }}' \
         | jq -r 'to_entries | map("\(.key)=\(.value)") | .[]' \
         | tee -a $GITHUB_ENV

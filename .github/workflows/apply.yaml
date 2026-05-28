@@ -34,9 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           action: apply
           github_vars: "${{ toJson(vars) }}"
@@ -55,41 +55,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           action: apply
           github_vars: "${{ toJson(vars) }}"
-
-      - name: check code
-        uses: stormreply/slt-workflows/.github/actions/check/code@main
-        with:
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
           terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
           token_notice: true
 
+      - name: check code
+        uses: stormreply/slt-workflows/.github/actions/check/code@main
+
   plan:
     if: inputs.delay == ''
     runs-on: ubuntu-latest
     outputs:
-      env_json: ${{ steps.set-environment.outputs.env_json }}
+      env_json: ${{ steps.init.outputs.env_json }}
     steps:
 
-      - name: set environment
-        id: set-environment
-        uses: stormreply/slt-workflows/.github/actions/set-environment@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           github_vars: "${{ toJson(vars) }}"
+          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
+          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
+          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
       - name: plan
         uses: stormreply/slt-workflows/.github/actions/plan@main
         with:
           infracost_api_key: ${{ secrets.INFRACOST_API_KEY }}
-          personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
-          terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
-          terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
 
   apply:
     needs: plan
@@ -97,13 +96,17 @@ jobs:
     env: ${{ fromJson(needs.plan.outputs.env_json) }}
     steps:
 
-      - name: apply
-        id: apply
-        uses: stormreply/slt-workflows/.github/actions/apply@main
+      - name: init
+        id: init
+        uses: stormreply/slt-workflows/.github/actions/init@main
         with:
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
           terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
+
+      - name: apply
+        id: apply
+        uses: stormreply/slt-workflows/.github/actions/apply@main
         continue-on-error: true
 
       - name: unschedule apply

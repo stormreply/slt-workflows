@@ -1,0 +1,47 @@
+name: Set GITHUB_ENV
+
+inputs:
+  action:
+    required: false
+  github_inputs:
+    required: false
+  github_vars:
+    required: false
+
+outputs:
+  env_json:
+    value: ${{ steps.set-github-output.outputs.env_json }}
+
+runs:
+  using: composite
+  steps:
+
+    - name: Time
+      shell: bash
+      run: date
+
+    - name: set environment from vars
+      if: inputs.github_vars != ''
+      id: set-github-env-from-vars
+      uses: stormreply/slt-workflows/.github/actions/init/set-github-env/from-vars@main
+      with:
+        github_vars: ${{ inputs.github_vars }}
+
+    - name: set environment from inputs
+      if: inputs.github_inputs != ''
+      id: set-github-env-from-inputs
+      uses: stormreply/slt-workflows/.github/actions/init/set-github-env/from-inputs@main
+      with:
+        github_inputs: ${{ inputs.github_inputs }}
+
+    - name: set environment from others
+      id: set-github-env-from-others
+      uses: stormreply/slt-workflows/.github/actions/init/set-github-env/from-others@main
+
+    - name: combine outputs
+      id: combine-outputs
+      shell: bash
+      run: |
+        cat << EOF
+
+        EOF

@@ -8,10 +8,10 @@ runs:
   using: composite
   steps:
     - name: set environment from inputs
-      id: set-environment-from-inputs
+      id: set-github-env-from-inputs
       shell: bash
       run: |
-        # set-environment/from-inputs
+        # set-github-env/from-inputs
         github_inputs="${{ inputs.github_inputs }}"
         # echo "$github_inputs"
         IFS=$'\n' lines=($github_inputs)
