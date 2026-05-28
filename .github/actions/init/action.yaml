@@ -1,8 +1,6 @@
 name: Init
 
 inputs:
-  action:
-    required: false
   github_inputs:
     required: false
   github_vars:
@@ -10,6 +8,8 @@ inputs:
   github_token:
     required: false
   personal_access_token:
+    required: false
+  show_github_env:
     required: false
   terraform_app_id:
     required: false
@@ -29,11 +29,10 @@ runs:
   steps:
 
     - name: set github env
-      if: inputs.action != '' || inputs.github_inputs != '' || inputs.github_vars != ''
+      if: inputs.github_inputs != '' || inputs.github_vars != ''
       id: set-github-env
       uses: stormreply/slt-workflows/.github/actions/init/set-github-env@main
       with:
-        action: ${{ inputs.action }}
         github_inputs: ${{ inputs.github_inputs }}
         github_vars: ${{ inputs.github_vars }}
 
@@ -49,11 +48,11 @@ runs:
         token_notice: ${{ inputs.token_notice }}
 
     - name: set github output
-      if: inputs.action != '' || inputs.github_inputs != '' || inputs.github_vars != ''
+      if: inputs.github_inputs != '' || inputs.github_vars != ''
       id: set-github-output
       uses: stormreply/slt-workflows/.github/actions/init/set-github-output@main
 
-    - name: set github step summary
-      if: inputs.action != '' || inputs.github_inputs != '' || inputs.github_vars != ''
-      id: set-github-step-summary
-      uses: stormreply/slt-workflows/.github/actions/init/set-github-step-summary@main
+    - name: show github env
+      if: inputs.show_github_env == 'true'
+      id: show-github-env
+      uses: stormreply/slt-workflows/.github/actions/init/show-github-env@main

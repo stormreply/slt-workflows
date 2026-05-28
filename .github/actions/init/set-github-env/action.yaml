@@ -1,8 +1,6 @@
 name: Set GITHUB_ENV
 
 inputs:
-  action:
-    required: false
   github_inputs:
     required: false
   github_vars:
@@ -37,11 +35,3 @@ runs:
     - name: set environment from others
       id: set-github-env-from-others
       uses: stormreply/slt-workflows/.github/actions/init/set-github-env/from-others@main
-
-    - name: combine outputs
-      id: combine-outputs
-      shell: bash
-      run: |
-        cat << EOF
-
-        EOF
