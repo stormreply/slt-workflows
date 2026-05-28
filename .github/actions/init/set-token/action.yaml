@@ -9,9 +9,6 @@ inputs:
     required: false
   terraform_private_key:
     required: false
-  token_notice:
-    required: false
-    default: false
 
 runs:
   using: composite
@@ -73,8 +70,6 @@ runs:
           echo "::error title=No valid token::could not get a token"
           exit 1
         fi
-
-        [ "${{ inputs.token_notice }}" == "true" ] && echo "::notice ::using your $type as token"
 
         token_shasum="$(echo "$token" | shasum | awk '{ print $1 }')"
         token_shasum="${token_shasum:0:3}***${token_shasum: -3}"

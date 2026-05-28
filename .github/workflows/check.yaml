@@ -24,7 +24,6 @@ jobs:
         id: init
         uses: stormreply/slt-workflows/.github/actions/init@main
         with:
-          action: check
           github_vars: "${{ toJson(vars) }}"
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
@@ -45,12 +44,11 @@ jobs:
         id: init
         uses: stormreply/slt-workflows/.github/actions/init@main
         with:
-          action: check
           github_vars: "${{ toJson(vars) }}"
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}
           terraform_private_key: ${{ secrets.TERRAFORM_PRIVATE_KEY }}
-          token_notice: true
+          show_github_env: true
 
       - name: check code
         uses: stormreply/slt-workflows/.github/actions/check/code@main
@@ -65,7 +63,6 @@ jobs:
         id: init
         uses: stormreply/slt-workflows/.github/actions/init@main
         with:
-          action: check
           github_vars: "${{ toJson(vars) }}"
           personal_access_token: ${{ secrets.STORM_LIBRARY_FOR_TERRAFORM }}
           terraform_app_id: ${{ vars.TERRAFORM_APP_ID }}

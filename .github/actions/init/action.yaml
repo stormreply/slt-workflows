@@ -15,10 +15,6 @@ inputs:
     required: false
   terraform_private_key:
     required: false
-  token_notice:
-    required: false
-    default: false
-
 
 outputs:
   env_json:
@@ -45,7 +41,6 @@ runs:
         personal_access_token: ${{ inputs.personal_access_token }}
         terraform_app_id: ${{ inputs.terraform_app_id }}
         terraform_private_key: ${{ inputs.terraform_private_key }}
-        token_notice: ${{ inputs.token_notice }}
 
     - name: set github output
       if: inputs.github_inputs != '' || inputs.github_vars != ''
