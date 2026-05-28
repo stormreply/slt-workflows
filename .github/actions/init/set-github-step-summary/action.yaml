@@ -39,7 +39,15 @@ runs:
         | REPOSITORY                    | $REPOSITORY         |
         | SHORT_NAME                    | $SHORT_NAME         |
         | STATE_KEY                     | $STATE_KEY          |
+        EOF
 
+        [ -n "$TOKEN" ] && cat << EOF >> $GITHUB_STEP_SUMMARY
+        | TOKEN                         | $TOKEN              |
+        | TOKEN_SHASUM                  | $TOKEN_SHASUM       |
+        | TOKEN_TYPE                    | $TOKEN_TYPE         |
+        EOF
+
+        cat << EOF >> $GITHUB_STEP_SUMMARY
         </details>
         EOF
 
