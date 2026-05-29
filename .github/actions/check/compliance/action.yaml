@@ -32,8 +32,9 @@ runs:
       id: check-compliance
       env:
         AWS_REGION: eu-central-1   # TODO: pass from workflow
-        BEDROCK_MODEL_ID: eu.anthropic.claude-sonnet-4-6 # anthropic.claude-opus-4-7
+        BEDROCK_MODEL_ID: eu.anthropic.claude-sonnet-4-6 # anthropic.claude-opus-4-7 # TODO:
         COMPLIANCE_FILE: ./slt-repo-template/.support/compliance.md
+        REFERENCE_PATH: ./slt-repo-template
       shell: bash
       run: |
         # check/compliance
