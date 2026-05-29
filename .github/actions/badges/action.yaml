@@ -39,7 +39,7 @@ runs:
         score_to_color() {
 
           local value="${1}"
-          local colors="${2:-green,red}"
+          local colors="${2:-red, green}"
 
           # Wenn value keine nicht-negative Zahl ist: als String zurückgeben.
           if ! [[ "$value" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then

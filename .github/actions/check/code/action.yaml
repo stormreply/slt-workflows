@@ -41,5 +41,5 @@ runs:
       with:
         file: check-code.json
         label: "Check Code"
-        message: ${{ steps.check-code.outcome == 'success' && 'passed' || 'failed' }}
+        message: ${{ steps.check-code.outcome == 'success' && 'passing' || 'failing' }}
         score: ${{ steps.check-code.outcome == 'success' && '0' || '1' }}
