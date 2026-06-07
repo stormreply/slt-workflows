@@ -13,18 +13,27 @@ runs:
     - name: checkout code
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
 
-    - name: checkout support
+    - name: checkout slt-repo-template
       uses: actions/checkout@v6
       with:
         repository: stormreply/slt-repo-template
         path: slt-repo-template
+
+    - name: checkout check binaries
+      uses: actions/checkout@v6
+      with:
+        repository: stormreply/storm-library-for-terraform
+        path: storm-library-for-terraform
+        sparse-checkout: |
+          bin
+          docs/COMPLIANCE.md
 
     - name: check files
       id: check-files
       shell: bash
       run: |
         # check/files
-        ./slt-repo-template/.support/check-files.sh && rc=0 || rc=$?
+        ./storm-library-for-terraform/bin/check-files.sh && rc=0 || rc=$?
         [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT || true
 
     - name: publish badge

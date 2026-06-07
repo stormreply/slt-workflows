@@ -13,11 +13,20 @@ runs:
     - name: checkout code
       uses: stormreply/slt-workflows/.github/actions/terraform/checkout@main
 
-    - name: checkout support
+    - name: checkout slt-repo-template
       uses: actions/checkout@v6
       with:
         repository: stormreply/slt-repo-template
         path: slt-repo-template
+
+    - name: checkout check binaries
+      uses: actions/checkout@v6
+      with:
+        repository: stormreply/storm-library-for-terraform
+        path: storm-library-for-terraform
+        sparse-checkout: |
+          bin
+          docs/COMPLIANCE.md
 
     - name: set up python
       uses: actions/setup-python@v6
@@ -33,12 +42,12 @@ runs:
       env:
         AWS_REGION: eu-central-1   # TODO: pass from workflow
         BEDROCK_MODEL_ID: eu.anthropic.claude-sonnet-4-6 # anthropic.claude-opus-4-7 # TODO:
-        COMPLIANCE_FILE: ./slt-repo-template/.support/compliance.md
+        COMPLIANCE_FILE: ./storm-library-for-terraform/docs/COMPLIANCE.md
         REFERENCE_PATH: ./slt-repo-template
       shell: bash
       run: |
         # check/compliance
-        python ./slt-repo-template/.support/check-compliance.py && rc=0 || rc=$?
+        python ./storm-library-for-terraform/bin/check-compliance.py && rc=0 || rc=$?
         [ $rc -ne 0 ] && echo "compliant=false" >> $GITHUB_OUTPUT || true
 
     - name: publish badge
