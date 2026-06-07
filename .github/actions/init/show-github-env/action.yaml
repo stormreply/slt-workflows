@@ -21,8 +21,10 @@ runs:
         cat << EOF >> $GITHUB_STEP_SUMMARY
 
         <details>
-        <summary>ENVIRONMENT &nbsp; $date</summary>
+        <summary>$date</summary>
         <br>
+
+        ### Environment
 
         | VARIABLE                      | VALUE               |
         |:------------------------------|:--------------------|
