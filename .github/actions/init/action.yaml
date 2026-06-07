@@ -48,6 +48,6 @@ runs:
       uses: stormreply/slt-workflows/.github/actions/init/set-github-output@main
 
     - name: show github env
-      if: inputs.show_github_env == 'true'
+      if: vars.DEBUG == 'true'
       id: show-github-env
       uses: stormreply/slt-workflows/.github/actions/init/show-github-env@main
