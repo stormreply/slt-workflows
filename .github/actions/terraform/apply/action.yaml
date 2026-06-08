@@ -76,9 +76,9 @@ runs:
 
             cat << EOF >> $GITHUB_STEP_SUMMARY
         <b>$key</b>
-        ```
+        \`\`\`
         $value
-        ```
+        \`\`\`
         EOF
           done
         fi
